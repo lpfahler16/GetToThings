@@ -39,6 +39,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             if UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") == nil {
                 UserDefaults(suiteName: "group.GetToThings")!.set(UserDefaults.standard.object(forKey: "generateDate") as! Date, forKey: "generateDate")
             }
+            if UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "firstLaunchDate") == nil {
+                UserDefaults(suiteName: "group.GetToThings")!.set(UserDefaults.standard.object(forKey: "generateDate") as! Date, forKey: "firstLaunchDate")
+            }
         } else {
             print("First launch, setting UserDefault.")
             
@@ -47,6 +50,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             UserDefaults.standard.set(1, forKey: "numGoals")
             UserDefaults(suiteName: "group.GetToThings")!.set(false, forKey: "generated")
             UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "generateDate")
+            UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "firstLaunchDate")
             
             missionModel.newMission("Ex 1: Go for a walk", true, true)
             missionModel.newMission("Ex 2: Try a new recipe", false, true)
@@ -226,6 +230,32 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
+    func saveDay() {
+        returnedMissions = missionModel.getTodayMissions()
+        returnedGoals = goalModel.getTodayGoals()
+        let allThings = returnedMissions + returnedGoals
+        
+        let context = AppDelegate.viewContext
+        let day = Day(context: context)
+        day.date = Date()
+        
+        for thing in allThings {
+            let simpleThing = SimpleThing(context: context)
+            simpleThing.desc = thing.desc
+            simpleThing.completed = thing.isDone
+            day.addToTheThings(simpleThing)
+        }
+        
+        //Save
+        do {
+            try context.save()
+        } catch {
+            print("**** Save failed ****")
+        }
+        
+    }
+    
+    
     //MARK: - Table View Setup
     
     //Number of sections
@@ -308,6 +338,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBAction func backToToday(_ sender:UIStoryboardSegue){
         print("Back to today")
+        saveDay()
         reset(sender)
     }
     

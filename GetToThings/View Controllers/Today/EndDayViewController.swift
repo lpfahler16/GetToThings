@@ -31,6 +31,8 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.todayThingsTable.delegate = self
         self.todayThingsTable.dataSource = self
+        
+        
     }
     
     //MARK: - Table View Setup
@@ -52,7 +54,7 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //Section Titles
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            let date = UserDefaults.standard.object(forKey: "generateDate") as! Date
+            let date = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
 
             // initialize the date formatter and set the style
             let formatter = DateFormatter()

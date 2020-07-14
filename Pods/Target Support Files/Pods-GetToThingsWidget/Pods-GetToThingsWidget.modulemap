@@ -1,0 +1,6 @@
+framework module Pods_GetToThingsWidget {
+  umbrella header "Pods-GetToThingsWidget-umbrella.h"
+
+  export *
+  module * { export * }
+}
