@@ -8,35 +8,48 @@
 
 import UIKit
 import FSCalendar
+import CoreData
 
 class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
 
     //MARK: - Instance Variables and Outlets
     @IBOutlet weak var calendar: FSCalendar!
     
-    var passDate = Date()
+    var passDay:Day? = nil
+    var passDate:Date? = nil
+    var allDays:[Day] = []
     
     let colors = [UIColor(red: 1.00, green: 0.00, blue: 0.00, alpha: 1.00),
-                  //UIColor(red: 1.00, green: 0.20, blue: 0.00, alpha: 1.00),
-                  //UIColor(red: 1.00, green: 0.40, blue: 0.00, alpha: 1.00),
-                  //UIColor(red: 1.00, green: 0.60, blue: 0.00, alpha: 1.00),
-                  nil,
-                  //UIColor(red: 1.00, green: 0.80, blue: 0.00, alpha: 1.00),
+                  UIColor(red: 1.00, green: 0.20, blue: 0.00, alpha: 1.00),
+                  UIColor(red: 1.00, green: 0.40, blue: 0.00, alpha: 1.00),
+                  UIColor(red: 1.00, green: 0.60, blue: 0.00, alpha: 1.00),
+                  UIColor(red: 1.00, green: 0.80, blue: 0.00, alpha: 1.00),
                   UIColor(red: 1.00, green: 1.00, blue: 0.00, alpha: 1.00),
-                  //UIColor(red: 0.60, green: 1.00, blue: 0.00, alpha: 1.00),
-                  //UIColor(red: 0.40, green: 1.00, blue: 0.00, alpha: 1.00),
-                  //UIColor(red: 0.20, green: 1.00, blue: 0.00, alpha: 1.00),
+                  UIColor(red: 0.80, green: 1.00, blue: 0.00, alpha: 1.00),
+                  UIColor(red: 0.60, green: 1.00, blue: 0.00, alpha: 1.00),
+                  UIColor(red: 0.40, green: 1.00, blue: 0.00, alpha: 1.00),
+                  UIColor(red: 0.20, green: 1.00, blue: 0.00, alpha: 1.00),
                   UIColor(red: 0.00, green: 1.00, blue: 0.00, alpha: 1.00)]
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Calendar setup
         calendar.dataSource = self
         calendar.delegate = self
         calendar.placeholderType = .none
         calendar.scrollDirection = .vertical
         calendar.pagingEnabled = false
+        
+        //Getting dates
+        let request: NSFetchRequest<Day> = Day.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+
+        let context = AppDelegate.viewContext
+        context.refreshAllObjects()
+        allDays = (try? context.fetch(request))!
     }
     
     //Setting max and min date
@@ -59,26 +72,58 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
     
     //Setting colors
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-        print("-")
         
         if date > Date() {
             return nil
         }
-        
-        if Calendar.current.isDate(Date(), inSameDayAs: date) {
-            return nil
+        for days in allDays {
+            if Calendar.current.isDate(days.date!, inSameDayAs: date) {
+                return colors[Int(days.ratio*10)]
+            }
         }
-        return colors.shuffled()[0]
+        return nil
     }
     
     
     //Selection
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         calendar.deselect(date)
+        
+        //Find corresponding day
+        var datePresent = false
+        for days in allDays {
+            if Calendar.current.isDate(days.date!, inSameDayAs: date) {
+                passDay = days
+                datePresent = true
+            }
+        }
+        if !datePresent {
+            passDay = nil
+        }
         passDate = date
+        
         self.performSegue(withIdentifier: "showDay", sender: self)
     }
 
+    @IBAction func infoClicked(_ sender: Any) {
+        let request: NSFetchRequest<Day> = Day.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+
+        let context = AppDelegate.viewContext
+        context.refreshAllObjects()
+        allDays = (try? context.fetch(request))!
+        
+        for day in allDays {
+            context.delete(day)
+            
+            do {
+                try context.save()
+            } catch {
+                print("**** Save failed ****")
+            }
+        }
+        print("Days deleted")
+    }
     
     // MARK: - Navigation
 
@@ -89,12 +134,26 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
             let secondViewController = segue.destination as! DayViewController
 
             // get the date time String from the date object
-            let formatter = DateFormatter()
-            formatter.timeStyle = .none
-            formatter.dateStyle = .long
             
-            secondViewController.pageTitle.title = formatter.string(from: passDate)
+            
+            secondViewController.day = passDay
+            secondViewController.date = passDate
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        reloadView()
+        print("Calendar reloaded")
+    }
+    
+    func reloadView(){
+        let request: NSFetchRequest<Day> = Day.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+
+        let context = AppDelegate.viewContext
+        context.refreshAllObjects()
+        allDays = (try? context.fetch(request))!
+        calendar.reloadData()
     }
     
 

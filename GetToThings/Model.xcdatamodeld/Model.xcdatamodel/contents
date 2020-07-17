@@ -2,9 +2,10 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Day" representedClassName=".Day" syncable="YES" codeGenerationType="category">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="ratio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="theThings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SimpleThing" inverseName="theDay" inverseEntity="SimpleThing"/>
     </entity>
-    <entity name="SimpleThing" representedClassName="SimpleThing" syncable="YES" codeGenerationType="category">
+    <entity name="SimpleThing" representedClassName=".SimpleThing" syncable="YES" codeGenerationType="category">
         <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
         <relationship name="theDay" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Day" inverseName="theThings" inverseEntity="Day"/>
@@ -21,7 +22,7 @@
         <attribute name="today" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Day" positionX="319.34375" positionY="24.05078125" width="128" height="73"/>
+        <element name="Day" positionX="319.34375" positionY="24.05078125" width="128" height="88"/>
         <element name="Thing" positionX="-36" positionY="9" width="128" height="178"/>
         <element name="SimpleThing" positionX="295.9140625" positionY="153.67578125" width="128" height="88"/>
     </elements>

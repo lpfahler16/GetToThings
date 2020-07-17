@@ -11,5 +11,6 @@ import UIKit
 import CoreData
 
 class Day:NSManagedObject {
-
+    
+    
 }

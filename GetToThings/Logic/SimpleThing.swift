@@ -10,5 +10,5 @@ import Foundation
 import CoreData
 
 class SimpleThing:NSManagedObject {
-    
+    override public var description: String { return "\(String(describing: self.desc)) is \(self.completed)" }
 }

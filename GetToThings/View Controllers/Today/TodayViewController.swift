@@ -26,6 +26,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     var returnedThings:[[Thing]] = []
     var goodWeather = true
     
+    //MARK: - Initial Setup
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -40,7 +41,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 UserDefaults(suiteName: "group.GetToThings")!.set(UserDefaults.standard.object(forKey: "generateDate") as! Date, forKey: "generateDate")
             }
             if UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "firstLaunchDate") == nil {
-                UserDefaults(suiteName: "group.GetToThings")!.set(UserDefaults.standard.object(forKey: "generateDate") as! Date, forKey: "firstLaunchDate")
+                UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "firstLaunchDate")
             }
         } else {
             print("First launch, setting UserDefault.")
@@ -100,11 +101,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
-    //MARK: - Main Functions
+    //MARK: - Generation
     
     //Checks if new day
     func checkDate() {
-        let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date())
+        let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date(/*For testing:timeIntervalSince1970: 0*/))
         
         if UserDefaults(suiteName: "group.GetToThings")!.bool(forKey: "generated") && !sameDay {
             self.performSegue(withIdentifier: "endDay", sender: self)
@@ -148,6 +149,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     
+    //MARK: - Notification Control
     @IBAction func infoClicked(_ sender: Any) {
         info()
     }
@@ -161,6 +163,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
+    
+    
+    //MARK: - Reset Control
     @IBAction func resetButton(_ sender: Any) {
         let alertController = UIAlertController(title: "Are you sure you want to reset?", message:
            "All Things will be returned to your lists.", preferredStyle: .alert)
@@ -230,6 +235,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
+    //MARK: - Saving Day
     func saveDay() {
         returnedMissions = missionModel.getTodayMissions()
         returnedGoals = goalModel.getTodayGoals()
@@ -237,7 +243,23 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         let context = AppDelegate.viewContext
         let day = Day(context: context)
-        day.date = Date()
+        
+        //Test Date setup ------------------
+        // Specify date components
+        var dateComponents = DateComponents()
+        dateComponents.year = 2020
+        dateComponents.month = 7
+        dateComponents.day = 6
+
+        // Create date from components
+        let userCalendar = Calendar.current // user calendar
+        //let someDateTime = userCalendar.date(from: dateComponents)
+        //----------------------------------
+        
+        let someDateTime = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
+        
+        day.date = someDateTime
+        day.ratio = getRatio()
         
         for thing in allThings {
             let simpleThing = SimpleThing(context: context)
@@ -253,6 +275,19 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             print("**** Save failed ****")
         }
         
+    }
+    
+    func getRatio() -> Double{
+        returnedMissions = missionModel.getTodayMissions()
+        returnedGoals = goalModel.getTodayGoals()
+        let allThings = returnedMissions + returnedGoals
+        var complete = 0
+        for thing in allThings {
+            if thing.isDone {
+                complete += 1
+            }
+        }
+        return Double(complete)/Double(allThings.count)
     }
     
     
