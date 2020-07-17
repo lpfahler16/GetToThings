@@ -17,9 +17,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var todayThingsTable: UITableView!
     @IBOutlet weak var tableContainer: UIView!
     
-    
-    let goalModel = GoalControl()
-    let missionModel = MissionControl()
     var returnedMissions:[Thing] = []
     var returnedGoals:[Thing] = []
     let headerNames = ["Missions", "Goals"]
@@ -53,11 +50,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "generateDate")
             UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "firstLaunchDate")
             
-            missionModel.newMission("Ex 1: Go for a walk", true, true)
-            missionModel.newMission("Ex 2: Try a new recipe", false, true)
+            MissionControl.newMission("Ex 1: Go for a walk", true, true)
+            MissionControl.newMission("Ex 2: Try a new recipe", false, true)
             
-            goalModel.newGoal("Ex 1: Learn to play an instrument", false, true)
-            goalModel.newGoal("Ex 2: Learn to draw", false, true)
+            GoalControl.newGoal("Ex 1: Learn to play an instrument", false, true)
+            GoalControl.newGoal("Ex 2: Learn to draw", false, true)
             
             //Alert
             let alertController = UIAlertController(title: "Welcome!", message:
@@ -75,8 +72,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             tableContainer.isHidden = false
             genButton.isHidden = true
             
-            returnedMissions = missionModel.getTodayMissions()
-            returnedGoals = goalModel.getTodayGoals()
+            returnedMissions = MissionControl.getTodayMissions()
+            returnedGoals = GoalControl.getTodayGoals()
         } else {
             tableContainer.isHidden = true
             genButton.isHidden = false
@@ -134,11 +131,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             genButton.isHidden = true
             tableContainer.isHidden = false
             
-            missionModel.generateTodayMissions(goodWeather)
-            goalModel.generateTodayGoals(goodWeather)
+            MissionControl.generateTodayMissions(goodWeather)
+            GoalControl.generateTodayGoals(goodWeather)
             
-            returnedMissions = missionModel.getTodayMissions()
-            returnedGoals = goalModel.getTodayGoals()
+            returnedMissions = MissionControl.getTodayMissions()
+            returnedGoals = GoalControl.getTodayGoals()
             
             returnedThings = [returnedMissions, returnedGoals]
             todayThingsTable.reloadData()
@@ -181,7 +178,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBAction func reset(_ sender: Any) {
        //Missions
-        let allMissions = missionModel.getMissions()
+        let allMissions = MissionControl.getMissions()
         let context = AppDelegate.viewContext
         for mission in allMissions {
             
@@ -202,7 +199,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         //Goals
-        let allGoals = goalModel.getGoals()
+        let allGoals = GoalControl.getGoals()
         for goal in allGoals {
             
             if let _ = sender as? UIStoryboardSegue, goal.today {
@@ -237,8 +234,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //MARK: - Saving Day
     func saveDay() {
-        returnedMissions = missionModel.getTodayMissions()
-        returnedGoals = goalModel.getTodayGoals()
+        returnedMissions = MissionControl.getTodayMissions()
+        returnedGoals = GoalControl.getTodayGoals()
         let allThings = returnedMissions + returnedGoals
         
         let context = AppDelegate.viewContext
@@ -252,7 +249,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         dateComponents.day = 6
 
         // Create date from components
-        let userCalendar = Calendar.current // user calendar
+        //let userCalendar = Calendar.current // user calendar
         //let someDateTime = userCalendar.date(from: dateComponents)
         //----------------------------------
         
@@ -278,8 +275,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func getRatio() -> Double{
-        returnedMissions = missionModel.getTodayMissions()
-        returnedGoals = goalModel.getTodayGoals()
+        returnedMissions = MissionControl.getTodayMissions()
+        returnedGoals = GoalControl.getTodayGoals()
         let allThings = returnedMissions + returnedGoals
         var complete = 0
         for thing in allThings {
@@ -384,8 +381,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func reloadView() {
         print("Today reloaded")
-        returnedMissions = missionModel.getTodayMissions()
-        returnedGoals = goalModel.getTodayGoals()
+        returnedMissions = MissionControl.getTodayMissions()
+        returnedGoals = GoalControl.getTodayGoals()
         returnedThings = [returnedMissions, returnedGoals]
         
         todayThingsTable.reloadData()

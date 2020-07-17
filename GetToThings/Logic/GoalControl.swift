@@ -12,7 +12,7 @@ import CoreData
 class GoalControl {
     
     //Gets all goals
-    func getGoals(_ goodWeather: Bool) -> [Thing] {
+    static func getGoals(_ goodWeather: Bool) -> [Thing] {
         let request: NSFetchRequest<Thing> = Thing.fetchRequest()
         
         if goodWeather {
@@ -31,7 +31,7 @@ class GoalControl {
         return allGoals!
     }
     
-    func getGoals() -> [Thing] {
+    static func getGoals() -> [Thing] {
         let request: NSFetchRequest<Thing> = Thing.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
         request.predicate = NSPredicate(format: "isMission = %d", false)
@@ -42,7 +42,7 @@ class GoalControl {
     }
     
     //Adds new goal
-    func newGoal(_ desc: String, _ needsGoodWeather: Bool, _ replacement: Bool) {
+    static func newGoal(_ desc: String, _ needsGoodWeather: Bool, _ replacement: Bool) {
         let context = AppDelegate.viewContext
         let thing = Thing(context: context)
         
@@ -62,7 +62,7 @@ class GoalControl {
         
     }
     
-    func generateTodayGoals(_ goodWeather: Bool) {
+    static func generateTodayGoals(_ goodWeather: Bool) {
         let allGoals = getGoals(goodWeather).shuffled()
         let theseGoals = Array(allGoals.prefix(Int(UserDefaults.standard.double(forKey: "numGoals"))))
         for goal in theseGoals {
@@ -78,7 +78,7 @@ class GoalControl {
         }
     }
     
-    func getTodayGoals() -> [Thing]{
+    static func getTodayGoals() -> [Thing]{
         let request: NSFetchRequest<Thing> = Thing.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
         

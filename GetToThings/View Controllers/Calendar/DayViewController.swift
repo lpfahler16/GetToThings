@@ -35,15 +35,27 @@ class DayViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     //Number of sections
     func numberOfSections(in todayThingsTable: UITableView) -> Int {
-        return 1
+        if day == nil {
+            return 1
+        } else {
+            return 2
+        }
     }
     
     //Number of rows in each section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if day != nil {
-            return day!.theThings!.count
+        if day == nil {
+            if section == 0 {
+                return 1
+            } else {
+                return 0
+            }
         } else {
-            return 1
+            if section == 0 {
+                return day!.theThings!.count
+            } else {
+                return 1
+            }
         }
     }
     
@@ -52,24 +64,35 @@ class DayViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     //Setting Row Data
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "normal")
-        let things = day?.theThings?.allObjects
-        if things != nil {
-            let thing = things![indexPath.row] as! SimpleThing
-            if(thing.completed) {
-                cell?.accessoryType = .checkmark
+        
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "normal")
+            let things = day?.theThings?.allObjects
+            if things != nil {
+                let thing = things![indexPath.row] as! SimpleThing
+                if(thing.completed) {
+                    cell?.accessoryType = .checkmark
+                } else {
+                    cell?.accessoryType = .none
+                }
+                
+                let text = thing.desc
+                cell?.textLabel?.text = text
             } else {
-                cell?.accessoryType = .none
+                cell?.textLabel?.textAlignment = .center
+                cell?.textLabel?.text = "No data to display"
             }
             
-            let text = thing.desc
-            cell?.textLabel?.text = text
+            return cell!
         } else {
-            cell?.textLabel?.textAlignment = .center
-            cell?.textLabel?.text = "No data to display"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "detail")
+            cell?.textLabel?.text = "Completed:"
+            
+            let percent = Int((day?.ratio)!*100)
+            
+            cell?.detailTextLabel?.text = "\(percent)%"
+            return cell!
         }
-        
-        return cell!
     }
 
     /*

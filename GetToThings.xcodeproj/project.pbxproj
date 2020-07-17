@@ -43,6 +43,7 @@
 		A3C83DD724A97483005233DB /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392E8ED243FFBC000570CD2 /* Thing.swift */; };
 		A3C83E0424AA98D2005233DB /* EndDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C83E0324AA98D2005233DB /* EndDayViewController.swift */; };
 		A3CE06F024402A1900E1337F /* GoalControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CE06EF24402A1900E1337F /* GoalControl.swift */; };
+		A3F425C424C160C800074C07 /* StatisticsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F425C324C160C800074C07 /* StatisticsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		A3C83DD324A9686E005233DB /* NSCustomPersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCustomPersistentContainer.swift; sourceTree = "<group>"; };
 		A3C83E0324AA98D2005233DB /* EndDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndDayViewController.swift; sourceTree = "<group>"; };
 		A3CE06EF24402A1900E1337F /* GoalControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalControl.swift; sourceTree = "<group>"; };
+		A3F425C324C160C800074C07 /* StatisticsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsTableViewController.swift; sourceTree = "<group>"; };
 		AB9F2CC291C96C7EF9B9C6AB /* Pods-GetToThingsWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetToThingsWidget.debug.xcconfig"; path = "Target Support Files/Pods-GetToThingsWidget/Pods-GetToThingsWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		B8C1FCAEF02694786E06B65F /* Pods-GetToThings.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetToThings.release.xcconfig"; path = "Target Support Files/Pods-GetToThings/Pods-GetToThings.release.xcconfig"; sourceTree = "<group>"; };
 		FF7AAD534151EFA115D33044 /* Pods_GetToThingsWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetToThingsWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +161,7 @@
 			children = (
 				A375D23E24BD09BF003604C5 /* CalendarViewController.swift */,
 				A38EB77D24BD6A1F0088F2F7 /* DayViewController.swift */,
+				A3F425C324C160C800074C07 /* StatisticsTableViewController.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				A392E8EE243FFBC000570CD2 /* Thing.swift in Sources */,
 				A3C83DB224A84D38005233DB /* NewGoalTableViewController.swift in Sources */,
 				A362F3C924BD6221005B6B4B /* Day.swift in Sources */,
+				A3F425C424C160C800074C07 /* StatisticsTableViewController.swift in Sources */,
 				A392E8E4243FF64400570CD2 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,7 +12,7 @@ import CoreData
 class MissionControl {
     
     //Gets all missions
-    func getMissions(_ goodWeather: Bool) -> [Thing] {
+    static func getMissions(_ goodWeather: Bool) -> [Thing] {
         let request: NSFetchRequest<Thing> = Thing.fetchRequest()
         
         if goodWeather {
@@ -31,7 +31,7 @@ class MissionControl {
         return allMissions!
     }
     
-    func getMissions() -> [Thing] {
+    static func getMissions() -> [Thing] {
         let request: NSFetchRequest<Thing> = Thing.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
         request.predicate = NSPredicate(format: "isMission = %d", true)
@@ -42,7 +42,7 @@ class MissionControl {
     }
     
     //Adds new mission
-    func newMission(_ desc: String, _ needsGoodWeather: Bool, _ replacement: Bool) {
+    static func newMission(_ desc: String, _ needsGoodWeather: Bool, _ replacement: Bool) {
         let context = AppDelegate.viewContext
         let thing = Thing(context: context)
         
@@ -62,7 +62,7 @@ class MissionControl {
         
     }
     
-    func generateTodayMissions(_ goodWeather: Bool) {
+    static func generateTodayMissions(_ goodWeather: Bool) {
         let allMissions = getMissions(goodWeather).shuffled()
         let theseMissions = Array(allMissions.prefix(Int(UserDefaults.standard.double(forKey: "numMissions"))))
         for mission in theseMissions {
@@ -78,7 +78,7 @@ class MissionControl {
         }
     }
     
-    func getTodayMissions() -> [Thing]{
+    static func getTodayMissions() -> [Thing]{
         let request: NSFetchRequest<Thing> = Thing.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
         

@@ -13,8 +13,6 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //MARK: - Outlets and Instance Data
     @IBOutlet weak var todayThingsTable: UITableView!
     
-    let goalModel = GoalControl()
-    let missionModel = MissionControl()
     var returnedMissions:[Thing] = []
     var returnedGoals:[Thing] = []
     let headerNames = ["Missions", "Goals"]
@@ -25,8 +23,8 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         // Do any additional setup after loading the view.
         
-        returnedMissions = missionModel.getTodayMissions()
-        returnedGoals = goalModel.getTodayGoals()
+        returnedMissions = MissionControl.getTodayMissions()
+        returnedGoals = GoalControl.getTodayGoals()
         returnedThings = [returnedMissions, returnedGoals]
         
         self.todayThingsTable.delegate = self

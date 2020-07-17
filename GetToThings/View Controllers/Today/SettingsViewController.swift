@@ -62,6 +62,10 @@ class SettingsViewController: UITableViewController {
                  UIApplication.shared.open(requestUrl as URL)
             }
         }
+        
+        if indexPath.section == 1 && indexPath.row == 0 {
+            
+        }
     }
 
 }

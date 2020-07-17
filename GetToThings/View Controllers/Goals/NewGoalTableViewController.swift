@@ -19,7 +19,6 @@ class NewGoalTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    let goalControl = GoalControl()
     
     
     override func viewDidLoad() {
@@ -37,7 +36,7 @@ class NewGoalTableViewController: UITableViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let secondViewController = segue.destination as? GoalsViewController {
             if(sender as? UIBarButtonItem == saveButton) {
-                goalControl.newGoal(goalTitle.text!, goodWeather.isOn, replacement.isOn)
+                GoalControl.newGoal(goalTitle.text!, goodWeather.isOn, replacement.isOn)
                 secondViewController.goalsTable.reloadData()
             }
         }

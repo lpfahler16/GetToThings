@@ -16,7 +16,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var goalsTable: UITableView!
     
     var goal: Thing = Thing()
-    let goalControl = GoalControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,13 +50,13 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ goalsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return goalControl.getGoals().count
+        return GoalControl.getGoals().count
     }
     
     func tableView(_ goalsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = goalsTable.dequeueReusableCell(withIdentifier: "thingList")!
-        let text = goalControl.getGoals()[indexPath.row].desc
+        let text = GoalControl.getGoals()[indexPath.row].desc
         cell.textLabel?.text = text
         
         return cell
@@ -66,7 +65,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     //Deselect row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         goalsTable.deselectRow(at: indexPath, animated: true)
-        goal = goalControl.getGoals()[indexPath.row]
+        goal = GoalControl.getGoals()[indexPath.row]
         self.performSegue(withIdentifier: "goalDetail", sender: self)
     }
     
@@ -75,7 +74,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
          if editingStyle == .delete {
             
             let context = AppDelegate.viewContext
-            context.delete(goalControl.getGoals()[indexPath.row])
+            context.delete(GoalControl.getGoals()[indexPath.row])
             do {
                 try context.save()
             } catch {

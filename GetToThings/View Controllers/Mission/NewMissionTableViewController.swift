@@ -19,7 +19,6 @@ class NewMissionTableViewController: UITableViewController, UITextFieldDelegate 
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    let missionControl = MissionControl()
     
     
     override func viewDidLoad() {
@@ -37,7 +36,7 @@ class NewMissionTableViewController: UITableViewController, UITextFieldDelegate 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let secondViewController = segue.destination as? MissionsViewController {
             if(sender as? UIBarButtonItem == saveButton) {
-                missionControl.newMission(missionTitle.text!, goodWeather.isOn, replacement.isOn)
+                MissionControl.newMission(missionTitle.text!, goodWeather.isOn, replacement.isOn)
                 secondViewController.missionsTable.reloadData()
             }
         }

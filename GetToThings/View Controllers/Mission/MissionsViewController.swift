@@ -16,7 +16,6 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var missionsTable: UITableView!
 
     var mission: Thing = Thing()
-    let missionControl = MissionControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,13 +52,13 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ missionsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return missionControl.getMissions().count
+        return MissionControl.getMissions().count
     }
     
     func tableView(_ missionsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = missionsTable.dequeueReusableCell(withIdentifier: "thingList")!
-        let text = missionControl.getMissions()[indexPath.row].desc
+        let text = MissionControl.getMissions()[indexPath.row].desc
         cell.textLabel?.text = text
         
         return cell
@@ -68,7 +67,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     //Deselect row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         missionsTable.deselectRow(at: indexPath, animated: true)
-        mission = missionControl.getMissions()[indexPath.row]
+        mission = MissionControl.getMissions()[indexPath.row]
         self.performSegue(withIdentifier: "missionDetail", sender: self)
     }
     
@@ -77,7 +76,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
          if editingStyle == .delete {
             
             let context = AppDelegate.viewContext
-            context.delete(missionControl.getMissions()[indexPath.row])
+            context.delete(MissionControl.getMissions()[indexPath.row])
             do {
                 try context.save()
             } catch {
