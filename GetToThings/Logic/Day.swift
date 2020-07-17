@@ -12,5 +12,5 @@ import CoreData
 
 class Day:NSManagedObject {
     
-    
+    //Comment
 }
