@@ -19,17 +19,17 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
     var passDate:Date? = nil
     var allDays:[Day] = []
     
-    let colors = [UIColor(red: 1.00, green: 0.00, blue: 0.00, alpha: 1.00),
-                  UIColor(red: 1.00, green: 0.20, blue: 0.00, alpha: 1.00),
-                  UIColor(red: 1.00, green: 0.40, blue: 0.00, alpha: 1.00),
-                  UIColor(red: 1.00, green: 0.60, blue: 0.00, alpha: 1.00),
-                  UIColor(red: 1.00, green: 0.80, blue: 0.00, alpha: 1.00),
-                  UIColor(red: 1.00, green: 1.00, blue: 0.00, alpha: 1.00),
-                  UIColor(red: 0.80, green: 1.00, blue: 0.00, alpha: 1.00),
-                  UIColor(red: 0.60, green: 1.00, blue: 0.00, alpha: 1.00),
-                  UIColor(red: 0.40, green: 1.00, blue: 0.00, alpha: 1.00),
-                  UIColor(red: 0.20, green: 1.00, blue: 0.00, alpha: 1.00),
-                  UIColor(red: 0.00, green: 1.00, blue: 0.00, alpha: 1.00)]
+    let colors = [UIColor(named: "Cal 1"),
+                  UIColor(named: "Cal 2"),
+                  UIColor(named: "Cal 3"),
+                  UIColor(named: "Cal 4"),
+                  UIColor(named: "Cal 5"),
+                  UIColor(named: "Cal 6"),
+                  UIColor(named: "Cal 7"),
+                  UIColor(named: "Cal 8"),
+                  UIColor(named: "Cal 9"),
+                  UIColor(named: "Cal 10"),
+                  UIColor(named: "Cal 11")]
     
     
     
@@ -50,6 +50,7 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
         let context = AppDelegate.viewContext
         context.refreshAllObjects()
         allDays = (try? context.fetch(request))!
+        
     }
     
     //Setting max and min date
@@ -82,6 +83,22 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
             }
         }
         return nil
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        if date > Date() {
+            return nil
+        }
+        for days in allDays {
+            if Calendar.current.isDate(days.date!, inSameDayAs: date) {
+                return UIColor.white
+            }
+        }
+        return nil
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        calendar.reloadData()
     }
     
     
