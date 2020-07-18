@@ -107,20 +107,20 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         missionsTable.reloadData()
         
         
-        //Testing
-        let request: NSFetchRequest<Day> = Day.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-
-        let context = AppDelegate.viewContext
-        context.refreshAllObjects()
-        let allDays = try? context.fetch(request)
-        
-        for day in allDays! {
-            print(day.date!)
-            for simple in day.theThings! {
-                print((simple as! SimpleThing).description)
-            }
-        }
+//        //Testing
+//        let request: NSFetchRequest<Day> = Day.fetchRequest()
+//        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+//
+//        let context = AppDelegate.viewContext
+//        context.refreshAllObjects()
+//        let allDays = try? context.fetch(request)
+//
+//        for day in allDays! {
+//            print(day.date!)
+//            for simple in day.theThings! {
+//                print((simple as! SimpleThing).description)
+//            }
+//        }
     }
 
 }

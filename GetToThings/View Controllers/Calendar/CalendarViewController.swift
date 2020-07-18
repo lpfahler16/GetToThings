@@ -104,26 +104,6 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
         
         self.performSegue(withIdentifier: "showDay", sender: self)
     }
-
-    @IBAction func infoClicked(_ sender: Any) {
-        let request: NSFetchRequest<Day> = Day.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-
-        let context = AppDelegate.viewContext
-        context.refreshAllObjects()
-        allDays = (try? context.fetch(request))!
-        
-        for day in allDays {
-            context.delete(day)
-            
-            do {
-                try context.save()
-            } catch {
-                print("**** Save failed ****")
-            }
-        }
-        print("Days deleted")
-    }
     
     // MARK: - Navigation
 

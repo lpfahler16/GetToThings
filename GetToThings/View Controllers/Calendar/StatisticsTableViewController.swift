@@ -75,17 +75,32 @@ class StatisticsTableViewController: UITableViewController {
                 for day in allDays {
                     totalRatio += day.ratio
                 }
-                totalRatio = totalRatio/Double(allDays.count)
+                
+                if allDays.count != 0 {
+                    totalRatio = totalRatio/Double(allDays.count)
+                }
                 
                 let percentage = Int(totalRatio*100)
                 cell?.detailTextLabel?.text = "\(percentage)%"
                 
             } else if indexPath.row == 1 {
                 cell?.textLabel?.text = "Total Days"
-                cell?.detailTextLabel?.text = "0 days"
+                
+                let firstDate = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "firstLaunchDate") as! Date
+                let dayDifference = Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: firstDate), to: Calendar.current.startOfDay(for: Date())).day
+                
+                
+                cell?.detailTextLabel?.text = "\(dayDifference!) days"
             } else if indexPath.row == 2 {
                 cell?.textLabel?.text = "Total Days Generated"
-                cell?.detailTextLabel?.text = "0 days"
+                
+                let request: NSFetchRequest<Day> = Day.fetchRequest()
+                request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+
+                let context = AppDelegate.viewContext
+                context.refreshAllObjects()
+                let allDays = (try? context.fetch(request))!
+                cell?.detailTextLabel?.text = "\(allDays.count) days"
             }
             
         }
