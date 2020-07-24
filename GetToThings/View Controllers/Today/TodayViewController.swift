@@ -43,9 +43,14 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         } else {
             print("First launch, setting UserDefault.")
             
+            //Settings
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             UserDefaults.standard.set(1, forKey: "numMissions")
             UserDefaults.standard.set(1, forKey: "numGoals")
+            
+            //Statistics
+            
+            //Dates
             UserDefaults(suiteName: "group.GetToThings")!.set(false, forKey: "generated")
             UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "generateDate")
             UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "firstLaunchDate")

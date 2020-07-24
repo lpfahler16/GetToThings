@@ -91,7 +91,7 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
         }
         for days in allDays {
             if Calendar.current.isDate(days.date!, inSameDayAs: date) {
-                return UIColor.white
+                return UIColor(named: "WhiteBlack")
             }
         }
         return nil
