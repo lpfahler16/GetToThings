@@ -12,6 +12,27 @@ import UIKit
 
 class ExtensionControl {
     //MARK: - Get Things
+    
+    static func getMissions() -> [Thing] {
+        let request: NSFetchRequest<Thing> = Thing.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
+        request.predicate = NSPredicate(format: "isMission = %d", true)
+        
+        let context = self.persistentContainer.viewContext
+        let allMissions = try? context.fetch(request)
+        return allMissions!
+    }
+    
+    static func getGoals() -> [Thing] {
+        let request: NSFetchRequest<Thing> = Thing.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
+        request.predicate = NSPredicate(format: "isMission = %d", false)
+        
+        let context = self.persistentContainer.viewContext
+        let allGoals = try? context.fetch(request)
+        return allGoals!
+    }
+    
     static func getTodayMissions() -> [Thing]{
         let request: NSFetchRequest<Thing> = Thing.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
