@@ -18,6 +18,8 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var completedRatio: UILabel!
     @IBOutlet weak var deleteButton: UITableViewCell!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var taskRow: UITableViewCell!
+    @IBOutlet weak var goalRow: UITableViewCell!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     
@@ -31,6 +33,14 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
         goodWeather.isOn = thing.needsGoodWeather
         replace.isOn = thing.replacement
         completedRatio.text = "\(thing.numCompleted)/\(thing.numGenerated)"
+        
+        if thing.isMission {
+            taskRow.accessoryType = .checkmark
+            goalRow.accessoryType = .none
+        } else {
+            taskRow.accessoryType = .none
+            goalRow.accessoryType = .checkmark
+        }
         
         let formatter = DateFormatter()
         formatter.timeStyle = .short
@@ -50,6 +60,19 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         missionDetailTable.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                taskRow.accessoryType = .checkmark
+                goalRow.accessoryType = .none
+                thing.isMission = true
+            } else {
+                taskRow.accessoryType = .none
+                goalRow.accessoryType = .checkmark
+                thing.isMission = false
+            }
+        }
+        
         print(indexPath)
     }
     
