@@ -5,6 +5,15 @@
         <attribute name="ratio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="theThings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SimpleThing" inverseName="theDay" inverseEntity="SimpleThing"/>
     </entity>
+    <entity name="RecurringThing" representedClassName="RecurringThing" syncable="YES" codeGenerationType="category">
+        <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="daysOfWeek" optional="YES" attributeType="String"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="numCompleted" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="numGenerated" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="SimpleThing" representedClassName=".SimpleThing" syncable="YES" codeGenerationType="category">
         <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
@@ -23,7 +32,8 @@
     </entity>
     <elements>
         <element name="Day" positionX="319.34375" positionY="24.05078125" width="128" height="88"/>
-        <element name="Thing" positionX="-36" positionY="9" width="128" height="178"/>
         <element name="SimpleThing" positionX="295.9140625" positionY="153.67578125" width="128" height="88"/>
+        <element name="Thing" positionX="-36" positionY="9" width="128" height="178"/>
+        <element name="RecurringThing" positionX="144" positionY="108" width="128" height="148"/>
     </elements>
 </model>
