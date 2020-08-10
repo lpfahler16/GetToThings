@@ -33,7 +33,7 @@
             <objects>
                 <viewController id="MTn-J5-1h3" customClass="TodayViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v80-Qq-GKI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rj-dQ-Y6q">
@@ -264,7 +264,7 @@
             <objects>
                 <viewController id="cZu-b9-FY7" customClass="GoalsViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EKc-Xk-uFQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5Xv-UD-2RZ">
@@ -322,12 +322,12 @@
             </objects>
             <point key="canvasLocation" x="2559" y="767"/>
         </scene>
-        <!--Missions-->
+        <!--Missions View Controller-->
         <scene sceneID="g0j-Uy-iVB">
             <objects>
                 <viewController id="kDB-Wv-Fdb" customClass="MissionsViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bie-b2-oQW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GJX-f9-wV0">
@@ -353,13 +353,25 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nsS-2D-do7"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Missions" id="AU6-bt-Ph4">
+                    <navigationItem key="navigationItem" id="AU6-bt-Ph4">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="Info" image="info.circle" catalog="system" id="NKe-sM-1Ki">
                             <color key="tintColor" name="WhiteBlack"/>
                             <connections>
                                 <action selector="infoClicked:" destination="kDB-Wv-Fdb" id="2zx-Id-GcZ"/>
                             </connections>
                         </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" id="G3J-Jz-40e" userLabel="Missions, Goals">
+                            <rect key="frame" x="133.66666666666666" y="5.6666666666666679" width="146.99999999999997" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Missions"/>
+                                <segment title="Goals"/>
+                            </segments>
+                            <connections>
+                                <action selector="changeThing:" destination="kDB-Wv-Fdb" eventType="valueChanged" id="DUC-49-2lz"/>
+                            </connections>
+                        </segmentedControl>
                         <rightBarButtonItems>
                             <barButtonItem title="Settings" image="gear" catalog="system" id="H6s-VX-fAy">
                                 <color key="tintColor" name="WhiteBlack"/>
@@ -377,6 +389,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="missionsTable" destination="GJX-f9-wV0" id="xb6-S3-dpY"/>
+                        <outlet property="thingSelector" destination="G3J-Jz-40e" id="R26-Yh-qDt"/>
                         <segue destination="4r4-H7-HpF" kind="show" identifier="missionDetail" id="Rvc-II-Epo"/>
                     </connections>
                 </viewController>
@@ -389,7 +402,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="NewMissionVC" id="CKI-1P-EhW" customClass="NewMissionTableViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="RRh-A2-HmF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -515,8 +528,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="22t-e1-goN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Missions" image="pencil" catalog="system" selectedImage="pencil" id="dyR-UW-fKc"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="dH9-dC-axl">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dH9-dC-axl">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="Main Blue"/>
                         <color key="tintColor" name="WhiteBlack"/>
@@ -573,7 +586,7 @@
             <objects>
                 <tableViewController title="Settings" id="e2n-NI-inn" customClass="SettingsViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="jV0-zg-b7Y">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -730,7 +743,7 @@
             <objects>
                 <tableViewController id="Ovk-xA-8aG" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="xqY-zy-KhF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -827,7 +840,7 @@
             <objects>
                 <tableViewController id="4r4-H7-HpF" customClass="MissionDetailTableViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="w4q-pX-l79">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -1038,7 +1051,7 @@
             <objects>
                 <tableViewController id="fdj-v6-v92" userLabel="Goal Detail" customClass="GoalDetailTableViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Aws-AE-9vv" userLabel="Goal Detail Table">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -1231,7 +1244,7 @@
             <objects>
                 <tableViewController id="rSj-En-0oc" userLabel="New Goal" customClass="NewGoalTableViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="aF0-NU-U5c">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -1402,7 +1415,7 @@
             <objects>
                 <viewController id="Lj9-ex-35z" userLabel="FSCalendar" customClass="CalendarViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xW0-f3-PbW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddF-fS-N79" customClass="FSCalendar">
@@ -1472,7 +1485,7 @@
             <objects>
                 <viewController id="Rei-5p-173" customClass="DayViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NZS-1o-ocA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="MJh-l0-49l">
@@ -1547,7 +1560,7 @@
             <objects>
                 <tableViewController id="14z-Hr-0ga" customClass="StatisticsTableViewController" customModule="GetToThings" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ymo-vZ-pI1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1615,7 +1628,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tdL-MN-Wia"/>
+        <segue reference="M3k-zB-dWQ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="Main Blue"/>
     <resources>

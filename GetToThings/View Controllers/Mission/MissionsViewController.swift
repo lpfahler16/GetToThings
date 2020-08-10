@@ -14,8 +14,10 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //MARK: - Outlets / Instance Variables
     @IBOutlet weak var missionsTable: UITableView!
-
-    var mission: Thing = Thing()
+    @IBOutlet weak var thingSelector: UISegmentedControl!
+    
+    var thing: Thing = Thing()
+    var setToMission = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +32,19 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         missionsTable.delegate = self
         missionsTable.dataSource = self
         
+        setToMission = thingSelector.selectedSegmentIndex == 0
     }
     
     @IBAction func infoClicked(_ sender: Any) {
         info()
     }
+    
+    @IBAction func changeThing(_ sender: Any) {
+        setToMission = thingSelector.selectedSegmentIndex == 0
+        print(setToMission)
+        missionsTable.reloadData()
+    }
+    
     
     func info() {
         let alertController = UIAlertController(title: "Missions", message:
@@ -52,13 +62,22 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ missionsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MissionControl.getMissions().count
+        if setToMission {
+            return MissionControl.getMissions().count
+        } else {
+            return GoalControl.getGoals().count
+        }
     }
     
     func tableView(_ missionsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = missionsTable.dequeueReusableCell(withIdentifier: "thingList")!
-        let text = MissionControl.getMissions()[indexPath.row].desc
+        let text: String
+        if setToMission {
+            text = MissionControl.getMissions()[indexPath.row].desc!
+        } else {
+            text = GoalControl.getGoals()[indexPath.row].desc!
+        }
         cell.textLabel?.text = text
         
         return cell
@@ -67,7 +86,13 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     //Deselect row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         missionsTable.deselectRow(at: indexPath, animated: true)
-        mission = MissionControl.getMissions()[indexPath.row]
+        
+        if setToMission {
+            thing = MissionControl.getMissions()[indexPath.row]
+        } else {
+            thing = GoalControl.getGoals()[indexPath.row]
+        }
+        
         self.performSegue(withIdentifier: "missionDetail", sender: self)
     }
     
@@ -76,7 +101,11 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
          if editingStyle == .delete {
             
             let context = AppDelegate.viewContext
-            context.delete(MissionControl.getMissions()[indexPath.row])
+            if setToMission {
+                context.delete(MissionControl.getMissions()[indexPath.row])
+            } else {
+                context.delete(GoalControl.getGoals()[indexPath.row])
+            }
             do {
                 try context.save()
             } catch {
@@ -94,7 +123,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             let secondViewController = segue.destination as! MissionDetailTableViewController
             
             // set a variable in the second view controller with the data to pass
-            secondViewController.thing = mission
+            secondViewController.thing = thing
         }
     }
 
