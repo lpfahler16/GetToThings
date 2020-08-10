@@ -19,6 +19,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="UeD-og-IBb" kind="relationship" relationship="viewControllers" id="3dR-4i-N8c"/>
+                        <segue destination="d0W-GE-3Kd" kind="relationship" relationship="viewControllers" id="bMJ-VY-bQk"/>
                         <segue destination="22t-e1-goN" kind="relationship" relationship="viewControllers" id="OvJ-5k-KEu"/>
                         <segue destination="PzU-Qv-kiy" kind="relationship" relationship="viewControllers" id="qLd-p2-Xhm"/>
                     </connections>
@@ -26,6 +27,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AAe-H7-JkT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3300" y="-33"/>
+        </scene>
+        <!--Recurring-->
+        <scene sceneID="Csn-Yq-cd2">
+            <objects>
+                <viewController id="lyB-3q-Qes" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tnu-VC-S09">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oIv-ma-a6H">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="oIv-ma-a6H" firstAttribute="leading" secondItem="DIj-WV-Avt" secondAttribute="leading" id="GLY-5x-gLf"/>
+                            <constraint firstItem="oIv-ma-a6H" firstAttribute="bottom" secondItem="DIj-WV-Avt" secondAttribute="bottom" id="LO3-Sg-ZZV"/>
+                            <constraint firstItem="oIv-ma-a6H" firstAttribute="trailing" secondItem="DIj-WV-Avt" secondAttribute="trailing" id="XIi-Zw-ZI4"/>
+                            <constraint firstItem="oIv-ma-a6H" firstAttribute="top" secondItem="DIj-WV-Avt" secondAttribute="top" id="ehz-XO-mwS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DIj-WV-Avt"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Recurring" id="Sbx-Wo-Onw">
+                        <barButtonItem key="leftBarButtonItem" image="info.circle" catalog="system" id="UfD-VL-zel">
+                            <color key="tintColor" name="WhiteBlack"/>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="gear" catalog="system" id="gDr-iq-WhX">
+                                <color key="tintColor" name="WhiteBlack"/>
+                            </barButtonItem>
+                            <barButtonItem image="plus" catalog="system" id="9uk-Ba-Ged">
+                                <color key="tintColor" name="WhiteBlack"/>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K4W-uU-IaF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-626.08695652173913" y="747.99107142857144"/>
         </scene>
         <!--Today-->
         <scene sceneID="Uo5-eo-00N">
@@ -331,7 +372,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H4n-xk-uqc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-859" y="753"/>
+            <point key="canvasLocation" x="2942.0289855072465" y="747.99107142857144"/>
         </scene>
         <!--New Thing-->
         <scene sceneID="G6G-fL-Nor">
@@ -510,13 +551,13 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6xq-Dz-0em" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="9Kv-EO-y5A" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="707" y="1508"/>
+            <point key="canvasLocation" x="3597" y="1503"/>
         </scene>
         <!--Random-->
         <scene sceneID="9tx-qA-kim">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="22t-e1-goN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Random" image="pencil" catalog="system" selectedImage="pencil" id="dyR-UW-fKc"/>
+                    <tabBarItem key="tabBarItem" title="Random" image="shuffle" catalog="system" selectedImage="shuffle" id="dyR-UW-fKc"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dH9-dC-axl">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -541,7 +582,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Div-lb-O4Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1570" y="754"/>
+            <point key="canvasLocation" x="2228.985507246377" y="748.66071428571422"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Hh1-Ie-jim">
@@ -756,7 +797,7 @@
         <scene sceneID="ghU-oF-rgt">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UeD-og-IBb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Today" image="star" catalog="system" selectedImage="star" id="qXo-5v-bU5"/>
+                    <tabBarItem key="tabBarItem" title="Today" image="alarm" catalog="system" selectedImage="alarm" id="qXo-5v-bU5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="L2s-h9-ezQ">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -1042,7 +1083,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pL7-rN-eG0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="wgo-4n-oTU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-859" y="1508"/>
+            <point key="canvasLocation" x="2032" y="1503"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3Ia-4G-p9v">
@@ -1060,7 +1101,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2X2-mr-4EM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="25" y="1508"/>
+            <point key="canvasLocation" x="2916" y="1503"/>
         </scene>
         <!--Calendar-->
         <scene sceneID="6fm-Mg-yaX">
@@ -1088,7 +1129,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TzT-sV-XDo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5168" y="753"/>
+            <point key="canvasLocation" x="6076.811594202899" y="752.67857142857144"/>
         </scene>
         <!--FSCalendar-->
         <scene sceneID="oEY-Bx-avl">
@@ -1158,7 +1199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tSM-A2-9ef" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5932" y="749"/>
+            <point key="canvasLocation" x="6842.0289855072469" y="748.66071428571422"/>
         </scene>
         <!--Day-->
         <scene sceneID="dNo-wv-FKO">
@@ -1306,16 +1347,47 @@
             </objects>
             <point key="canvasLocation" x="6783" y="1503"/>
         </scene>
+        <!--Recurring-->
+        <scene sceneID="71m-LU-F4M">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d0W-GE-3Kd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Recurring" image="arrow.2.squarepath" catalog="system" selectedImage="arrow.2.squarepath" id="Tt7-ka-VeR"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xNR-SY-Zyl">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="Main Blue"/>
+                        <color key="tintColor" name="WhiteBlack"/>
+                        <color key="barTintColor" name="Main Blue"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="WhiteBlack"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" name="WhiteBlack"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lyB-3q-Qes" kind="relationship" relationship="rootViewController" id="g0s-n9-zSn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sMF-eB-S5a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1407.2463768115942" y="747.99107142857144"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="M3k-zB-dWQ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="Main Blue"/>
     <resources>
+        <image name="alarm" catalog="system" width="124" height="128"/>
+        <image name="arrow.2.squarepath" catalog="system" width="128" height="89"/>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
-        <image name="pencil" catalog="system" width="128" height="113"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="shuffle" catalog="system" width="128" height="93"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="sun.max.fill" catalog="system" width="128" height="124"/>
         <namedColor name="BlackWhite">

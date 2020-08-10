@@ -232,14 +232,14 @@
 			path = "Table View Cells";
 			sourceTree = "<group>";
 		};
-		A38448B924A6828F00E69411 /* Mission */ = {
+		A38448B924A6828F00E69411 /* Random */ = {
 			isa = PBXGroup;
 			children = (
 				A392E8DE243FF50700570CD2 /* MissionsViewController.swift */,
 				A38448BB24A682F800E69411 /* NewMissionTableViewController.swift */,
 				A38448BD24A6B11500E69411 /* MissionDetailTableViewController.swift */,
 			);
-			path = Mission;
+			path = Random;
 			sourceTree = "<group>";
 		};
 		A38448BA24A682B300E69411 /* Goals */ = {
@@ -297,7 +297,7 @@
 			children = (
 				A375D23D24BD03A0003604C5 /* Calendar */,
 				A3C83E0224AA98A9005233DB /* Today */,
-				A38448B924A6828F00E69411 /* Mission */,
+				A38448B924A6828F00E69411 /* Random */,
 				A38448BA24A682B300E69411 /* Goals */,
 			);
 			path = "View Controllers";
