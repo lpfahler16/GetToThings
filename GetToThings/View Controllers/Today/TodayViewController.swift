@@ -19,7 +19,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var returnedMissions:[Thing] = []
     var returnedGoals:[Thing] = []
-    let headerNames = ["Missions", "Goals"]
+    let headerNames = ["Tasks", "Goals"]
     var returnedThings:[[Thing]] = []
     var goodWeather = true
     
