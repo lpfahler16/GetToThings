@@ -5,7 +5,7 @@
         <attribute name="ratio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="theThings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SimpleThing" inverseName="theDay" inverseEntity="SimpleThing"/>
     </entity>
-    <entity name="RecurringThing" representedClassName="RecurringThing" syncable="YES" codeGenerationType="category">
+    <entity name="RecurringThing" representedClassName=".RecurringThing" syncable="YES" codeGenerationType="category">
         <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="daysOfWeek" optional="YES" attributeType="String"/>
         <attribute name="desc" optional="YES" attributeType="String"/>

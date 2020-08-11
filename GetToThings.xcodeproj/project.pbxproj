@@ -16,7 +16,7 @@
 		A334574324E207870084129F /* RecurringThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574224E207870084129F /* RecurringThing.swift */; };
 		A334574424E2079D0084129F /* RecurringThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574224E207870084129F /* RecurringThing.swift */; };
 		A334574524E2079E0084129F /* RecurringThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574224E207870084129F /* RecurringThing.swift */; };
-		A334574724E208930084129F /* RecuringControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574624E208930084129F /* RecuringControl.swift */; };
+		A334574724E208930084129F /* RecurringControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574624E208930084129F /* RecurringControl.swift */; };
 		A361414D24D30F2F0012F766 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A361414C24D30F2F0012F766 /* Messages.framework */; };
 		A361415024D30F2F0012F766 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A361414F24D30F2F0012F766 /* MessagesViewController.swift */; };
 		A361415324D30F2F0012F766 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A361415124D30F2F0012F766 /* MainInterface.storyboard */; };
@@ -110,7 +110,7 @@
 		A3292BA924BE36E000D1840D /* SimpleThing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleThing.swift; sourceTree = "<group>"; };
 		A334574024E1FEFD0084129F /* RecurringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringViewController.swift; sourceTree = "<group>"; };
 		A334574224E207870084129F /* RecurringThing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringThing.swift; sourceTree = "<group>"; };
-		A334574624E208930084129F /* RecuringControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecuringControl.swift; sourceTree = "<group>"; };
+		A334574624E208930084129F /* RecurringControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringControl.swift; sourceTree = "<group>"; };
 		A361414B24D30F2F0012F766 /* GetToThings iMessage.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "GetToThings iMessage.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A361414C24D30F2F0012F766 /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
 		A361414F24D30F2F0012F766 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
@@ -312,7 +312,7 @@
 				A392E8E9243FF7D800570CD2 /* MissionControl.swift */,
 				A3CE06EF24402A1900E1337F /* GoalControl.swift */,
 				A334574224E207870084129F /* RecurringThing.swift */,
-				A334574624E208930084129F /* RecuringControl.swift */,
+				A334574624E208930084129F /* RecurringControl.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -567,7 +567,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A334574724E208930084129F /* RecuringControl.swift in Sources */,
+				A334574724E208930084129F /* RecurringControl.swift in Sources */,
 				A3CE06F024402A1900E1337F /* GoalControl.swift in Sources */,
 				A375D23F24BD09BF003604C5 /* CalendarViewController.swift in Sources */,
 				A392E8CB243FF1A000570CD2 /* AppDelegate.swift in Sources */,

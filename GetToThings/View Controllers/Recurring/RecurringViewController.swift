@@ -31,12 +31,45 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
         return header[section]
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return RecurringControl.getDayRecurs()[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "recurCell")!
+        
+        let allRecurs = RecurringControl.getDayRecurs()
+        
+        cell.textLabel?.text = allRecurs[indexPath.section][indexPath.row].desc!
+        
+        if allRecurs[indexPath.section][indexPath.row].frequency == 1 {
+            cell.detailTextLabel?.text = "Every week"
+        } else if allRecurs[indexPath.section][indexPath.row].frequency == 2 {
+            cell.detailTextLabel?.text = "Every other week"
+        } else {
+            cell.detailTextLabel?.text = "Every Month"
+        }
+        
+        return cell
     }
+    
+    
+    //Slide to delete
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+         if editingStyle == .delete {
+            
+            let context = AppDelegate.viewContext
+            context.delete(RecurringControl.getDayRecurs()[indexPath.section][indexPath.row])
+            do {
+                try context.save()
+            } catch {
+                print("**** Save failed ****")
+            }
+            
+            //Maybe fix later?
+            tableView.reloadData()
+         }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -46,5 +79,9 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func viewWillAppear(_ animated: Bool) {
+        recurringTable.reloadData()
+    }
 
 }
