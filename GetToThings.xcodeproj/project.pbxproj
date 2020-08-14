@@ -17,6 +17,8 @@
 		A334574424E2079D0084129F /* RecurringThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574224E207870084129F /* RecurringThing.swift */; };
 		A334574524E2079E0084129F /* RecurringThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574224E207870084129F /* RecurringThing.swift */; };
 		A334574724E208930084129F /* RecurringControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574624E208930084129F /* RecurringControl.swift */; };
+		A334574924E492350084129F /* NewRecurringTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574824E492350084129F /* NewRecurringTableViewController.swift */; };
+		A334574B24E5E7150084129F /* RecurDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574A24E5E7150084129F /* RecurDetailTableViewController.swift */; };
 		A361414D24D30F2F0012F766 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A361414C24D30F2F0012F766 /* Messages.framework */; };
 		A361415024D30F2F0012F766 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A361414F24D30F2F0012F766 /* MessagesViewController.swift */; };
 		A361415324D30F2F0012F766 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A361415124D30F2F0012F766 /* MainInterface.storyboard */; };
@@ -111,6 +113,8 @@
 		A334574024E1FEFD0084129F /* RecurringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringViewController.swift; sourceTree = "<group>"; };
 		A334574224E207870084129F /* RecurringThing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringThing.swift; sourceTree = "<group>"; };
 		A334574624E208930084129F /* RecurringControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringControl.swift; sourceTree = "<group>"; };
+		A334574824E492350084129F /* NewRecurringTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecurringTableViewController.swift; sourceTree = "<group>"; };
+		A334574A24E5E7150084129F /* RecurDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurDetailTableViewController.swift; sourceTree = "<group>"; };
 		A361414B24D30F2F0012F766 /* GetToThings iMessage.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "GetToThings iMessage.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A361414C24D30F2F0012F766 /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
 		A361414F24D30F2F0012F766 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 			isa = PBXGroup;
 			children = (
 				A334574024E1FEFD0084129F /* RecurringViewController.swift */,
+				A334574824E492350084129F /* NewRecurringTableViewController.swift */,
+				A334574A24E5E7150084129F /* RecurDetailTableViewController.swift */,
 			);
 			path = Recurring;
 			sourceTree = "<group>";
@@ -295,10 +301,10 @@
 		A392E8E0243FF52C00570CD2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A375D23D24BD03A0003604C5 /* Calendar */,
 				A3C83E0224AA98A9005233DB /* Today */,
 				A38448B924A6828F00E69411 /* Random */,
 				A38448BA24A682B300E69411 /* Recurring */,
+				A375D23D24BD03A0003604C5 /* Calendar */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -576,6 +582,7 @@
 				A38EB77E24BD6A1F0088F2F7 /* DayViewController.swift in Sources */,
 				A392E8EA243FF7D800570CD2 /* MissionControl.swift in Sources */,
 				A3C83DD424A9686E005233DB /* NSCustomPersistentContainer.swift in Sources */,
+				A334574B24E5E7150084129F /* RecurDetailTableViewController.swift in Sources */,
 				A334574324E207870084129F /* RecurringThing.swift in Sources */,
 				A3899F232440102D00CCB23C /* TodayViewController.swift in Sources */,
 				A392E8CD243FF1A000570CD2 /* SceneDelegate.swift in Sources */,
@@ -585,6 +592,7 @@
 				A392E8DF243FF50700570CD2 /* MissionsViewController.swift in Sources */,
 				A3C83E0424AA98D2005233DB /* EndDayViewController.swift in Sources */,
 				A38448BE24A6B11500E69411 /* MissionDetailTableViewController.swift in Sources */,
+				A334574924E492350084129F /* NewRecurringTableViewController.swift in Sources */,
 				A334574124E1FEFD0084129F /* RecurringViewController.swift in Sources */,
 				A392E8EE243FFBC000570CD2 /* Thing.swift in Sources */,
 				A362F3C924BD6221005B6B4B /* Day.swift in Sources */,

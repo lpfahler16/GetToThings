@@ -15,7 +15,8 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var returnedMissions:[Thing] = []
     var returnedGoals:[Thing] = []
-    let headerNames = ["Missions", "Goals"]
+    var returnedRecurs:[RecurringThing] = []
+    let headerNames = ["Tasks", "Goals", "Recurring"]
     var returnedThings:[[Thing]] = []
     
     override func viewDidLoad() {
@@ -37,13 +38,15 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     //Number of sections
     func numberOfSections(in todayThingsTable: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     //Number of rows in each section
     func tableView(_ todayThingsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 0
+        } else if section == 3{
+            return returnedRecurs.count
         } else {
             return returnedThings[section - 1].count
         }
@@ -68,34 +71,58 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     //Setting Row Data
     func tableView(_ todayThingsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "thingDisplay") as! TodayTableViewCell
-        
-        let thing = returnedThings[indexPath.section - 1][indexPath.row]
-        if(thing.isDone) {
-            cell.accessoryType = .checkmark
+        if indexPath.section != 3 {
+            let thing = returnedThings[indexPath.section - 1][indexPath.row]
+            if(thing.isDone) {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            let text = thing.desc
+            cell.label.text = text
         } else {
-            cell.accessoryType = .none
+            let thing = returnedRecurs[indexPath.row]
+            if(thing.isDone) {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            let text = thing.desc
+            cell.label.text = text
         }
-        
-        let text = thing.desc
-        cell.label.text = text
-        
         return cell
     }
     
     //Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         todayThingsTable.deselectRow(at: indexPath, animated: true)
-        let thing = returnedThings[indexPath.section - 1][indexPath.row]
         
-        if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
-            if cell.accessoryType == .checkmark {
-                cell.accessoryType = .none
-                thing.isDone = false
-            } else {
-                cell.accessoryType = .checkmark
-                thing.isDone = true
+        if indexPath.section != 3 {
+            let thing = returnedThings[indexPath.section - 1][indexPath.row]
+            
+            if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
+                if cell.accessoryType == .checkmark {
+                    cell.accessoryType = .none
+                    thing.isDone = false
+                } else {
+                    cell.accessoryType = .checkmark
+                    thing.isDone = true
+                }
+            }
+        } else {
+            let thing = returnedRecurs[indexPath.row]
+            
+            if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
+                if cell.accessoryType == .checkmark {
+                    cell.accessoryType = .none
+                    thing.isDone = false
+                } else {
+                    cell.accessoryType = .checkmark
+                    thing.isDone = true
+                }
             }
         }
         

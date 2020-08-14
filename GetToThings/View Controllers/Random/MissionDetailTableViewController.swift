@@ -57,7 +57,6 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
     }
     
     //Deletion
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         missionDetailTable.deselectRow(at: indexPath, animated: true)
         

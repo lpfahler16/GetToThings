@@ -12,10 +12,12 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
 
     @IBOutlet weak var recurringTable: UITableView!
     let header = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    var recur: RecurringThing = RecurringThing()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        recurringTable.sectionHeaderHeight = CGFloat(40)
         // Do any additional setup after loading the view.
         recurringTable.delegate = self
         recurringTable.dataSource = self
@@ -42,14 +44,21 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
         cell.textLabel?.text = allRecurs[indexPath.section][indexPath.row].desc!
         
         if allRecurs[indexPath.section][indexPath.row].frequency == 1 {
-            cell.detailTextLabel?.text = "Every week"
+            cell.detailTextLabel?.text = "Weekly"
         } else if allRecurs[indexPath.section][indexPath.row].frequency == 2 {
-            cell.detailTextLabel?.text = "Every other week"
+            cell.detailTextLabel?.text = "Biweekly"
         } else {
-            cell.detailTextLabel?.text = "Every Month"
+            cell.detailTextLabel?.text = "Monthly"
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        recur = RecurringControl.getDayRecurs()[indexPath.section][indexPath.row]
+        
+        self.performSegue(withIdentifier: "recurDetail", sender: self)
     }
     
     
@@ -79,8 +88,22 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
         // Pass the selected object to the new view controller.
     }
     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "recurDetail") {
+            // get a reference to the second view controller
+            let secondViewController = segue.destination as! RecurDetailTableViewController
+            
+            // set a variable in the second view controller with the data to pass
+            secondViewController.recur = recur
+        }
+    }
+    
+    @IBAction func unwindToMain (_ sender:UIStoryboardSegue) {
+        print("unwindToMain")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("Recurring reloaded")
         recurringTable.reloadData()
     }
 

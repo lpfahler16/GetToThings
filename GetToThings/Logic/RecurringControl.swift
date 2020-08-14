@@ -9,6 +9,12 @@
 import Foundation
 import CoreData
 
+extension Date {
+    func dayNumberOfWeek() -> Int? {
+        return Calendar.current.dateComponents([.weekday], from: self).weekday
+    }
+}
+
 class RecurringControl {
     
     //Gets all missions
@@ -19,12 +25,11 @@ class RecurringControl {
         
         let context = AppDelegate.viewContext
         let allRecurs = try? context.fetch(request)
-        print("Got!")
         return allRecurs!
     }
     
     //Adds new Recur
-    static func newRecur(_ desc: String, _ daysOfWeek: String, _ frequency: Int16) {
+    static func newRecur(_ desc: String, _ daysOfWeek: String, _ frequency: Int16, _ date: Date) {
         let context = AppDelegate.viewContext
         let thing = RecurringThing(context: context)
         
@@ -33,7 +38,7 @@ class RecurringControl {
         thing.numCompleted = 0
         thing.numGenerated = 0
         thing.frequency = frequency
-        thing.dateAdded = Date()
+        thing.dateAdded = date
         thing.isDone = false
         do {
             try context.save()
@@ -47,6 +52,36 @@ class RecurringControl {
         let allRecurs = getRecurs()
         return [getSundayRecurs(allRecurs), getMondayRecurs(allRecurs), getTuesdayRecurs(allRecurs), getWednesdayRecurs(allRecurs), getThursdayRecurs(allRecurs), getFridayRecurs(allRecurs), getSaturdayRecurs(allRecurs)]
     }
+    
+    static func getTodayRecurs() -> [RecurringThing] {
+        let date = Date()
+        let dayOfWeek = date.dayNumberOfWeek()! - 1
+        print(dayOfWeek)
+        
+        let allFromDay = getDayRecurs()[dayOfWeek]
+        var returnRecurs:[RecurringThing] = []
+        
+        for day in allFromDay {
+            if day.dateAdded! <= Date() {
+                let initialWeekOfYear = Calendar.current.component(.weekOfYear, from: day.dateAdded!)
+                let currentWeekOfYear = Calendar.current.component(.weekOfYear, from: Date())
+                let diff = initialWeekOfYear % Int(day.frequency)
+                let curMod = currentWeekOfYear % Int(day.frequency)
+                
+                if diff == curMod {
+                    print("Check!")
+                    returnRecurs.append(day)
+                } else {
+                    print("NO")
+                }
+            } else {
+                print("Too early!")
+            }
+        }
+        
+        return returnRecurs
+    }
+    
     
     static func getSundayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
         var recurs:[RecurringThing] = []

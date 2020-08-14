@@ -19,7 +19,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var returnedMissions:[Thing] = []
     var returnedGoals:[Thing] = []
-    let headerNames = ["Tasks", "Goals"]
+    var returnedRecurs:[RecurringThing] = []
+    let headerNames = ["Tasks", "Goals", "Recurring"]
     var returnedThings:[[Thing]] = []
     var goodWeather = true
     
@@ -61,6 +62,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             GoalControl.newGoal("Ex 1: Learn to play an instrument", false, true)
             GoalControl.newGoal("Ex 2: Learn to draw", false, true)
             
+            RecurringControl.newRecur("Ex 1: Wake up!", "0123456", 1, Date())
+            
             //Alert
             let alertController = UIAlertController(title: "Welcome!", message:
                 "\nWelcome to GetToThings. The purpose of GetToThings is to allow you to prioritize the things that you may not otherwise be getting to, whether that is learning a new skill or reaching out to family. \n\nGetToThings will provide you with a random selection of short-term Missions and long-term Goals each day, allowing you to get back to the things you really want to be doing.", preferredStyle: .alert)
@@ -79,6 +82,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             returnedMissions = MissionControl.getTodayMissions()
             returnedGoals = GoalControl.getTodayGoals()
+            returnedRecurs = RecurringControl.getTodayRecurs()
         } else {
             tableContainer.isHidden = true
             genButton.isHidden = false
@@ -141,6 +145,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             returnedMissions = MissionControl.getTodayMissions()
             returnedGoals = GoalControl.getTodayGoals()
+            returnedRecurs = RecurringControl.getTodayRecurs()
             
             returnedThings = [returnedMissions, returnedGoals]
             todayThingsTable.reloadData()
@@ -223,6 +228,17 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 
         }
         
+        //Recurs
+        let allRecurs = RecurringControl.getTodayRecurs()
+        for recur in allRecurs {
+            if let _ = sender as? UIStoryboardSegue {
+                recur.numGenerated += 1
+                if recur.isDone {
+                    recur.numCompleted += 1
+                }
+            }
+        }
+        
         //Save
         do {
             try context.save()
@@ -241,6 +257,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     func saveDay() {
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
+        returnedRecurs = RecurringControl.getTodayRecurs()
+        
         let allThings = returnedMissions + returnedGoals
         
         let context = AppDelegate.viewContext
@@ -269,6 +287,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             simpleThing.completed = thing.isDone
             day.addToTheThings(simpleThing)
         }
+        for recur in returnedRecurs {
+            let simpleThing = SimpleThing(context: context)
+            simpleThing.desc = recur.desc
+            simpleThing.completed = recur.isDone
+            day.addToTheThings(simpleThing)
+        }
         
         //Save
         do {
@@ -282,6 +306,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     func getRatio() -> Double{
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
+        returnedRecurs = RecurringControl.getTodayRecurs()
+        
         let allThings = returnedMissions + returnedGoals
         var complete = 0
         for thing in allThings {
@@ -289,7 +315,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 complete += 1
             }
         }
-        return Double(complete)/Double(allThings.count)
+        for recur in returnedRecurs {
+            if recur.isDone {
+                complete += 1
+            }
+        }
+        return Double(complete)/Double(allThings.count + returnedRecurs.count)
     }
     
     
@@ -297,13 +328,15 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //Number of sections
     func numberOfSections(in todayThingsTable: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     //Number of rows in each section
     func tableView(_ todayThingsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 0
+        } else if section == 3{
+            return returnedRecurs.count
         } else {
             return returnedThings[section - 1].count
         }
@@ -328,34 +361,58 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //Setting Row Data
     func tableView(_ todayThingsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "thingDisplay") as! TodayTableViewCell
-        
-        let thing = returnedThings[indexPath.section - 1][indexPath.row]
-        if(thing.isDone) {
-            cell.accessoryType = .checkmark
+        if indexPath.section != 3 {
+            let thing = returnedThings[indexPath.section - 1][indexPath.row]
+            if(thing.isDone) {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            let text = thing.desc
+            cell.label.text = text
         } else {
-            cell.accessoryType = .none
+            let thing = returnedRecurs[indexPath.row]
+            if(thing.isDone) {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            let text = thing.desc
+            cell.label.text = text
         }
-        
-        let text = thing.desc
-        cell.label.text = text
-        
         return cell
     }
     
     //Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         todayThingsTable.deselectRow(at: indexPath, animated: true)
-        let thing = returnedThings[indexPath.section - 1][indexPath.row]
         
-        if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
-            if cell.accessoryType == .checkmark {
-                cell.accessoryType = .none
-                thing.isDone = false
-            } else {
-                cell.accessoryType = .checkmark
-                thing.isDone = true
+        if indexPath.section != 3 {
+            let thing = returnedThings[indexPath.section - 1][indexPath.row]
+            
+            if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
+                if cell.accessoryType == .checkmark {
+                    cell.accessoryType = .none
+                    thing.isDone = false
+                } else {
+                    cell.accessoryType = .checkmark
+                    thing.isDone = true
+                }
+            }
+        } else {
+            let thing = returnedRecurs[indexPath.row]
+            
+            if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
+                if cell.accessoryType == .checkmark {
+                    cell.accessoryType = .none
+                    thing.isDone = false
+                } else {
+                    cell.accessoryType = .checkmark
+                    thing.isDone = true
+                }
             }
         }
         
