@@ -111,7 +111,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //Checks if new day
     func checkDate() {
-        let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date(/*For testing:timeIntervalSince1970: 0*/))
+        let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date(/*For testing:*/timeIntervalSince1970: 0))
         
         if UserDefaults(suiteName: "group.GetToThings")!.bool(forKey: "generated") && !sameDay {
             self.performSegue(withIdentifier: "endDay", sender: self)
@@ -237,6 +237,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                     recur.numCompleted += 1
                 }
             }
+            recur.isDone = false
         }
         
         //Save

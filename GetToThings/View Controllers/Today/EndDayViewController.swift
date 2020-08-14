@@ -26,6 +26,7 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
+        returnedRecurs = RecurringControl.getTodayRecurs()
         returnedThings = [returnedMissions, returnedGoals]
         
         self.todayThingsTable.delegate = self
