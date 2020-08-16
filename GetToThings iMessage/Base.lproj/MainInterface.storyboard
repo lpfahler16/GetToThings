@@ -16,7 +16,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbr-t9-TKj">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiF-lT-9mS">
+                                <rect key="frame" x="108.5" y="253.5" width="103" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbr-t9-TKj">
                                 <rect key="frame" x="260" y="64.5" width="40" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="RhB-S6-98L"/>
@@ -27,7 +33,7 @@
                                     <segue destination="vVr-1j-fss" kind="show" id="ibN-Gn-w2M"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="89h-SW-6xq">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="89h-SW-6xq">
                                 <rect key="frame" x="0.0" y="125" width="320" height="403"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Tnx-3I-uTJ" style="IBUITableViewCellStyleDefault" id="sHd-q7-Q47">
@@ -49,7 +55,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9O3-MM-Ot4">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9O3-MM-Ot4">
                                 <rect key="frame" x="20" y="64" width="85" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <color key="textColor" name="Main Blue"/>
@@ -62,10 +68,12 @@
                             <constraint firstItem="89h-SW-6xq" firstAttribute="bottom" secondItem="LDy-ih-0nr" secondAttribute="bottom" id="9hI-vi-pas"/>
                             <constraint firstItem="9O3-MM-Ot4" firstAttribute="top" secondItem="LDy-ih-0nr" secondAttribute="top" constant="20" id="CND-Tj-k6d"/>
                             <constraint firstItem="LDy-ih-0nr" firstAttribute="trailing" secondItem="kbr-t9-TKj" secondAttribute="trailing" constant="20" id="IdZ-aV-ZWO"/>
+                            <constraint firstItem="jiF-lT-9mS" firstAttribute="centerX" secondItem="zMn-AG-sqS" secondAttribute="centerX" id="LQN-jv-lvM"/>
                             <constraint firstItem="89h-SW-6xq" firstAttribute="leading" secondItem="LDy-ih-0nr" secondAttribute="leading" id="NxE-sn-BEL"/>
                             <constraint firstItem="89h-SW-6xq" firstAttribute="top" secondItem="9O3-MM-Ot4" secondAttribute="bottom" constant="20" id="TPd-wV-UR1"/>
                             <constraint firstItem="9O3-MM-Ot4" firstAttribute="leading" secondItem="LDy-ih-0nr" secondAttribute="leading" constant="20" id="Vwn-ZU-yTR"/>
                             <constraint firstItem="89h-SW-6xq" firstAttribute="centerX" secondItem="zMn-AG-sqS" secondAttribute="centerX" id="a5E-4Q-ObR"/>
+                            <constraint firstItem="jiF-lT-9mS" firstAttribute="centerY" secondItem="zMn-AG-sqS" secondAttribute="centerY" id="eFp-bC-439"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LDy-ih-0nr"/>
                     </view>

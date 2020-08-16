@@ -11,11 +11,17 @@ import UIKit
 class RecurringViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var recurringTable: UITableView!
-    let header = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    let header = ["SUN", "MON", "TUES", "WED", "THURS", "FRI", "SAT"]
     var recur: RecurringThing = RecurringThing()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBeforeRecur")
+        if !launchedBefore {
+            UserDefaults.standard.set(true, forKey: "launchedBeforeRecur")
+            info()
+        }
 
         recurringTable.sectionHeaderHeight = CGFloat(40)
         // Do any additional setup after loading the view.
@@ -23,6 +29,18 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
         recurringTable.dataSource = self
     }
     
+    @IBAction func infoClicked(_ sender: Any) {
+        info()
+    }
+    
+    
+    func info() {
+        let alertController = UIAlertController(title: "Recurring", message:
+           "Add things you want to get to on a regular basis to this list. They will show up on the Today page on the appropriate days.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Thanks!", style: .default))
+
+        self.present(alertController, animated: true, completion: nil)
+    }
 
     
     //MARK: - Table View

@@ -78,6 +78,9 @@
                     <navigationItem key="navigationItem" title="Recurring" id="Sbx-Wo-Onw">
                         <barButtonItem key="leftBarButtonItem" image="info.circle" catalog="system" id="UfD-VL-zel">
                             <color key="tintColor" name="WhiteBlack"/>
+                            <connections>
+                                <action selector="infoClicked:" destination="lyB-3q-Qes" id="vOm-p9-aJD"/>
+                            </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="gear" catalog="system" id="gDr-iq-WhX">
@@ -420,7 +423,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" name="WhiteBlack"/>
                                 <constraints>
                                     <constraint firstAttribute="trailingMargin" secondItem="TEe-yP-PT9" secondAttribute="trailing" constant="5" id="5AQ-Tf-wSU"/>
                                     <constraint firstItem="aPz-NC-CAv" firstAttribute="centerX" secondItem="6rj-dQ-Y6q" secondAttribute="centerX" id="DTd-Hl-ScJ"/>
@@ -441,20 +444,49 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3W-9b-lbk">
-                                                            <rect key="frame" x="20" y="11.666666666666666" width="42" height="20.333333333333336"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3W-9b-lbk">
+                                                            <rect key="frame" x="20" y="11.666666666666666" width="334" height="20.333333333333336"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstItem="K3W-9b-lbk" firstAttribute="centerY" secondItem="yU5-aT-5Vd" secondAttribute="centerY" id="SRy-b2-Sza"/>
+                                                        <constraint firstItem="K3W-9b-lbk" firstAttribute="centerX" secondItem="yU5-aT-5Vd" secondAttribute="centerX" id="ZOt-4k-a4X"/>
                                                         <constraint firstItem="K3W-9b-lbk" firstAttribute="leading" secondItem="yU5-aT-5Vd" secondAttribute="leadingMargin" id="cWY-kk-Q0V"/>
                                                         <constraint firstItem="K3W-9b-lbk" firstAttribute="centerY" secondItem="yU5-aT-5Vd" secondAttribute="centerY" id="uEM-Oy-NkV"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="label" destination="K3W-9b-lbk" id="VrJ-Sn-Gwj"/>
+                                                </connections>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="dateViewer" id="Ikd-8G-03R" customClass="TodayTableViewCell" customModule="GetToThings" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="99" width="374" height="102"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ikd-8G-03R" id="Q1P-YC-IQY">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="102"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nU-fr-ZjH">
+                                                            <rect key="frame" x="20" y="30" width="334" height="42"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                            <color key="textColor" name="Main Blue"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="7nU-fr-ZjH" firstAttribute="centerX" secondItem="Q1P-YC-IQY" secondAttribute="centerX" id="3Gv-wm-Zzs"/>
+                                                        <constraint firstItem="7nU-fr-ZjH" firstAttribute="leading" secondItem="Q1P-YC-IQY" secondAttribute="leadingMargin" id="3Kd-Gm-jTw"/>
+                                                        <constraint firstItem="7nU-fr-ZjH" firstAttribute="centerY" secondItem="Q1P-YC-IQY" secondAttribute="centerY" id="DIf-WE-3Bu"/>
+                                                        <constraint firstAttribute="bottom" secondItem="7nU-fr-ZjH" secondAttribute="bottom" constant="30" id="eIG-eY-L1Q"/>
+                                                        <constraint firstItem="7nU-fr-ZjH" firstAttribute="top" secondItem="Q1P-YC-IQY" secondAttribute="top" constant="30" id="v8S-fr-M12"/>
+                                                        <constraint firstItem="7nU-fr-ZjH" firstAttribute="centerY" secondItem="Q1P-YC-IQY" secondAttribute="centerY" id="wfZ-JZ-gjH"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="label" destination="7nU-fr-ZjH" id="yFz-QU-vSW"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -906,7 +938,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="# of Things" footerTitle="Set the number of missions and goals you would like generated each day." id="bYc-VC-rVT">
+                            <tableViewSection headerTitle="# of Random Things" footerTitle="Set the number of missions and goals you would like generated each day." id="bYc-VC-rVT">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="5O7-01-OKU">
                                         <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="43.5"/>
@@ -915,8 +947,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of Missions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOa-Xc-QQz">
-                                                    <rect key="frame" x="20" y="11.666666666666664" width="102" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of Tasks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOa-Xc-QQz">
+                                                    <rect key="frame" x="20" y="11.666666666666664" width="78" height="21"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1054,7 +1086,7 @@
             </objects>
             <point key="canvasLocation" x="7086" y="-33"/>
         </scene>
-        <!--Advanced Setting-->
+        <!--Advanced Settings-->
         <scene sceneID="yld-YG-NHb">
             <objects>
                 <tableViewController id="Ovk-xA-8aG" sceneMemberID="viewController">
@@ -1063,7 +1095,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Timing" id="JHi-zt-T9T">
+                            <tableViewSection headerTitle="Coming Soon" id="JHi-zt-T9T">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="4yO-qm-Hff">
                                         <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="43.666667938232422"/>
@@ -1093,7 +1125,7 @@
                             <outlet property="delegate" destination="Ovk-xA-8aG" id="maO-5s-7hB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Advanced Setting" id="A34-IV-m5p">
+                    <navigationItem key="navigationItem" title="Advanced Settings" id="A34-IV-m5p">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="j38-o2-ACU">
                             <connections>
                                 <segue destination="zvR-m6-K1o" kind="unwind" unwindAction="unwindToMain:" id="fy2-4U-KGZ"/>
@@ -1490,6 +1522,9 @@
                     <navigationItem key="navigationItem" title="Calendar" id="Wpu-Au-RQW">
                         <barButtonItem key="leftBarButtonItem" title="Info" image="info.circle" catalog="system" id="MFu-QW-H1i">
                             <color key="tintColor" name="WhiteBlack"/>
+                            <connections>
+                                <action selector="infoClicked:" destination="Lj9-ex-35z" id="6VC-Jw-oPh"/>
+                            </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="Settings" image="gear" catalog="system" id="v1h-Ao-vLM">

@@ -10,6 +10,12 @@ import Foundation
 import CoreData
 import UIKit
 
+extension Date {
+    func dayNumberOfWeek() -> Int? {
+        return Calendar.current.dateComponents([.weekday], from: self).weekday
+    }
+}
+
 class ExtensionControl {
     //MARK: - Get Things
     
@@ -59,6 +65,124 @@ class ExtensionControl {
         let context = self.persistentContainer.viewContext
         let todayGoals = try? context.fetch(request)
         return todayGoals!
+    }
+    
+    //MARK: - Get Recurs
+    
+    //Gets all recurs
+    static func getRecurs() -> [RecurringThing] {
+        let request: NSFetchRequest<RecurringThing> = RecurringThing.fetchRequest()
+
+        request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
+        
+        let context = self.persistentContainer.viewContext
+        let allRecurs = try? context.fetch(request)
+        return allRecurs!
+    }
+    
+    static func getDayRecurs() -> [[RecurringThing]] {
+        let allRecurs = getRecurs()
+        return [getSundayRecurs(allRecurs), getMondayRecurs(allRecurs), getTuesdayRecurs(allRecurs), getWednesdayRecurs(allRecurs), getThursdayRecurs(allRecurs), getFridayRecurs(allRecurs), getSaturdayRecurs(allRecurs)]
+    }
+    
+    static func getTodayRecurs() -> [RecurringThing] {
+        let date = Date()
+        let dayOfWeek = date.dayNumberOfWeek()! - 1
+        print(dayOfWeek)
+        
+        let allFromDay = getDayRecurs()[dayOfWeek]
+        var returnRecurs:[RecurringThing] = []
+        
+        for day in allFromDay {
+            if day.dateAdded! <= Date() {
+                let initialWeekOfYear = Calendar.current.component(.weekOfYear, from: day.dateAdded!)
+                let currentWeekOfYear = Calendar.current.component(.weekOfYear, from: Date())
+                let diff = initialWeekOfYear % Int(day.frequency)
+                let curMod = currentWeekOfYear % Int(day.frequency)
+                
+                if diff == curMod {
+                    print("Check!")
+                    returnRecurs.append(day)
+                } else {
+                    print("NO")
+                }
+            } else {
+                print("Too early!")
+            }
+        }
+        
+        return returnRecurs
+    }
+    
+    
+    static func getSundayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
+        var recurs:[RecurringThing] = []
+        for recur in allRecurs {
+            if recur.daysOfWeek!.contains(Character("0")) {
+                recurs.append(recur)
+            }
+        }
+        return recurs
+    }
+    
+    static func getMondayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
+        var recurs:[RecurringThing] = []
+        for recur in allRecurs {
+            if recur.daysOfWeek!.contains(Character("1")) {
+                recurs.append(recur)
+            }
+        }
+        return recurs
+    }
+    
+    static func getTuesdayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
+        var recurs:[RecurringThing] = []
+        for recur in allRecurs {
+            if recur.daysOfWeek!.contains(Character("2")) {
+                recurs.append(recur)
+            }
+        }
+        return recurs
+    }
+    
+    static func getWednesdayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
+        var recurs:[RecurringThing] = []
+        for recur in allRecurs {
+            if recur.daysOfWeek!.contains(Character("3")) {
+                recurs.append(recur)
+            }
+        }
+        return recurs
+    }
+    
+    static func getThursdayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
+        var recurs:[RecurringThing] = []
+        for recur in allRecurs {
+            if recur.daysOfWeek!.contains(Character("4")) {
+                recurs.append(recur)
+            }
+        }
+        return recurs
+    }
+    
+    static func getFridayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
+        var recurs:[RecurringThing] = []
+        for recur in allRecurs {
+            if recur.daysOfWeek!.contains(Character("5")) {
+                recurs.append(recur)
+            }
+        }
+        return recurs
+    }
+    
+    static func getSaturdayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
+        var recurs:[RecurringThing] = []
+        for recur in allRecurs {
+            if recur.daysOfWeek!.contains(Character("6")) {
+                recurs.append(recur)
+            }
+        }
+        return recurs
     }
     
     

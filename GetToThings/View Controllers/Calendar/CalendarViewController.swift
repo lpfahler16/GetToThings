@@ -36,6 +36,12 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBeforeCalendar")
+        if !launchedBefore {
+            UserDefaults.standard.set(true, forKey: "launchedBeforeCalendar")
+            info()
+        }
+        
         //Calendar setup
         calendar.dataSource = self
         calendar.delegate = self
@@ -51,6 +57,18 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
         context.refreshAllObjects()
         allDays = (try? context.fetch(request))!
         
+    }
+    
+    @IBAction func infoClicked(_ sender: Any) {
+        info()
+    }
+    
+    func info() {
+        let alertController = UIAlertController(title: "Calendar", message:
+           "See information on how often you have been completing your things. Green days means you completed them all!", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Thanks!", style: .default))
+
+        self.present(alertController, animated: true, completion: nil)
     }
     
     //Setting max and min date

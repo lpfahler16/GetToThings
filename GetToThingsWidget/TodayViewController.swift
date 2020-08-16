@@ -17,6 +17,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
     
     var returnedMissions:[Thing] = []
     var returnedGoals:[Thing] = []
+    var returnedRecurs:[RecurringThing] = []
     let headerNames = ["Missions", "Goals"]
     var returnedThings:[Thing] = []
     var numRows = 2
@@ -27,6 +28,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
         
         returnedMissions = ExtensionControl.getTodayMissions()
         returnedGoals = ExtensionControl.getTodayGoals()
+        returnedRecurs = ExtensionControl.getTodayRecurs()
         
         returnedThings = returnedMissions + returnedGoals
         
@@ -45,7 +47,8 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
         
         returnedMissions = ExtensionControl.getTodayMissions()
         returnedGoals = ExtensionControl.getTodayGoals()
-        
+        returnedRecurs = ExtensionControl.getTodayRecurs()
+        print(returnedRecurs.count)
         returnedThings = returnedMissions + returnedGoals
         
         let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date())
@@ -67,8 +70,11 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         let expanded = activeDisplayMode == .expanded
         print("It changed")
-        if activeDisplayMode == .expanded || returnedThings.count < 2 {
-            numRows = returnedThings.count
+        
+        let totalLength = returnedRecurs.count + returnedThings.count
+        
+        if activeDisplayMode == .expanded || totalLength < 2 {
+            numRows = totalLength
         } else if UserDefaults(suiteName: "group.GetToThings")!.bool(forKey: "generated") == false {
             numRows = 0
         } else {
@@ -101,33 +107,60 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
         
         let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "main")
         
-        let thing = returnedThings[indexPath.row]
-        
-        if(thing.isDone) {
-            cell?.accessoryType = .checkmark
+        if indexPath.row < returnedThings.count {
+            let thing = returnedThings[indexPath.row]
+            
+            if(thing.isDone) {
+                cell?.accessoryType = .checkmark
+            } else {
+                cell?.accessoryType = .none
+            }
+            
+            let text = thing.desc
+            cell?.textLabel?.text = text
+            
+            return cell!
         } else {
-            cell?.accessoryType = .none
+            let recur = returnedRecurs[indexPath.row - returnedThings.count]
+            
+            if(recur.isDone) {
+                cell?.accessoryType = .checkmark
+            } else {
+                cell?.accessoryType = .none
+            }
+            
+            let text = recur.desc
+            cell?.textLabel?.text = text
+            
+            return cell!
         }
-        
-        let text = thing.desc
-        cell?.textLabel?.text = text
-        
-        return cell!
     }
     
     //Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let thing = returnedThings[indexPath.row]
-        
-        if let cell = tableView.cellForRow(at: indexPath) {
-            if cell.accessoryType == .checkmark {
-                cell.accessoryType = .none
-                thing.isDone = false
-            } else {
-                cell.accessoryType = .checkmark
-                thing.isDone = true
+        if indexPath.row < returnedThings.count {
+            let thing = returnedThings[indexPath.row]
+            
+            if let cell = tableView.cellForRow(at: indexPath) {
+                if cell.accessoryType == .checkmark {
+                    cell.accessoryType = .none
+                    thing.isDone = false
+                } else {
+                    cell.accessoryType = .checkmark
+                    thing.isDone = true
+                }
+            }
+        } else {
+            let recur = returnedRecurs[indexPath.row - returnedThings.count]
+            if let cell = tableView.cellForRow(at: indexPath) {
+                if cell.accessoryType == .checkmark {
+                    cell.accessoryType = .none
+                    recur.isDone = false
+                } else {
+                    cell.accessoryType = .checkmark
+                    recur.isDone = true
+                }
             }
         }
         

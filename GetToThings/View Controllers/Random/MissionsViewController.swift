@@ -47,8 +47,8 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     func info() {
-        let alertController = UIAlertController(title: "Missions", message:
-           "A Mission is a Thing that you can complete within the day. Add any short-term tasks to this list.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Random", message:
+           "Add short-term tasks and long-term goals to these lists. Each day, some will be selected at random to appear on your Today page.", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Thanks!", style: .default))
 
         self.present(alertController, animated: true, completion: nil)

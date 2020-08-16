@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import AVFoundation
 
 class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -23,6 +24,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     let headerNames = ["Tasks", "Goals", "Recurring"]
     var returnedThings:[[Thing]] = []
     var goodWeather = true
+    
+    var numOfSections:Int = 4
     
     //MARK: - Initial Setup
     override func viewDidLoad() {
@@ -62,11 +65,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             GoalControl.newGoal("Ex 1: Learn to play an instrument", false, true)
             GoalControl.newGoal("Ex 2: Learn to draw", false, true)
             
-            RecurringControl.newRecur("Ex 1: Wake up!", "0123456", 1, Date())
+            RecurringControl.newRecur("Ex: Give a compliment!", "0123456", 1, Date())
             
             //Alert
             let alertController = UIAlertController(title: "Welcome!", message:
-                "\nWelcome to GetToThings. The purpose of GetToThings is to allow you to prioritize the things that you may not otherwise be getting to, whether that is learning a new skill or reaching out to family. \n\nGetToThings will provide you with a random selection of short-term Missions and long-term Goals each day, allowing you to get back to the things you really want to be doing.", preferredStyle: .alert)
+                "\nWelcome to GetToThings, an app that allows you to prioritize the things that you may not otherwise be getting to. \n\nGetToThings will provide you with a random and recurring selection of short-term tasks and long-term Goals each day, allowing you to get back to the things you really want to be doing.", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Continue", style: .default, handler: { action in
                 //run your function here
                 self.info()
@@ -96,6 +99,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         checkDate()
         
+        numOfSections = 4
         //Foreground stuff
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -111,7 +115,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //Checks if new day
     func checkDate() {
-        let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date(/*For testing:*/timeIntervalSince1970: 0))
+        let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date(/*For testing:timeIntervalSince1970: 0*/))
         
         if UserDefaults(suiteName: "group.GetToThings")!.bool(forKey: "generated") && !sameDay {
             self.performSegue(withIdentifier: "endDay", sender: self)
@@ -136,7 +140,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBAction func generate(_ sender: Any) {
         //Mark sure it is visible
         if genButton.isHidden == false {
-           
+
             genButton.isHidden = true
             tableContainer.isHidden = false
             
@@ -152,8 +156,24 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             UserDefaults(suiteName: "group.GetToThings")!.set(true, forKey: "generated")
             UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "generateDate")
+            
+            numOfSections = 1
+            todayThingsTable.reloadData()
+            makeTimer()
         }
-        
+    }
+    
+    //Fade in
+    func makeTimer() {
+        _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: false)
+    }
+    
+    @objc func fireTimer(){
+        numOfSections += 1
+        todayThingsTable.reloadData()
+        if numOfSections < 4 {
+            makeTimer()
+        }
     }
     
     //MARK: - Notification Control
@@ -163,7 +183,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func info() {
         let alertController = UIAlertController(title: "Today", message:
-            "The today page allows you to generate your Missions and Goals for the day and indicate good or bad weather. Once your Things are generated, get to work and then check off any Missions you completed and Goals that you worked towards. At the end of the day, they will reset.", preferredStyle: .alert)
+            "Get all of your things for the day right here! Click generate and get to work, checking off any you completed. At the end of the day, they will reset.", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Thanks!", style: .default))
 
         self.present(alertController, animated: true, completion: nil)
@@ -329,13 +349,13 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //Number of sections
     func numberOfSections(in todayThingsTable: UITableView) -> Int {
-        return 4
+        return numOfSections
     }
     
     //Number of rows in each section
     func tableView(_ todayThingsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 0
+            return 1
         } else if section == 3{
             return returnedRecurs.count
         } else {
@@ -346,6 +366,25 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     //Section Titles
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
+//            let date = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
+//
+//            // initialize the date formatter and set the style
+//            let formatter = DateFormatter()
+//            formatter.timeStyle = .none
+//            formatter.dateStyle = .long
+
+            // get the date time String from the date object
+            return "" // October 8, 2016 at 10:48:53 PM
+        } else {
+            return headerNames[section - 1]
+        }
+    }
+    
+    //Setting Row Data
+    func tableView(_ todayThingsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "dateViewer") as! TodayTableViewCell
+            
             let date = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
 
             // initialize the date formatter and set the style
@@ -354,37 +393,37 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             formatter.dateStyle = .long
 
             // get the date time String from the date object
-            return formatter.string(from: date) // October 8, 2016 at 10:48:53 PM
-        } else {
-            return headerNames[section - 1]
-        }
-    }
-    
-    //Setting Row Data
-    func tableView(_ todayThingsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "thingDisplay") as! TodayTableViewCell
-        if indexPath.section != 3 {
-            let thing = returnedThings[indexPath.section - 1][indexPath.row]
-            if(thing.isDone) {
-                cell.accessoryType = .checkmark
-            } else {
-                cell.accessoryType = .none
-            }
+            // October 8, 2016 at 10:48:53 PM
             
-            let text = thing.desc
-            cell.label.text = text
-        } else {
-            let thing = returnedRecurs[indexPath.row]
-            if(thing.isDone) {
-                cell.accessoryType = .checkmark
-            } else {
-                cell.accessoryType = .none
-            }
+            cell.label.text = formatter.string(from: date)
             
-            let text = thing.desc
-            cell.label.text = text
+            return cell
+        } else {
+            let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "thingDisplay") as! TodayTableViewCell
+            if indexPath.section != 3 {
+                let thing = returnedThings[indexPath.section - 1][indexPath.row]
+                if(thing.isDone) {
+                    cell.accessoryType = .checkmark
+                } else {
+                    cell.accessoryType = .none
+                }
+                
+                let text = thing.desc
+                cell.label.text = text
+            } else {
+                let thing = returnedRecurs[indexPath.row]
+                if(thing.isDone) {
+                    cell.accessoryType = .checkmark
+                } else {
+                    cell.accessoryType = .none
+                }
+                
+                let text = thing.desc
+                cell.label.text = text
+            }
+            return cell
         }
-        return cell
+        
     }
     
     //Selection
@@ -447,6 +486,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
         returnedThings = [returnedMissions, returnedGoals]
+        returnedRecurs = RecurringControl.getTodayRecurs()
         
         todayThingsTable.reloadData()
     }
