@@ -276,9 +276,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //MARK: - Saving Day
     func saveDay() {
+        let someDateTime = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
+        
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
-        returnedRecurs = RecurringControl.getTodayRecurs()
+        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: someDateTime)
         
         let allThings = returnedMissions + returnedGoals
         
@@ -297,7 +299,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         //let someDateTime = userCalendar.date(from: dateComponents)
         //----------------------------------
         
-        let someDateTime = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
+        
         
         day.date = someDateTime
         day.ratio = getRatio()

@@ -15,17 +15,9 @@
 		A334574124E1FEFD0084129F /* RecurringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574024E1FEFD0084129F /* RecurringViewController.swift */; };
 		A334574324E207870084129F /* RecurringThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574224E207870084129F /* RecurringThing.swift */; };
 		A334574424E2079D0084129F /* RecurringThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574224E207870084129F /* RecurringThing.swift */; };
-		A334574524E2079E0084129F /* RecurringThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574224E207870084129F /* RecurringThing.swift */; };
 		A334574724E208930084129F /* RecurringControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574624E208930084129F /* RecurringControl.swift */; };
 		A334574924E492350084129F /* NewRecurringTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574824E492350084129F /* NewRecurringTableViewController.swift */; };
 		A334574B24E5E7150084129F /* RecurDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334574A24E5E7150084129F /* RecurDetailTableViewController.swift */; };
-		A361414D24D30F2F0012F766 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A361414C24D30F2F0012F766 /* Messages.framework */; };
-		A361415024D30F2F0012F766 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A361414F24D30F2F0012F766 /* MessagesViewController.swift */; };
-		A361415324D30F2F0012F766 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A361415124D30F2F0012F766 /* MainInterface.storyboard */; };
-		A361415524D30F300012F766 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A361415424D30F300012F766 /* Assets.xcassets */; };
-		A361415924D30F300012F766 /* GetToThings iMessage.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A361414B24D30F2F0012F766 /* GetToThings iMessage.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A361415D24D312080012F766 /* NSCustomPersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C83DD324A9686E005233DB /* NSCustomPersistentContainer.swift */; };
-		A361415E24D312140012F766 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392E8ED243FFBC000570CD2 /* Thing.swift */; };
 		A362F3C924BD6221005B6B4B /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = A362F3C824BD6221005B6B4B /* Day.swift */; };
 		A375D23F24BD09BF003604C5 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A375D23E24BD09BF003604C5 /* CalendarViewController.swift */; };
 		A37F3DC42442D49F00F7917B /* TodayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37F3DC32442D49F00F7917B /* TodayTableViewCell.swift */; };
@@ -54,22 +46,11 @@
 		A3C83DD724A97483005233DB /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392E8ED243FFBC000570CD2 /* Thing.swift */; };
 		A3C83E0424AA98D2005233DB /* EndDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C83E0324AA98D2005233DB /* EndDayViewController.swift */; };
 		A3CE06F024402A1900E1337F /* GoalControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CE06EF24402A1900E1337F /* GoalControl.swift */; };
-		A3F01FE524D3199A005AE8F7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3106AA324A180D3001408DE /* Model.xcdatamodeld */; };
-		A3F01FE624D319DE005AE8F7 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = A362F3C824BD6221005B6B4B /* Day.swift */; };
-		A3F01FE724D319E9005AE8F7 /* SimpleThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3292BA924BE36E000D1840D /* SimpleThing.swift */; };
 		A3F01FE924D31D70005AE8F7 /* ExtensionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01FE824D31D70005AE8F7 /* ExtensionControl.swift */; };
-		A3F01FEA24D31D70005AE8F7 /* ExtensionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01FE824D31D70005AE8F7 /* ExtensionControl.swift */; };
 		A3F425C424C160C800074C07 /* StatisticsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F425C324C160C800074C07 /* StatisticsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A361415724D30F300012F766 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A392E8BF243FF1A000570CD2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A361414A24D30F2F0012F766;
-			remoteInfo = "GetToThings iMessage";
-		};
 		A3C83DC424A9615F005233DB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A392E8BF243FF1A000570CD2 /* Project object */;
@@ -86,7 +67,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				A361415924D30F300012F766 /* GetToThings iMessage.appex in Embed App Extensions */,
 				A3C83DC624A9615F005233DB /* GetToThingsWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -115,12 +95,7 @@
 		A334574624E208930084129F /* RecurringControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringControl.swift; sourceTree = "<group>"; };
 		A334574824E492350084129F /* NewRecurringTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecurringTableViewController.swift; sourceTree = "<group>"; };
 		A334574A24E5E7150084129F /* RecurDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurDetailTableViewController.swift; sourceTree = "<group>"; };
-		A361414B24D30F2F0012F766 /* GetToThings iMessage.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "GetToThings iMessage.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A361414C24D30F2F0012F766 /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
-		A361414F24D30F2F0012F766 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
-		A361415224D30F2F0012F766 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		A361415424D30F300012F766 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A361415624D30F300012F766 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A362F3C824BD6221005B6B4B /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		A375D23E24BD09BF003604C5 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		A37F3DC32442D49F00F7917B /* TodayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTableViewCell.swift; sourceTree = "<group>"; };
@@ -151,7 +126,6 @@
 		A3C83E0324AA98D2005233DB /* EndDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndDayViewController.swift; sourceTree = "<group>"; };
 		A3CE06EF24402A1900E1337F /* GoalControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalControl.swift; sourceTree = "<group>"; };
 		A3F01FE824D31D70005AE8F7 /* ExtensionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionControl.swift; sourceTree = "<group>"; };
-		A3F01FEB24D31FB2005AE8F7 /* GetToThings iMessage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GetToThings iMessage.entitlements"; sourceTree = "<group>"; };
 		A3F425C324C160C800074C07 /* StatisticsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsTableViewController.swift; sourceTree = "<group>"; };
 		AB9F2CC291C96C7EF9B9C6AB /* Pods-GetToThingsWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetToThingsWidget.debug.xcconfig"; path = "Target Support Files/Pods-GetToThingsWidget/Pods-GetToThingsWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		B8C1FCAEF02694786E06B65F /* Pods-GetToThings.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetToThings.release.xcconfig"; path = "Target Support Files/Pods-GetToThings/Pods-GetToThings.release.xcconfig"; sourceTree = "<group>"; };
@@ -159,14 +133,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A361414824D30F2F0012F766 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A361414D24D30F2F0012F766 /* Messages.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A392E8C4243FF1A000570CD2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -196,18 +162,6 @@
 				2261199B918E2C7346B9039F /* Pods-GetToThingsWidget.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		A361414E24D30F2F0012F766 /* GetToThings iMessage */ = {
-			isa = PBXGroup;
-			children = (
-				A3F01FEB24D31FB2005AE8F7 /* GetToThings iMessage.entitlements */,
-				A361414F24D30F2F0012F766 /* MessagesViewController.swift */,
-				A361415124D30F2F0012F766 /* MainInterface.storyboard */,
-				A361415424D30F300012F766 /* Assets.xcassets */,
-				A361415624D30F300012F766 /* Info.plist */,
-			);
-			path = "GetToThings iMessage";
 			sourceTree = "<group>";
 		};
 		A375D23D24BD03A0003604C5 /* Calendar */ = {
@@ -263,7 +217,6 @@
 			children = (
 				A392E8C9243FF1A000570CD2 /* GetToThings */,
 				A3C83DBD24A9615F005233DB /* GetToThingsWidget */,
-				A361414E24D30F2F0012F766 /* GetToThings iMessage */,
 				A3C83DBA24A9615F005233DB /* Frameworks */,
 				A392E8C8243FF1A000570CD2 /* Products */,
 				5AAD53084C36B1F9BAB161FA /* Pods */,
@@ -275,7 +228,6 @@
 			children = (
 				A392E8C7243FF1A000570CD2 /* GetToThings.app */,
 				A3C83DB924A9615F005233DB /* GetToThingsWidget.appex */,
-				A361414B24D30F2F0012F766 /* GetToThings iMessage.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -359,23 +311,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A361414A24D30F2F0012F766 /* GetToThings iMessage */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A361415C24D30F300012F766 /* Build configuration list for PBXNativeTarget "GetToThings iMessage" */;
-			buildPhases = (
-				A361414724D30F2F0012F766 /* Sources */,
-				A361414824D30F2F0012F766 /* Frameworks */,
-				A361414924D30F2F0012F766 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "GetToThings iMessage";
-			productName = "GetToThings iMessage";
-			productReference = A361414B24D30F2F0012F766 /* GetToThings iMessage.appex */;
-			productType = "com.apple.product-type.app-extension.messages";
-		};
 		A392E8C6243FF1A000570CD2 /* GetToThings */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A392E8DB243FF1A200570CD2 /* Build configuration list for PBXNativeTarget "GetToThings" */;
@@ -392,7 +327,6 @@
 			);
 			dependencies = (
 				A3C83DC524A9615F005233DB /* PBXTargetDependency */,
-				A361415824D30F300012F766 /* PBXTargetDependency */,
 			);
 			name = GetToThings;
 			productName = GetToThings;
@@ -427,9 +361,6 @@
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Logan Pfahler";
 				TargetAttributes = {
-					A361414A24D30F2F0012F766 = {
-						CreatedOnToolsVersion = 11.6;
-					};
 					A392E8C6243FF1A000570CD2 = {
 						CreatedOnToolsVersion = 11.4;
 						LastSwiftMigration = 1150;
@@ -454,21 +385,11 @@
 			targets = (
 				A392E8C6243FF1A000570CD2 /* GetToThings */,
 				A3C83DB824A9615F005233DB /* GetToThingsWidget */,
-				A361414A24D30F2F0012F766 /* GetToThings iMessage */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A361414924D30F2F0012F766 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A361415524D30F300012F766 /* Assets.xcassets in Resources */,
-				A361415324D30F2F0012F766 /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A392E8C5243FF1A000570CD2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -554,21 +475,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A361414724D30F2F0012F766 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A361415D24D312080012F766 /* NSCustomPersistentContainer.swift in Sources */,
-				A361415E24D312140012F766 /* Thing.swift in Sources */,
-				A334574524E2079E0084129F /* RecurringThing.swift in Sources */,
-				A361415024D30F2F0012F766 /* MessagesViewController.swift in Sources */,
-				A3F01FE624D319DE005AE8F7 /* Day.swift in Sources */,
-				A3F01FE724D319E9005AE8F7 /* SimpleThing.swift in Sources */,
-				A3F01FEA24D31D70005AE8F7 /* ExtensionControl.swift in Sources */,
-				A3F01FE524D3199A005AE8F7 /* Model.xcdatamodeld in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A392E8C3243FF1A000570CD2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -619,11 +525,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A361415824D30F300012F766 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A361414A24D30F2F0012F766 /* GetToThings iMessage */;
-			targetProxy = A361415724D30F300012F766 /* PBXContainerItemProxy */;
-		};
 		A3C83DC524A9615F005233DB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A3C83DB824A9615F005233DB /* GetToThingsWidget */;
@@ -632,14 +533,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A361415124D30F2F0012F766 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A361415224D30F2F0012F766 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		A392E8D0243FF1A000570CD2 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -667,50 +560,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		A361415A24D30F300012F766 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
-				CODE_SIGN_ENTITLEMENTS = "GetToThings iMessage/GetToThings iMessage.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D33VBD4RV3;
-				INFOPLIST_FILE = "GetToThings iMessage/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.loganpfahler.GetToThings.GetToThings-iMessage";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		A361415B24D30F300012F766 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
-				CODE_SIGN_ENTITLEMENTS = "GetToThings iMessage/GetToThings iMessage.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D33VBD4RV3;
-				INFOPLIST_FILE = "GetToThings iMessage/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.loganpfahler.GetToThings.GetToThings-iMessage";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		A392E8D9243FF1A200570CD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -840,7 +689,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loganpfahler.GetToThings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -864,7 +713,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loganpfahler.GetToThings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -886,7 +735,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loganpfahler.GetToThings.GetToThingsWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -909,7 +758,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loganpfahler.GetToThings.GetToThingsWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -921,15 +770,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A361415C24D30F300012F766 /* Build configuration list for PBXNativeTarget "GetToThings iMessage" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A361415A24D30F300012F766 /* Debug */,
-				A361415B24D30F300012F766 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		A392E8C2243FF1A000570CD2 /* Build configuration list for PBXProject "GetToThings" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

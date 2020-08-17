@@ -82,6 +82,35 @@ class RecurringControl {
         return returnRecurs
     }
     
+    static func getThisDayRecurs(passedDate: Date) -> [RecurringThing] {
+        let date = passedDate
+        let dayOfWeek = date.dayNumberOfWeek()! - 1
+        print(dayOfWeek)
+        
+        let allFromDay = getDayRecurs()[dayOfWeek]
+        var returnRecurs:[RecurringThing] = []
+        
+        for day in allFromDay {
+            if day.dateAdded! <= Date() {
+                let initialWeekOfYear = Calendar.current.component(.weekOfYear, from: day.dateAdded!)
+                let currentWeekOfYear = Calendar.current.component(.weekOfYear, from: passedDate)
+                let diff = initialWeekOfYear % Int(day.frequency)
+                let curMod = currentWeekOfYear % Int(day.frequency)
+                
+                if diff == curMod {
+                    print("Check!")
+                    returnRecurs.append(day)
+                } else {
+                    print("NO")
+                }
+            } else {
+                print("Too early!")
+            }
+        }
+        
+        return returnRecurs
+    }
+    
     
     static func getSundayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
         var recurs:[RecurringThing] = []
