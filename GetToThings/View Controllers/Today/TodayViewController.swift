@@ -207,6 +207,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     @IBAction func reset(_ sender: Any) {
+        let someDateTime = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
+        
        //Missions
         let allMissions = MissionControl.getMissions()
         let context = AppDelegate.viewContext
@@ -249,7 +251,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         //Recurs
-        let allRecurs = RecurringControl.getTodayRecurs()
+        let allRecurs = RecurringControl.getThisDayRecurs(passedDate: someDateTime)
         for recur in allRecurs {
             if let _ = sender as? UIStoryboardSegue {
                 recur.numGenerated += 1
@@ -327,9 +329,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func getRatio() -> Double{
+        let someDateTime = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
+        
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
-        returnedRecurs = RecurringControl.getTodayRecurs()
+        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: someDateTime)
         
         let allThings = returnedMissions + returnedGoals
         var complete = 0

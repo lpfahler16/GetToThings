@@ -69,7 +69,8 @@ class DayViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             let cell = tableView.dequeueReusableCell(withIdentifier: "normal")
             let things = day?.theThings?.allObjects
             if things != nil {
-                let thing = things![indexPath.row] as! SimpleThing
+                let theThings = things as! [SimpleThing]
+                let thing = theThings[indexPath.row]
                 if(thing.completed) {
                     cell?.accessoryType = .checkmark
                 } else {
