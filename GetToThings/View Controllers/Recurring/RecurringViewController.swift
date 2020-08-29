@@ -11,6 +11,7 @@ import UIKit
 class RecurringViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var recurringTable: UITableView!
+    @IBOutlet var mainView: UIView!
     let header = ["SUN", "MON", "TUES", "WED", "THURS", "FRI", "SAT"]
     var recur: RecurringThing = RecurringThing()
     
@@ -27,6 +28,9 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
         // Do any additional setup after loading the view.
         recurringTable.delegate = self
         recurringTable.dataSource = self
+        
+        //Color
+        mainView.backgroundColor = UD.color
     }
     
     @IBAction func infoClicked(_ sender: Any) {

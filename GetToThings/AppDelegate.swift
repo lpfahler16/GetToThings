@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import FSCalendar
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         // Override point for customization after application launch.
+        NavBar.appearance().barTintColor = UD.color
+        PopUpNav.appearance().tintColor = UD.color
+        UITableViewCell.appearance().tintColor = UD.color
+        UISwitch.appearance().onTintColor = UD.color
+        
         
         return true
     }

@@ -33,6 +33,10 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         missionsTable.dataSource = self
         
         setToMission = thingSelector.selectedSegmentIndex == 0
+        
+        
+        //Color Setting
+        thingSelector.backgroundColor = UD.color
     }
     
     @IBAction func infoClicked(_ sender: Any) {

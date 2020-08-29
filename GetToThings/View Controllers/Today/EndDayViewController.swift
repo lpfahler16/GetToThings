@@ -12,6 +12,8 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     //MARK: - Outlets and Instance Data
     @IBOutlet weak var todayThingsTable: UITableView!
+    @IBOutlet weak var endDayHeader: UILabel!
+    @IBOutlet weak var endDayButton: UIButton!
     
     var returnedMissions:[Thing] = []
     var returnedGoals:[Thing] = []
@@ -26,12 +28,14 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
-        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date)
+        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate)
         returnedThings = [returnedMissions, returnedGoals]
         
         self.todayThingsTable.delegate = self
         self.todayThingsTable.dataSource = self
         
+        endDayHeader.textColor = UD.color
+        endDayButton.backgroundColor = UD.color
         
     }
     
@@ -56,7 +60,7 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //Section Titles
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            let date = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
+            let date = UD.genDate
 
             // initialize the date formatter and set the style
             let formatter = DateFormatter()

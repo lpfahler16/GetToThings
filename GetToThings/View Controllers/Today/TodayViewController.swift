@@ -17,6 +17,25 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var genButton: UIView!
     @IBOutlet weak var todayThingsTable: UITableView!
     @IBOutlet weak var tableContainer: UIView!
+    @IBOutlet weak var weatherButton: UIButton!
+    @IBOutlet weak var realGenButton: UIButton!
+    
+    //Color Setup
+    @IBOutlet var mainView: UIView!
+    
+    
+    
+    let colors = [UIColor(named: "Cal 1"),
+        UIColor(named: "Cal 2"),
+        UIColor(named: "Cal 3"),
+        UIColor(named: "Cal 4"),
+        UIColor(named: "Cal 5"),
+        UIColor(named: "Cal 6"),
+        UIColor(named: "Cal 7"),
+        UIColor(named: "Cal 8"),
+        UIColor(named: "Cal 9"),
+        UIColor(named: "Cal 10"),
+        UIColor(named: "Cal 11")]
     
     var returnedMissions:[Thing] = []
     var returnedGoals:[Thing] = []
@@ -51,20 +70,18 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             UserDefaults.standard.set(1, forKey: "numMissions")
             UserDefaults.standard.set(1, forKey: "numGoals")
-            
-            //Statistics
+            UserDefaults.standard.set(0, forKey: "color")
             
             //Dates
             UserDefaults(suiteName: "group.GetToThings")!.set(false, forKey: "generated")
             UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "generateDate")
             UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "firstLaunchDate")
             
+            //Initial Data
             MissionControl.newMission("Ex 1: Go for a walk", true, true)
             MissionControl.newMission("Ex 2: Try a new recipe", false, true)
-            
             GoalControl.newGoal("Ex 1: Learn to play an instrument", false, true)
             GoalControl.newGoal("Ex 2: Learn to draw", false, true)
-            
             RecurringControl.newRecur("Ex: Give a compliment!", "0123456", 1, Date())
             
             //Alert
@@ -79,7 +96,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         //Setup view
-        if UserDefaults(suiteName: "group.GetToThings")!.bool(forKey: "generated") {
+        if UD.generated {
             tableContainer.isHidden = false
             genButton.isHidden = true
             
@@ -103,6 +120,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         //Foreground stuff
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
+        //Colors
+        mainView.backgroundColor = UD.color
+        realGenButton.backgroundColor = UD.color
+        weatherButton.tintColor = UD.color
     }
     
     @objc func appMovedToForeground() {
@@ -117,7 +139,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     func checkDate() {
         let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date(/*For testing:timeIntervalSince1970: 0*/))
         
-        if UserDefaults(suiteName: "group.GetToThings")!.bool(forKey: "generated") && !sameDay {
+        if UD.generated && !sameDay {
             self.performSegue(withIdentifier: "endDay", sender: self)
         }
     }
@@ -403,6 +425,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             cell.label.text = formatter.string(from: date)
             
+            let ratio = getRatio()
+            cell.label.textColor = colors[Int(ratio*10)]
+            
             return cell
         } else {
             let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "thingDisplay") as! TodayTableViewCell
@@ -469,6 +494,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         } catch {
             print("**** Save failed ****")
         }
+        reloadView()
     }
     
     //MARK: - Segue Functions

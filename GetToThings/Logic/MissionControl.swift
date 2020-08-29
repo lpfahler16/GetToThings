@@ -64,7 +64,7 @@ class MissionControl {
     
     static func generateTodayMissions(_ goodWeather: Bool) {
         let allMissions = getMissions(goodWeather).shuffled()
-        let theseMissions = Array(allMissions.prefix(Int(UserDefaults.standard.double(forKey: "numMissions"))))
+        let theseMissions = Array(allMissions.prefix(Int(UD.numTasks)))
         for mission in theseMissions {
             mission.today = true
         }

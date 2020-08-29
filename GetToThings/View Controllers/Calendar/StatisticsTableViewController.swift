@@ -243,7 +243,7 @@ class StatisticsTableViewController: UITableViewController {
             } else if indexPath.row == 1 {
                 cell?.textLabel?.text = "Total Days"
                 
-                let firstDate = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "firstLaunchDate") as! Date
+                let firstDate = UD.firstLaunch
                 let dayDifference = Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: firstDate), to: Calendar.current.startOfDay(for: Date())).day
                 
                 
