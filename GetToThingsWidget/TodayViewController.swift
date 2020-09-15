@@ -15,11 +15,11 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
     @IBOutlet weak var noText: UILabel!
     @IBOutlet weak var mainTable: UITableView!
     
-    var returnedMissions:[Thing] = []
-    var returnedGoals:[Thing] = []
+    var returnedMissions:[RandomTask] = []
+    var returnedGoals:[RandomGoal] = []
     var returnedRecurs:[RecurringThing] = []
     let headerNames = ["Missions", "Goals"]
-    var returnedThings:[Thing] = []
+    var returnedThings:[RandomThing] = []
     var numRows = 2
     
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
         returnedGoals = ExtensionControl.getTodayGoals()
         returnedRecurs = ExtensionControl.getTodayRecurs()
         
-        returnedThings = returnedMissions + returnedGoals
+        returnedThings = returnedMissions as [RandomThing] + returnedGoals as [RandomThing]
         
         mainTable.delegate = self
         mainTable.dataSource = self
@@ -49,7 +49,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
         returnedGoals = ExtensionControl.getTodayGoals()
         returnedRecurs = ExtensionControl.getTodayRecurs()
         print(returnedRecurs.count)
-        returnedThings = returnedMissions + returnedGoals
+        returnedThings = returnedMissions as [RandomThing] + returnedGoals as [RandomThing]
         
         let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date())
         

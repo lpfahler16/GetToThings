@@ -18,8 +18,8 @@ extension Date {
 class RecurringControl {
     
     //Gets all missions
-    static func getRecurs() -> [RecurringThing] {
-        let request: NSFetchRequest<RecurringThing> = RecurringThing.fetchRequest()
+    static func getRecurs() -> [WeekRecur] {
+        let request: NSFetchRequest<WeekRecur> = WeekRecur.fetchRequest()
 
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
         
@@ -31,7 +31,7 @@ class RecurringControl {
     //Adds new Recur
     static func newRecur(_ desc: String, _ daysOfWeek: String, _ frequency: Int16, _ date: Date) {
         let context = AppDelegate.viewContext
-        let thing = RecurringThing(context: context)
+        let thing = WeekRecur(context: context)
         
         thing.desc = desc
         thing.daysOfWeek = daysOfWeek
@@ -48,18 +48,18 @@ class RecurringControl {
         print("Added!")
     }
     
-    static func getDayRecurs() -> [[RecurringThing]] {
+    static func getDayRecurs() -> [[WeekRecur]] {
         let allRecurs = getRecurs()
         return [getSundayRecurs(allRecurs), getMondayRecurs(allRecurs), getTuesdayRecurs(allRecurs), getWednesdayRecurs(allRecurs), getThursdayRecurs(allRecurs), getFridayRecurs(allRecurs), getSaturdayRecurs(allRecurs)]
     }
     
-    static func getTodayRecurs() -> [RecurringThing] {
+    static func getTodayRecurs() -> [WeekRecur] {
         let date = Date()
         let dayOfWeek = date.dayNumberOfWeek()! - 1
         print(dayOfWeek)
         
         let allFromDay = getDayRecurs()[dayOfWeek]
-        var returnRecurs:[RecurringThing] = []
+        var returnRecurs:[WeekRecur] = []
         
         for day in allFromDay {
             if day.dateAdded! <= Date() {
@@ -82,13 +82,13 @@ class RecurringControl {
         return returnRecurs
     }
     
-    static func getThisDayRecurs(passedDate: Date) -> [RecurringThing] {
+    static func getThisDayRecurs(passedDate: Date) -> [WeekRecur] {
         let date = passedDate
         let dayOfWeek = date.dayNumberOfWeek()! - 1
         print(dayOfWeek)
         
         let allFromDay = getDayRecurs()[dayOfWeek]
-        var returnRecurs:[RecurringThing] = []
+        var returnRecurs:[WeekRecur] = []
         
         for day in allFromDay {
             if day.dateAdded! <= Date() {
@@ -112,8 +112,8 @@ class RecurringControl {
     }
     
     
-    static func getSundayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
-        var recurs:[RecurringThing] = []
+    static func getSundayRecurs(_ allRecurs: [WeekRecur]) -> [WeekRecur]{
+        var recurs:[WeekRecur] = []
         for recur in allRecurs {
             if recur.daysOfWeek!.contains(Character("0")) {
                 recurs.append(recur)
@@ -122,8 +122,8 @@ class RecurringControl {
         return recurs
     }
     
-    static func getMondayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
-        var recurs:[RecurringThing] = []
+    static func getMondayRecurs(_ allRecurs: [WeekRecur]) -> [WeekRecur]{
+        var recurs:[WeekRecur] = []
         for recur in allRecurs {
             if recur.daysOfWeek!.contains(Character("1")) {
                 recurs.append(recur)
@@ -132,8 +132,8 @@ class RecurringControl {
         return recurs
     }
     
-    static func getTuesdayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
-        var recurs:[RecurringThing] = []
+    static func getTuesdayRecurs(_ allRecurs: [WeekRecur]) -> [WeekRecur]{
+        var recurs:[WeekRecur] = []
         for recur in allRecurs {
             if recur.daysOfWeek!.contains(Character("2")) {
                 recurs.append(recur)
@@ -142,8 +142,8 @@ class RecurringControl {
         return recurs
     }
     
-    static func getWednesdayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
-        var recurs:[RecurringThing] = []
+    static func getWednesdayRecurs(_ allRecurs: [WeekRecur]) -> [WeekRecur]{
+        var recurs:[WeekRecur] = []
         for recur in allRecurs {
             if recur.daysOfWeek!.contains(Character("3")) {
                 recurs.append(recur)
@@ -152,8 +152,8 @@ class RecurringControl {
         return recurs
     }
     
-    static func getThursdayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
-        var recurs:[RecurringThing] = []
+    static func getThursdayRecurs(_ allRecurs: [WeekRecur]) -> [WeekRecur]{
+        var recurs:[WeekRecur] = []
         for recur in allRecurs {
             if recur.daysOfWeek!.contains(Character("4")) {
                 recurs.append(recur)
@@ -162,8 +162,8 @@ class RecurringControl {
         return recurs
     }
     
-    static func getFridayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
-        var recurs:[RecurringThing] = []
+    static func getFridayRecurs(_ allRecurs: [WeekRecur]) -> [WeekRecur]{
+        var recurs:[WeekRecur] = []
         for recur in allRecurs {
             if recur.daysOfWeek!.contains(Character("5")) {
                 recurs.append(recur)
@@ -172,8 +172,8 @@ class RecurringControl {
         return recurs
     }
     
-    static func getSaturdayRecurs(_ allRecurs: [RecurringThing]) -> [RecurringThing]{
-        var recurs:[RecurringThing] = []
+    static func getSaturdayRecurs(_ allRecurs: [WeekRecur]) -> [WeekRecur]{
+        var recurs:[WeekRecur] = []
         for recur in allRecurs {
             if recur.daysOfWeek!.contains(Character("6")) {
                 recurs.append(recur)

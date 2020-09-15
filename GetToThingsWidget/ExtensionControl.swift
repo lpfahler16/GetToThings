@@ -19,33 +19,30 @@ extension Date {
 class ExtensionControl {
     //MARK: - Get Things
     
-    static func getMissions() -> [Thing] {
-        let request: NSFetchRequest<Thing> = Thing.fetchRequest()
+    static func getMissions() -> [RandomTask] {
+        let request: NSFetchRequest<RandomTask> = RandomTask.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
-        request.predicate = NSPredicate(format: "isMission = %d", true)
         
         let context = self.persistentContainer.viewContext
         let allMissions = try? context.fetch(request)
         return allMissions!
     }
     
-    static func getGoals() -> [Thing] {
-        let request: NSFetchRequest<Thing> = Thing.fetchRequest()
+    static func getGoals() -> [RandomGoal] {
+        let request: NSFetchRequest<RandomGoal> = RandomGoal.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
-        request.predicate = NSPredicate(format: "isMission = %d", false)
         
         let context = self.persistentContainer.viewContext
         let allGoals = try? context.fetch(request)
         return allGoals!
     }
     
-    static func getTodayMissions() -> [Thing]{
-        let request: NSFetchRequest<Thing> = Thing.fetchRequest()
+    static func getTodayMissions() -> [RandomTask]{
+        let request: NSFetchRequest<RandomTask> = RandomTask.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
         
-        let missionPredicate = NSPredicate(format: "isMission = %d", true)
         let todayPredicate = NSPredicate(format: "today = %d", true)
-        let predicates = [missionPredicate, todayPredicate]
+        let predicates = [todayPredicate]
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
         let context = self.persistentContainer.viewContext
@@ -53,13 +50,12 @@ class ExtensionControl {
         return todayMissions!
     }
     
-    static func getTodayGoals() -> [Thing]{
-        let request: NSFetchRequest<Thing> = Thing.fetchRequest()
+    static func getTodayGoals() -> [RandomGoal]{
+        let request: NSFetchRequest<RandomGoal> = RandomGoal.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
         
-        let goalPredicate = NSPredicate(format: "isMission = %d", false)
         let todayPredicate = NSPredicate(format: "today = %d", true)
-        let predicates = [goalPredicate, todayPredicate]
+        let predicates = [todayPredicate]
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
         let context = self.persistentContainer.viewContext

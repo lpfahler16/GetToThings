@@ -15,11 +15,11 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var endDayHeader: UILabel!
     @IBOutlet weak var endDayButton: UIButton!
     
-    var returnedMissions:[Thing] = []
-    var returnedGoals:[Thing] = []
-    var returnedRecurs:[RecurringThing] = []
+    var returnedMissions:[RandomTask] = []
+    var returnedGoals:[RandomGoal] = []
+    var returnedRecurs:[WeekRecur] = []
     let headerNames = ["Tasks", "Goals", "Recurring"]
-    var returnedThings:[[Thing]] = []
+    var returnedThings:[[RandomThing]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
         returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate)
-        returnedThings = [returnedMissions, returnedGoals]
+        returnedThings = [returnedMissions as [RandomThing], returnedGoals as [RandomThing]]
         
         self.todayThingsTable.delegate = self
         self.todayThingsTable.dataSource = self

@@ -13,7 +13,7 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var recurringTable: UITableView!
     @IBOutlet var mainView: UIView!
     let header = ["SUN", "MON", "TUES", "WED", "THURS", "FRI", "SAT"]
-    var recur: RecurringThing = RecurringThing()
+    var recur: RecurThing = RecurThing()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +116,7 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
             let secondViewController = segue.destination as! RecurDetailTableViewController
             
             // set a variable in the second view controller with the data to pass
-            secondViewController.recur = recur
+            secondViewController.recur = recur as! WeekRecur
         }
     }
     

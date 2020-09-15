@@ -12,15 +12,13 @@ import CoreData
 class MissionControl {
     
     //Gets all missions
-    static func getMissions(_ goodWeather: Bool) -> [Thing] {
-        let request: NSFetchRequest<Thing> = Thing.fetchRequest()
+    static func getMissions(_ goodWeather: Bool) -> [RandomTask] {
+        let request: NSFetchRequest<RandomTask> = RandomTask.fetchRequest()
         
         if goodWeather {
-            request.predicate = NSPredicate(format: "isMission = %d", true)
         } else {
-            let missionPredicate = NSPredicate(format: "isMission = %d", true)
             let weatherPredicate = NSPredicate(format: "needsGoodWeather = %d", false)
-            let predicates = [missionPredicate, weatherPredicate]
+            let predicates = [weatherPredicate]
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         }
         
@@ -31,10 +29,9 @@ class MissionControl {
         return allMissions!
     }
     
-    static func getMissions() -> [Thing] {
-        let request: NSFetchRequest<Thing> = Thing.fetchRequest()
+    static func getMissions() -> [RandomTask] {
+        let request: NSFetchRequest<RandomTask> = RandomTask.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
-        request.predicate = NSPredicate(format: "isMission = %d", true)
         
         let context = AppDelegate.viewContext
         let allMissions = try? context.fetch(request)
@@ -44,12 +41,11 @@ class MissionControl {
     //Adds new mission
     static func newMission(_ desc: String, _ needsGoodWeather: Bool, _ replacement: Bool) {
         let context = AppDelegate.viewContext
-        let thing = Thing(context: context)
+        let thing = RandomTask(context: context)
         
         thing.desc = desc
         thing.needsGoodWeather = needsGoodWeather
         thing.replacement = replacement
-        thing.isMission = true
         thing.today = false
         thing.numCompleted = 0
         thing.numGenerated = 0
@@ -78,13 +74,12 @@ class MissionControl {
         }
     }
     
-    static func getTodayMissions() -> [Thing]{
-        let request: NSFetchRequest<Thing> = Thing.fetchRequest()
+    static func getTodayMissions() -> [RandomTask]{
+        let request: NSFetchRequest<RandomTask> = RandomTask.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
         
-        let missionPredicate = NSPredicate(format: "isMission = %d", true)
         let todayPredicate = NSPredicate(format: "today = %d", true)
-        let predicates = [missionPredicate, todayPredicate]
+        let predicates = [todayPredicate]
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         let context = AppDelegate.viewContext
         context.refreshAllObjects()

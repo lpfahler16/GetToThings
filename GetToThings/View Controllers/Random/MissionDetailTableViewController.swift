@@ -23,7 +23,7 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     
-    var thing: Thing = Thing()
+    var thing: RandomThing = RandomThing()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
         replace.isOn = thing.replacement
         completedRatio.text = "\(thing.numCompleted)/\(thing.numGenerated)"
         
-        if thing.isMission {
+        if let _ = thing as? RandomTask {
             taskRow.accessoryType = .checkmark
             goalRow.accessoryType = .none
         } else {
@@ -64,11 +64,11 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
             if indexPath.row == 0 {
                 taskRow.accessoryType = .checkmark
                 goalRow.accessoryType = .none
-                thing.isMission = true
+                //TODO: - convert
             } else {
                 taskRow.accessoryType = .none
                 goalRow.accessoryType = .checkmark
-                thing.isMission = false
+                //TODO: - convert
             }
         }
         

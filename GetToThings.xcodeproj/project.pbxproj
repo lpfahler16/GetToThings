@@ -36,6 +36,7 @@
 		A375D23F24BD09BF003604C5 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A375D23E24BD09BF003604C5 /* CalendarViewController.swift */; };
 		A37D068125105F3A00621754 /* WeekRecur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D068025105F3A00621754 /* WeekRecur.swift */; };
 		A37D068225105F3A00621754 /* WeekRecur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D068025105F3A00621754 /* WeekRecur.swift */; };
+		A37D0684251069FB00621754 /* Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D0683251069FB00621754 /* Conversion.swift */; };
 		A37F3DC42442D49F00F7917B /* TodayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37F3DC32442D49F00F7917B /* TodayTableViewCell.swift */; };
 		A38448BC24A682F800E69411 /* NewMissionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38448BB24A682F800E69411 /* NewMissionTableViewController.swift */; };
 		A38448BE24A6B11500E69411 /* MissionDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38448BD24A6B11500E69411 /* MissionDetailTableViewController.swift */; };
@@ -124,6 +125,7 @@
 		A36BD3B224FA073F00C2CC1B /* ThemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
 		A375D23E24BD09BF003604C5 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		A37D068025105F3A00621754 /* WeekRecur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekRecur.swift; sourceTree = "<group>"; };
+		A37D0683251069FB00621754 /* Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversion.swift; sourceTree = "<group>"; usesTabs = 0; };
 		A37F3DC32442D49F00F7917B /* TodayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTableViewCell.swift; sourceTree = "<group>"; };
 		A38448BB24A682F800E69411 /* NewMissionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMissionTableViewController.swift; sourceTree = "<group>"; };
 		A38448BD24A6B11500E69411 /* MissionDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -193,7 +195,6 @@
 		A3310E89251058B2001B3D3F /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				A3310E8A25105CE4001B3D3F /* Old */,
 				A3310E8B25105D58001B3D3F /* AllThing.swift */,
 				A3310E8E25105D95001B3D3F /* RandomThing.swift */,
 				A3310E9125105DC6001B3D3F /* RecurThing.swift */,
@@ -202,6 +203,7 @@
 				A3310E9725105E77001B3D3F /* RandomGoal.swift */,
 				A3292BA924BE36E000D1840D /* SimpleThing.swift */,
 				A362F3C824BD6221005B6B4B /* Day.swift */,
+				A3310E8A25105CE4001B3D3F /* Old */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -340,6 +342,7 @@
 				A3CE06EF24402A1900E1337F /* GoalControl.swift */,
 				A334574624E208930084129F /* RecurringControl.swift */,
 				A36BD3A024F9DC9500C2CC1B /* Settings.swift */,
+				A37D0683251069FB00621754 /* Conversion.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				A3899F232440102D00CCB23C /* TodayViewController.swift in Sources */,
 				A392E8CD243FF1A000570CD2 /* SceneDelegate.swift in Sources */,
 				A38448BC24A682F800E69411 /* NewMissionTableViewController.swift in Sources */,
+				A37D0684251069FB00621754 /* Conversion.swift in Sources */,
 				A3292BAA24BE36E000D1840D /* SimpleThing.swift in Sources */,
 				A37F3DC42442D49F00F7917B /* TodayTableViewCell.swift in Sources */,
 				A36BD3AB24F9FB7200C2CC1B /* PopUpNav.swift in Sources */,

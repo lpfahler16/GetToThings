@@ -16,7 +16,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var missionsTable: UITableView!
     @IBOutlet weak var thingSelector: UISegmentedControl!
     
-    var thing: Thing = Thing()
+    var thing: RandomThing = RandomThing()
     var setToMission = true
     
     override func viewDidLoad() {

@@ -37,11 +37,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         UIColor(named: "Cal 10"),
         UIColor(named: "Cal 11")]
     
-    var returnedMissions:[Thing] = []
-    var returnedGoals:[Thing] = []
-    var returnedRecurs:[RecurringThing] = []
+    var returnedMissions:[RandomTask] = []
+    var returnedGoals:[RandomGoal] = []
+    var returnedRecurs:[WeekRecur] = []
     let headerNames = ["Tasks", "Goals", "Recurring"]
-    var returnedThings:[[Thing]] = []
+    var returnedThings:[[AllThing]] = []
     var goodWeather = true
     
     var numOfSections:Int = 4
@@ -63,6 +63,10 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             if UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "firstLaunchDate") == nil {
                 UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "firstLaunchDate")
             }
+            if !(UserDefaults.standard.bool(forKey: "converted")) {
+                Conversion.convertAll()
+                UserDefaults.standard.set(true, forKey: "converted")
+            }
         } else {
             print("First launch, setting UserDefault.")
             
@@ -71,6 +75,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             UserDefaults.standard.set(1, forKey: "numMissions")
             UserDefaults.standard.set(1, forKey: "numGoals")
             UserDefaults.standard.set(0, forKey: "color")
+            UserDefaults.standard.set(true, forKey: "converted")
             
             //Dates
             UserDefaults(suiteName: "group.GetToThings")!.set(false, forKey: "generated")
@@ -426,7 +431,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             cell.label.text = formatter.string(from: date)
             
             let ratio = getRatio()
-            cell.label.textColor = colors[Int(ratio*10)]
+            //cell.label.textColor = colors[Int(ratio*10)]
             
             return cell
         } else {

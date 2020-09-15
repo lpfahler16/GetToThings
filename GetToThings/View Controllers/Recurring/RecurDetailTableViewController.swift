@@ -11,7 +11,7 @@ import UIKit
 class RecurDetailTableViewController: UITableViewController, UITextFieldDelegate {
     
     
-    var recur: RecurringThing = RecurringThing()
+    var recur: WeekRecur = WeekRecur()
     
     @IBOutlet weak var thingText: UITextField!
     @IBOutlet weak var startDate: UILabel!
