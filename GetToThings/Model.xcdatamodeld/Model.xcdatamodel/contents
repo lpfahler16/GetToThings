@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AllThing" representedClassName="AllThing" isAbstract="YES" syncable="YES" codeGenerationType="category">
+        <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="isDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="numCompleted" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="numGenerated" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="Day" representedClassName=".Day" syncable="YES" codeGenerationType="category">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="ratio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="theThings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SimpleThing" inverseName="theDay" inverseEntity="SimpleThing"/>
+    </entity>
+    <entity name="RandomGoal" representedClassName="RandomGoal" parentEntity="RandomThing" syncable="YES" codeGenerationType="category"/>
+    <entity name="RandomTask" representedClassName="RandomTask" parentEntity="RandomThing" syncable="YES" codeGenerationType="category"/>
+    <entity name="RandomThing" representedClassName="RandomThing" isAbstract="YES" parentEntity="AllThing" syncable="YES" codeGenerationType="category">
+        <attribute name="needsGoodWeather" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="replacement" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="today" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <entity name="RecurringThing" representedClassName=".RecurringThing" syncable="YES" codeGenerationType="category">
         <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -14,6 +28,7 @@
         <attribute name="numCompleted" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="numGenerated" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="RecurThing" representedClassName="RecurThing" isAbstract="YES" parentEntity="AllThing" syncable="YES" codeGenerationType="category"/>
     <entity name="SimpleThing" representedClassName=".SimpleThing" syncable="YES" codeGenerationType="category">
         <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
@@ -30,10 +45,20 @@
         <attribute name="replacement" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="today" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
+    <entity name="WeekRecur" representedClassName="WeekRecur" parentEntity="RecurThing" syncable="YES" codeGenerationType="category">
+        <attribute name="daysOfWeek" optional="YES" attributeType="String"/>
+        <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <elements>
+        <element name="AllThing" positionX="64.84765625" positionY="-302.3515625" width="128" height="118"/>
         <element name="Day" positionX="319.34375" positionY="24.05078125" width="128" height="88"/>
+        <element name="RandomGoal" positionX="-8.50390625" positionY="-84.0078125" width="128" height="43"/>
+        <element name="RandomTask" positionX="-183.59375" positionY="-85.12109375" width="128" height="43"/>
+        <element name="RandomThing" positionX="-84.36328125" positionY="-202.2578125" width="128" height="88"/>
+        <element name="RecurringThing" positionX="85.65234375" positionY="67.4609375" width="128" height="148"/>
+        <element name="RecurThing" positionX="222.609375" positionY="-199.61328125" width="128" height="43"/>
         <element name="SimpleThing" positionX="295.9140625" positionY="153.67578125" width="128" height="88"/>
-        <element name="Thing" positionX="-36" positionY="9" width="128" height="178"/>
-        <element name="RecurringThing" positionX="144" positionY="108" width="128" height="148"/>
+        <element name="Thing" positionX="-54.1484375" positionY="69.04296875" width="128" height="178"/>
+        <element name="WeekRecur" positionX="154.375" positionY="-104.203125" width="128" height="73"/>
     </elements>
 </model>
