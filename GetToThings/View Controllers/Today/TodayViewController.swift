@@ -67,7 +67,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 Conversion.convertAll()
                 UserDefaults.standard.set(true, forKey: "converted")
             }
-        } else {
+        } else { // FIRST LAUNCH
             print("First launch, setting UserDefault.")
             
             //Settings
@@ -107,7 +107,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             returnedMissions = MissionControl.getTodayMissions()
             returnedGoals = GoalControl.getTodayGoals()
-            returnedRecurs = RecurringControl.getTodayRecurs()
+            returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate)
         } else {
             tableContainer.isHidden = true
             genButton.isHidden = false
@@ -130,6 +130,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         mainView.backgroundColor = UD.color
         realGenButton.backgroundColor = UD.color
         weatherButton.tintColor = UD.color
+        
+        
+        Conversion.convertAll()
     }
     
     @objc func appMovedToForeground() {
@@ -431,7 +434,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             cell.label.text = formatter.string(from: date)
             
             let ratio = getRatio()
-            //cell.label.textColor = colors[Int(ratio*10)]
+            cell.label.textColor = colors[Int(ratio*10)]
             
             return cell
         } else {
@@ -447,6 +450,8 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 let text = thing.desc
                 cell.label.text = text
             } else {
+                print(returnedRecurs.count)
+                print(indexPath.row)
                 let thing = returnedRecurs[indexPath.row]
                 if(thing.isDone) {
                     cell.accessoryType = .checkmark
@@ -523,7 +528,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
         returnedThings = [returnedMissions, returnedGoals]
-        returnedRecurs = RecurringControl.getTodayRecurs()
+        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate)
         
         todayThingsTable.reloadData()
     }

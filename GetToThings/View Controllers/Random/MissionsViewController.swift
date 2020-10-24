@@ -129,6 +129,13 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
             // set a variable in the second view controller with the data to pass
             secondViewController.thing = thing
         }
+        if (segue.identifier == "newThing") {
+            let navVC = segue.destination as? UINavigationController
+
+            let tableVC = navVC?.viewControllers.first as! NewMissionTableViewController
+
+            tableVC.type = thingSelector.selectedSegmentIndex
+        }
     }
 
     @IBAction func unwindToMain (_ sender:UIStoryboardSegue) {

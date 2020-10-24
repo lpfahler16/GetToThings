@@ -10,8 +10,8 @@ import Foundation
 import CoreData
 
 class MissionControl {
-    
-    //Gets all missions
+
+    //Gets all tasks given weather
     static func getMissions(_ goodWeather: Bool) -> [RandomTask] {
         let request: NSFetchRequest<RandomTask> = RandomTask.fetchRequest()
         
@@ -29,6 +29,7 @@ class MissionControl {
         return allMissions!
     }
     
+    //Gets all tasks
     static func getMissions() -> [RandomTask] {
         let request: NSFetchRequest<RandomTask> = RandomTask.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
@@ -58,6 +59,7 @@ class MissionControl {
         
     }
     
+    //Generates today's tasks
     static func generateTodayMissions(_ goodWeather: Bool) {
         let allMissions = getMissions(goodWeather).shuffled()
         let theseMissions = Array(allMissions.prefix(Int(UD.numTasks)))
@@ -74,6 +76,7 @@ class MissionControl {
         }
     }
     
+    //Gets today's missions
     static func getTodayMissions() -> [RandomTask]{
         let request: NSFetchRequest<RandomTask> = RandomTask.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]

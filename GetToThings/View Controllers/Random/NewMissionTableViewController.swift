@@ -12,6 +12,8 @@ class NewMissionTableViewController: UITableViewController, UITextFieldDelegate 
     
     @IBOutlet var newMissionsTable: UITableView!
     
+    var type: Int!
+    
     //MARK: - Mission Information
     @IBOutlet weak var missionTitle: UITextField!
     @IBOutlet weak var goodWeather: UISwitch!
@@ -26,6 +28,13 @@ class NewMissionTableViewController: UITableViewController, UITextFieldDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         missionTitle.delegate = self
+        if type == 0 {
+            taskRow.accessoryType = .checkmark
+            goalRow.accessoryType = .none
+        } else {
+            taskRow.accessoryType = .none
+            goalRow.accessoryType = .checkmark
+        }
 
     }
     
