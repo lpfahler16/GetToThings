@@ -244,7 +244,7 @@ class StatisticsTableViewController: UITableViewController {
                 cell?.textLabel?.text = "Total Days"
                 
                 let firstDate = UD.firstLaunch
-                let dayDifference = Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: firstDate), to: Calendar.current.startOfDay(for: Date())).day
+                let dayDifference = Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: firstDate()), to: Calendar.current.startOfDay(for: Date())).day
                 
                 
                 cell?.detailTextLabel?.text = "\(dayDifference!) days"

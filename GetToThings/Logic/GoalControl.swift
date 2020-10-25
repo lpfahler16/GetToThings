@@ -60,7 +60,7 @@ class GoalControl {
     
     static func generateTodayGoals(_ goodWeather: Bool) {
         let allGoals = getGoals(goodWeather).shuffled()
-        let theseGoals = Array(allGoals.prefix(Int(UD.numGoals)))
+        let theseGoals = Array(allGoals.prefix(Int(UD.numGoals())))
         for goal in theseGoals {
             goal.today = true
         }

@@ -30,7 +30,7 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
         recurringTable.dataSource = self
         
         //Color
-        mainView.backgroundColor = UD.color
+        mainView.backgroundColor = UD.color()
     }
     
     @IBAction func infoClicked(_ sender: Any) {

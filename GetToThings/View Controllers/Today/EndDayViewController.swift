@@ -28,14 +28,14 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
-        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate)
+        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate())
         returnedThings = [returnedMissions as [RandomThing], returnedGoals as [RandomThing]]
         
         self.todayThingsTable.delegate = self
         self.todayThingsTable.dataSource = self
         
-        endDayHeader.textColor = UD.color
-        endDayButton.backgroundColor = UD.color
+        endDayHeader.textColor = UD.color()
+        endDayButton.backgroundColor = UD.color()
         
     }
     
@@ -68,7 +68,7 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
             formatter.dateStyle = .long
 
             // get the date time String from the date object
-            return formatter.string(from: date) // October 8, 2016 at 10:48:53 PM
+            return formatter.string(from: date()) // October 8, 2016 at 10:48:53 PM
         } else {
             return headerNames[section - 1]
         }

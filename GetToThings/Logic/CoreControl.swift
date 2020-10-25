@@ -67,6 +67,11 @@ class CoreControl {
         }
     }
     
+    static func generateTodayThings(_ weather: Bool) {
+        MissionControl.generateTodayMissions(weather)
+        GoalControl.generateTodayGoals(weather)
+    }
+    
     // MARK: - ADDERS
     
     //Adds new task

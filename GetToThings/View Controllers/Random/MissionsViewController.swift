@@ -36,7 +36,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
         //Color Setting
-        thingSelector.backgroundColor = UD.color
+        thingSelector.backgroundColor = UD.color()
     }
     
     @IBAction func infoClicked(_ sender: Any) {

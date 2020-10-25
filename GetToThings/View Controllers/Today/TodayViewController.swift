@@ -22,9 +22,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //Color Setup
     @IBOutlet var mainView: UIView!
-    
-    
-    
     let colors = [UIColor(named: "Cal 1"),
         UIColor(named: "Cal 2"),
         UIColor(named: "Cal 3"),
@@ -37,20 +34,41 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         UIColor(named: "Cal 10"),
         UIColor(named: "Cal 11")]
     
+    //Data setup
     var returnedMissions:[RandomTask] = []
     var returnedGoals:[RandomGoal] = []
     var returnedRecurs:[WeekRecur] = []
-    let headerNames = ["Tasks", "Goals", "Recurring"]
     var returnedThings:[[AllThing]] = []
     var goodWeather = true
     
+    // Table View Information
+    let headerNames = ["", "Tasks", "Goals", "Recurring"]
     var numOfSections:Int = 4
+    var rowsForSection:[Int] = []
     
     //MARK: - Initial Setup
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
+        initialLaunch() // Checks if launched before and sets up user defaults
+        Conversion.convertAll() // Converts any old objects to new
+        checkDate() // Segues to new day screen if necessary
+        setupView() // Sets up what to show and what colors
+        reloadView() // Fetches proper elements to populate table
+        
+        // Delegates and data sources
+        todayThingsTable.dataSource = self
+        todayThingsTable.delegate = self
+        
+        //Foreground stuff
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    //MARK: - Initial Setup Helpers
+    
+    // Checks if launched before and sets up user defaults
+    private func initialLaunch() {
         //Check if launched before
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if launchedBefore  {
@@ -99,102 +117,70 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
 
             self.present(alertController, animated: true, completion: nil)
         }
-        
-        //Setup view
-        if UD.generated {
+    }
+    
+    // Sets up what to show and what colors
+    private func setupView() {
+        // What shows
+        if UD.generated() {
             tableContainer.isHidden = false
             genButton.isHidden = true
-            
-            returnedMissions = MissionControl.getTodayMissions()
-            returnedGoals = GoalControl.getTodayGoals()
-            returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate)
         } else {
             tableContainer.isHidden = true
             genButton.isHidden = false
         }
         
-        returnedThings = [returnedMissions, returnedGoals]
-        
-        
-        todayThingsTable.dataSource = self
-        todayThingsTable.delegate = self
-        
-        checkDate()
-        
-        numOfSections = 4
-        //Foreground stuff
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-        
         //Colors
-        mainView.backgroundColor = UD.color
-        realGenButton.backgroundColor = UD.color
-        weatherButton.tintColor = UD.color
-        
-        
-        Conversion.convertAll()
+        mainView.backgroundColor = UD.color()
+        realGenButton.backgroundColor = UD.color()
+        weatherButton.tintColor = UD.color()
     }
     
-    @objc func appMovedToForeground() {
-        reloadView()
-        checkDate()
-    }
-    
-    
-    //MARK: - Generation
-    
-    //Checks if new day
-    func checkDate() {
-        let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date(/*For testing:timeIntervalSince1970: 0*/))
+    // Segues to new day screen if necessary
+    private func checkDate() {
+        let sameDay = Calendar.current.isDate(UD.genDate(), inSameDayAs: Date(/*For testing:timeIntervalSince1970: 0*/))
         
-        if UD.generated && !sameDay {
+        if UD.generated() && !sameDay {
             self.performSegue(withIdentifier: "endDay", sender: self)
         }
     }
     
-    //Change weather
-    @IBAction func weatherChange(_ sender: Any) {
-        let button = sender as! UIButton
-        if goodWeather {
-            button.setBackgroundImage(UIImage(systemName: "cloud.rain.fill"), for: UIControl.State.normal)
-            goodWeather = false
-            print("Bad")
-        } else {
-            button.setBackgroundImage(UIImage(systemName: "sun.max.fill"), for: UIControl.State.normal)
-            goodWeather = true
-            print("Good")
-        }
-    }
-    
+    //MARK: - Generation
     
     @IBAction func generate(_ sender: Any) {
         //Mark sure it is visible
         if genButton.isHidden == false {
-
+            
             genButton.isHidden = true
             tableContainer.isHidden = false
             
-            MissionControl.generateTodayMissions(goodWeather)
-            GoalControl.generateTodayGoals(goodWeather)
-            
-            returnedMissions = MissionControl.getTodayMissions()
-            returnedGoals = GoalControl.getTodayGoals()
-            returnedRecurs = RecurringControl.getTodayRecurs()
-            
-            returnedThings = [returnedMissions, returnedGoals]
-            todayThingsTable.reloadData()
+            CoreControl.generateTodayThings(goodWeather)
             
             UserDefaults(suiteName: "group.GetToThings")!.set(true, forKey: "generated")
             UserDefaults(suiteName: "group.GetToThings")!.set(Date(), forKey: "generateDate")
             
             numOfSections = 1
-            todayThingsTable.reloadData()
-            makeTimer()
+            reloadView() //
+            animateShow() // Starts animation of sections
         }
     }
     
+    // Button press for change in weather
+    @IBAction func weatherChange(_ sender: Any) {
+        let button = sender as! UIButton
+        if goodWeather {
+            button.setBackgroundImage(UIImage(systemName: "cloud.rain.fill"), for: UIControl.State.normal)
+            goodWeather = false
+        } else {
+            button.setBackgroundImage(UIImage(systemName: "sun.max.fill"), for: UIControl.State.normal)
+            goodWeather = true
+        }
+    }
+    
+    //MARK: - Generation Helpers
+    
     //Fade in
-    func makeTimer() {
+    private func animateShow() {
         _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: false)
     }
     
@@ -202,7 +188,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         numOfSections += 1
         todayThingsTable.reloadData()
         if numOfSections < 4 {
-            makeTimer()
+            animateShow()
         }
     }
     
@@ -211,7 +197,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         info()
     }
     
-    func info() {
+    private func info() {
         let alertController = UIAlertController(title: "Today", message:
             "Get all of your things for the day right here! Click generate and get to work, checking off any you completed. At the end of the day, they will reset.", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Thanks!", style: .default))
@@ -228,7 +214,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
            "All Things will be returned to your lists.", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alertController.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { action in
-            //run your function here
+            
             self.reset(sender)
         }))
 
@@ -237,59 +223,37 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     @IBAction func reset(_ sender: Any) {
-        let someDateTime = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
         
-       //Missions
-        let allMissions = MissionControl.getMissions()
         let context = AppDelegate.viewContext
-        for mission in allMissions {
-            
-            if let _ = sender as? UIStoryboardSegue, mission.today {
-                mission.numGenerated += 1
-                if mission.isDone {
-                    mission.numCompleted += 1
-                }
-            }
-            
-            if let _ = sender as? UIStoryboardSegue, mission.replacement == false && mission.isDone && mission.today {
-                context.delete(mission)
-            } else {
-                mission.today = false
-                mission.isDone = false
-            }
-            
-        }
         
-        //Goals
-        let allGoals = GoalControl.getGoals()
-        for goal in allGoals {
-            
-            if let _ = sender as? UIStoryboardSegue, goal.today {
-                goal.numGenerated += 1
-                if goal.isDone {
-                    goal.numCompleted += 1
+        for list in returnedThings {
+            if let theList = list as? [RandomThing] { // Task or Goal
+                for thing in theList {
+                    if let _ = sender as? UIStoryboardSegue, thing.today {
+                        thing.numGenerated += 1
+                        if thing.isDone {
+                            thing.numCompleted += 1
+                        }
+                    }
+                    
+                    if let _ = sender as? UIStoryboardSegue, thing.replacement == false && thing.isDone && thing.today {
+                        context.delete(thing)
+                    } else {
+                        thing.today = false
+                        thing.isDone = false
+                    }
+                }
+            } else { // Recur
+                for thing in list {
+                    if let _ = sender as? UIStoryboardSegue {
+                        thing.numGenerated += 1
+                        if thing.isDone {
+                            thing.numCompleted += 1
+                        }
+                    }
+                    thing.isDone = false
                 }
             }
-                
-            if let _ = sender as? UIStoryboardSegue, goal.replacement == false && goal.isDone && goal.today {
-                context.delete(goal)
-            } else {
-                goal.today = false
-                goal.isDone = false
-            }
-                
-        }
-        
-        //Recurs
-        let allRecurs = RecurringControl.getThisDayRecurs(passedDate: someDateTime)
-        for recur in allRecurs {
-            if let _ = sender as? UIStoryboardSegue {
-                recur.numGenerated += 1
-                if recur.isDone {
-                    recur.numCompleted += 1
-                }
-            }
-            recur.isDone = false
         }
         
         //Save
@@ -308,44 +272,31 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //MARK: - Saving Day
     func saveDay() {
-        let someDateTime = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
-        
-        returnedMissions = MissionControl.getTodayMissions()
-        returnedGoals = GoalControl.getTodayGoals()
-        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: someDateTime)
-        
-        let allThings = returnedMissions + returnedGoals
-        
-        let context = AppDelegate.viewContext
-        let day = Day(context: context)
         
         //Test Date setup ------------------
         // Specify date components
-        var dateComponents = DateComponents()
-        dateComponents.year = 2020
-        dateComponents.month = 7
-        dateComponents.day = 6
-
+        //var dateComponents = DateComponents()
+        //dateComponents.year = 2020
+        //dateComponents.month = 7
+        //dateComponents.day = 6
         // Create date from components
         //let userCalendar = Calendar.current // user calendar
         //let someDateTime = userCalendar.date(from: dateComponents)
         //----------------------------------
         
+        let context = AppDelegate.viewContext
         
+        reloadView()
+        let allThings = returnedMissions + returnedGoals + returnedRecurs
         
-        day.date = someDateTime
+        let day = Day(context: context)
+        day.date = UD.genDate()
         day.ratio = getRatio()
         
         for thing in allThings {
             let simpleThing = SimpleThing(context: context)
             simpleThing.desc = thing.desc
             simpleThing.completed = thing.isDone
-            day.addToTheThings(simpleThing)
-        }
-        for recur in returnedRecurs {
-            let simpleThing = SimpleThing(context: context)
-            simpleThing.desc = recur.desc
-            simpleThing.completed = recur.isDone
             day.addToTheThings(simpleThing)
         }
         
@@ -355,29 +306,20 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         } catch {
             print("**** Save failed ****")
         }
-        
     }
     
+    // MARK: - Saving Day Helpers
     func getRatio() -> Double{
-        let someDateTime = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
         
-        returnedMissions = MissionControl.getTodayMissions()
-        returnedGoals = GoalControl.getTodayGoals()
-        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: someDateTime)
-        
-        let allThings = returnedMissions + returnedGoals
+        let allThings = returnedMissions + returnedGoals + returnedRecurs
         var complete = 0
+        
         for thing in allThings {
             if thing.isDone {
                 complete += 1
             }
         }
-        for recur in returnedRecurs {
-            if recur.isDone {
-                complete += 1
-            }
-        }
-        return Double(complete)/Double(allThings.count + returnedRecurs.count)
+        return Double(complete)/Double(allThings.count)
     }
     
     
@@ -390,79 +332,21 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //Number of rows in each section
     func tableView(_ todayThingsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        } else if section == 3{
-            return returnedRecurs.count
-        } else {
-            return returnedThings[section - 1].count
-        }
+        return rowsForSection[section]
     }
     
     //Section Titles
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-//            let date = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
-//
-//            // initialize the date formatter and set the style
-//            let formatter = DateFormatter()
-//            formatter.timeStyle = .none
-//            formatter.dateStyle = .long
-
-            // get the date time String from the date object
-            return "" // October 8, 2016 at 10:48:53 PM
-        } else {
-            return headerNames[section - 1]
-        }
+        return headerNames[section]
     }
     
     //Setting Row Data
     func tableView(_ todayThingsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "dateViewer") as! TodayTableViewCell
-            
-            let date = UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date
-
-            // initialize the date formatter and set the style
-            let formatter = DateFormatter()
-            formatter.timeStyle = .none
-            formatter.dateStyle = .long
-
-            // get the date time String from the date object
-            // October 8, 2016 at 10:48:53 PM
-            
-            cell.label.text = formatter.string(from: date)
-            
-            let ratio = getRatio()
-            cell.label.textColor = colors[Int(ratio*10)]
-            
-            return cell
+            return makeHeader()
         } else {
-            let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "thingDisplay") as! TodayTableViewCell
-            if indexPath.section != 3 {
-                let thing = returnedThings[indexPath.section - 1][indexPath.row]
-                if(thing.isDone) {
-                    cell.accessoryType = .checkmark
-                } else {
-                    cell.accessoryType = .none
-                }
-                
-                let text = thing.desc
-                cell.label.text = text
-            } else {
-                print(returnedRecurs.count)
-                print(indexPath.row)
-                let thing = returnedRecurs[indexPath.row]
-                if(thing.isDone) {
-                    cell.accessoryType = .checkmark
-                } else {
-                    cell.accessoryType = .none
-                }
-                
-                let text = thing.desc
-                cell.label.text = text
-            }
-            return cell
+            let thing = returnedThings[indexPath.section - 1][indexPath.row]
+            return buildCell(thing)
         }
         
     }
@@ -470,30 +354,16 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     //Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         todayThingsTable.deselectRow(at: indexPath, animated: true)
+    
+        let thing = returnedThings[indexPath.section - 1][indexPath.row]
         
-        if indexPath.section != 3 {
-            let thing = returnedThings[indexPath.section - 1][indexPath.row]
-            
-            if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
-                if cell.accessoryType == .checkmark {
-                    cell.accessoryType = .none
-                    thing.isDone = false
-                } else {
-                    cell.accessoryType = .checkmark
-                    thing.isDone = true
-                }
-            }
-        } else {
-            let thing = returnedRecurs[indexPath.row]
-            
-            if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
-                if cell.accessoryType == .checkmark {
-                    cell.accessoryType = .none
-                    thing.isDone = false
-                } else {
-                    cell.accessoryType = .checkmark
-                    thing.isDone = true
-                }
+        if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
+            if cell.accessoryType == .checkmark {
+                cell.accessoryType = .none
+                thing.isDone = false
+            } else {
+                cell.accessoryType = .checkmark
+                thing.isDone = true
             }
         }
         
@@ -507,28 +377,64 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         reloadView()
     }
     
+    // MARK: Table View Helpers
+    
+    //Build Cell
+    private func buildCell(_ thing: AllThing) -> TodayTableViewCell {
+        let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "thingDisplay") as! TodayTableViewCell
+        if(thing.isDone) {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+        
+        let text = thing.desc
+        cell.label.text = text
+        
+        return cell
+    }
+    
+    //Make header cell
+    private func makeHeader() -> TodayTableViewCell{
+        let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "dateViewer") as! TodayTableViewCell
+
+        // Formatting Date --- TODO: Move
+        let formatter = DateFormatter()
+        formatter.timeStyle = .none
+        formatter.dateStyle = .long
+        cell.label.text = formatter.string(from: UD.genDate())
+        
+        let ratio = getRatio()
+        cell.label.textColor = colors[Int(ratio*10)]
+        
+        return cell
+    }
+    
     //MARK: - Segue Functions
     @IBAction func unwindToMain (_ sender:UIStoryboardSegue) {
         print("unwindToMain")
     }
-    
     @IBAction func backToToday(_ sender:UIStoryboardSegue){
         print("Back to today")
         saveDay()
         reset(sender)
     }
-    
-    
+    @objc func appMovedToForeground() {
+        checkDate()
+        reloadView()
+    }
     override func viewWillAppear(_ animated: Bool) {
         reloadView()
     }
     
-    func reloadView() {
+    // Fetches proper elements to populate table
+    private func reloadView() {
         print("Today reloaded")
         returnedMissions = MissionControl.getTodayMissions()
         returnedGoals = GoalControl.getTodayGoals()
-        returnedThings = [returnedMissions, returnedGoals]
-        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate)
+        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate())
+        returnedThings = [returnedMissions, returnedGoals, returnedRecurs]
+        rowsForSection = [1, returnedMissions.count, returnedGoals.count, returnedRecurs.count]
         
         todayThingsTable.reloadData()
     }

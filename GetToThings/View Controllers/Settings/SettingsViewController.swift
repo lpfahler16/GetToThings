@@ -27,11 +27,11 @@ class SettingsViewController: UITableViewController {
         // Do any additional setup after loading the view.
         
         //Goals Stepper Setup
-        goalsStepper.value = UD.numGoals
+        goalsStepper.value = UD.numGoals()
         goalsLabel.text = String(Int(goalsStepper.value))
         
         //Missions Stepper Setup
-        missionsStepper.value = UD.numTasks
+        missionsStepper.value = UD.numTasks()
         missionsLabel.text = String(Int(missionsStepper.value))
         
     }
