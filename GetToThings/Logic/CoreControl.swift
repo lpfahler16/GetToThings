@@ -71,46 +71,4 @@ class CoreControl {
         MissionControl.generateTodayMissions(weather)
         GoalControl.generateTodayGoals(weather)
     }
-    
-    // MARK: - ADDERS
-    
-    //Adds new task
-    static func newTask(_ desc: String, _ needsGoodWeather: Bool, _ replacement: Bool) {
-        let context = AppDelegate.viewContext
-        let thing = RandomTask(context: context)
-        
-        thing.desc = desc
-        thing.needsGoodWeather = needsGoodWeather
-        thing.replacement = replacement
-        thing.today = false
-        thing.numCompleted = 0
-        thing.numGenerated = 0
-        thing.dateAdded = Date()
-        do {
-            try context.save()
-        } catch {
-            print("**** Save failed ****")
-        }
-        
-    }
-    
-    //Adds new goal
-    static func newGoal(_ desc: String, _ needsGoodWeather: Bool, _ replacement: Bool) {
-        let context = AppDelegate.viewContext
-        let thing = RandomGoal(context: context)
-        
-        thing.desc = desc
-        thing.needsGoodWeather = needsGoodWeather
-        thing.replacement = replacement
-        thing.today = false
-        thing.numCompleted = 0
-        thing.numGenerated = 0
-        thing.dateAdded = Date()
-        do {
-            try context.save()
-        } catch {
-            print("**** Save failed ****")
-        }
-        
-    }
 }

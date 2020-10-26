@@ -18,116 +18,80 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var returnedMissions:[RandomTask] = []
     var returnedGoals:[RandomGoal] = []
     var returnedRecurs:[WeekRecur] = []
-    let headerNames = ["Tasks", "Goals", "Recurring"]
-    var returnedThings:[[RandomThing]] = []
+    var returnedThings:[[AllThing]] = []
     
+    // Table View Information
+    var headerNames:[String] = []
+    var numOfSections:Int = 4
+    var rowsForSection:[Int] = []
+    
+    
+    //MARK: - Initial Setup
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+        setHeaders() // Sets header information
+        setupView() // Sets up what to show and what colors
+        reloadView() // Fetches proper elements to populate table
         
-        returnedMissions = MissionControl.getTodayMissions()
-        returnedGoals = GoalControl.getTodayGoals()
-        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate())
-        returnedThings = [returnedMissions as [RandomThing], returnedGoals as [RandomThing]]
-        
+        // Delegates and data sources
         self.todayThingsTable.delegate = self
         self.todayThingsTable.dataSource = self
         
+    }
+    
+    //MARK: - Initial Setup Helpers
+    private func setHeaders(){
+        // initialize the date formatter and set the style
+        let date = UD.genDate
+        let formatter = DateFormatter()
+        formatter.timeStyle = .none
+        formatter.dateStyle = .long
+        headerNames = [formatter.string(from: date()), "Tasks", "Goals", "Recurring"]
+    }
+    
+    private func setupView(){
         endDayHeader.textColor = UD.color()
         endDayButton.backgroundColor = UD.color()
-        
     }
     
     //MARK: - Table View Setup
     
     //Number of sections
     func numberOfSections(in todayThingsTable: UITableView) -> Int {
-        return 4
+        return numOfSections
     }
     
     //Number of rows in each section
     func tableView(_ todayThingsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 0
-        } else if section == 3{
-            return returnedRecurs.count
-        } else {
-            return returnedThings[section - 1].count
-        }
+        return rowsForSection[section]
     }
     
     //Section Titles
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            let date = UD.genDate
-
-            // initialize the date formatter and set the style
-            let formatter = DateFormatter()
-            formatter.timeStyle = .none
-            formatter.dateStyle = .long
-
-            // get the date time String from the date object
-            return formatter.string(from: date()) // October 8, 2016 at 10:48:53 PM
-        } else {
-            return headerNames[section - 1]
-        }
+        return headerNames[section]
     }
     
     //Setting Row Data
     func tableView(_ todayThingsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "thingDisplay") as! TodayTableViewCell
-        if indexPath.section != 3 {
-            let thing = returnedThings[indexPath.section - 1][indexPath.row]
-            if(thing.isDone) {
-                cell.accessoryType = .checkmark
-            } else {
-                cell.accessoryType = .none
-            }
-            
-            let text = thing.desc
-            cell.label.text = text
-        } else {
-            let thing = returnedRecurs[indexPath.row]
-            if(thing.isDone) {
-                cell.accessoryType = .checkmark
-            } else {
-                cell.accessoryType = .none
-            }
-            
-            let text = thing.desc
-            cell.label.text = text
-        }
-        return cell
+        let thing = returnedThings[indexPath.section - 1][indexPath.row]
+        return buildCell(thing)
     }
     
     //Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         todayThingsTable.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.section != 3 {
-            let thing = returnedThings[indexPath.section - 1][indexPath.row]
-            
-            if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
-                if cell.accessoryType == .checkmark {
-                    cell.accessoryType = .none
-                    thing.isDone = false
-                } else {
-                    cell.accessoryType = .checkmark
-                    thing.isDone = true
-                }
-            }
-        } else {
-            let thing = returnedRecurs[indexPath.row]
-            
-            if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
-                if cell.accessoryType == .checkmark {
-                    cell.accessoryType = .none
-                    thing.isDone = false
-                } else {
-                    cell.accessoryType = .checkmark
-                    thing.isDone = true
-                }
+        let thing = returnedThings[indexPath.section - 1][indexPath.row]
+        
+        if let cell = todayThingsTable.cellForRow(at: indexPath) as? TodayTableViewCell {
+            if cell.accessoryType == .checkmark {
+                cell.accessoryType = .none
+                thing.isDone = false
+            } else {
+                cell.accessoryType = .checkmark
+                thing.isDone = true
             }
         }
         
@@ -138,6 +102,34 @@ class EndDayViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } catch {
             print("**** Save failed ****")
         }
+    }
+    
+    //MARK: - Table View Helpers
+    
+    //Build Cell
+    private func buildCell(_ thing: AllThing) -> TodayTableViewCell {
+        let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "thingDisplay") as! TodayTableViewCell
+        if(thing.isDone) {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+        
+        let text = thing.desc
+        cell.label.text = text
+        
+        return cell
+    }
+    
+    // Fetches proper elements to populate table
+    private func reloadView() {
+        returnedMissions = MissionControl.getTodayMissions()
+        returnedGoals = GoalControl.getTodayGoals()
+        returnedRecurs = RecurringControl.getThisDayRecurs(passedDate: UD.genDate())
+        returnedThings = [returnedMissions, returnedGoals, returnedRecurs]
+        rowsForSection = [0, returnedMissions.count, returnedGoals.count, returnedRecurs.count]
+        
+        todayThingsTable.reloadData()
     }
     
 
