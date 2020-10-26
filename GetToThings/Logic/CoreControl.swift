@@ -51,6 +51,41 @@ class CoreControl {
         return allThings
     }
     
+    static func convertRandomType(theThing: RandomThing) {
+        let context = AppDelegate.viewContext
+        
+        if let _ = theThing as? RandomTask {
+            let thing = RandomGoal(context: context)
+            
+            thing.desc = theThing.desc
+            thing.needsGoodWeather = theThing.needsGoodWeather
+            thing.replacement = theThing.replacement
+            thing.today = theThing.today
+            thing.numCompleted = theThing.numCompleted
+            thing.numGenerated = theThing.numGenerated
+            thing.dateAdded = theThing.dateAdded
+        } else {
+            let thing = RandomTask(context: context)
+            
+            thing.desc = theThing.desc
+            thing.needsGoodWeather = theThing.needsGoodWeather
+            thing.replacement = theThing.replacement
+            thing.today = theThing.today
+            thing.numCompleted = theThing.numCompleted
+            thing.numGenerated = theThing.numGenerated
+            thing.dateAdded = theThing.dateAdded
+        }
+        
+        context.delete(theThing)
+        
+        // Save
+        do {
+            try context.save()
+        } catch {
+            print("**** Save failed ****")
+        }
+    }
+    
     
     static func getTodayThing(type: ThingType) -> [RandomThing]{
         if let allThing:[RandomThing] = getThing(type: type) as? [RandomThing] {

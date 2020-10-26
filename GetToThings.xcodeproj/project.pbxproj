@@ -38,8 +38,8 @@
 		A37D068225105F3A00621754 /* WeekRecur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D068025105F3A00621754 /* WeekRecur.swift */; };
 		A37D0684251069FB00621754 /* Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D0683251069FB00621754 /* Conversion.swift */; };
 		A37F3DC42442D49F00F7917B /* TodayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37F3DC32442D49F00F7917B /* TodayTableViewCell.swift */; };
-		A38448BC24A682F800E69411 /* NewMissionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38448BB24A682F800E69411 /* NewMissionTableViewController.swift */; };
-		A38448BE24A6B11500E69411 /* MissionDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38448BD24A6B11500E69411 /* MissionDetailTableViewController.swift */; };
+		A38448BC24A682F800E69411 /* NewRandomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38448BB24A682F800E69411 /* NewRandomTableViewController.swift */; };
+		A38448BE24A6B11500E69411 /* RandomDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38448BD24A6B11500E69411 /* RandomDetailTableViewController.swift */; };
 		A3899F232440102D00CCB23C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3899F222440102D00CCB23C /* TodayViewController.swift */; };
 		A38EB77C24BD67710088F2F7 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = A362F3C824BD6221005B6B4B /* Day.swift */; };
 		A38EB77E24BD6A1F0088F2F7 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38EB77D24BD6A1F0088F2F7 /* DayViewController.swift */; };
@@ -48,7 +48,7 @@
 		A392E8CD243FF1A000570CD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392E8CC243FF1A000570CD2 /* SceneDelegate.swift */; };
 		A392E8D4243FF1A200570CD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A392E8D3243FF1A200570CD2 /* Assets.xcassets */; };
 		A392E8D7243FF1A200570CD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A392E8D5243FF1A200570CD2 /* LaunchScreen.storyboard */; };
-		A392E8DF243FF50700570CD2 /* MissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392E8DE243FF50700570CD2 /* MissionsViewController.swift */; };
+		A392E8DF243FF50700570CD2 /* RandomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392E8DE243FF50700570CD2 /* RandomViewController.swift */; };
 		A392E8E4243FF64400570CD2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392E8E3243FF64400570CD2 /* SettingsViewController.swift */; };
 		A392E8EA243FF7D800570CD2 /* TaskControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392E8E9243FF7D800570CD2 /* TaskControl.swift */; };
 		A392E8EE243FFBC000570CD2 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392E8ED243FFBC000570CD2 /* Thing.swift */; };
@@ -128,8 +128,8 @@
 		A37D068025105F3A00621754 /* WeekRecur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekRecur.swift; sourceTree = "<group>"; };
 		A37D0683251069FB00621754 /* Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversion.swift; sourceTree = "<group>"; usesTabs = 0; };
 		A37F3DC32442D49F00F7917B /* TodayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTableViewCell.swift; sourceTree = "<group>"; };
-		A38448BB24A682F800E69411 /* NewMissionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMissionTableViewController.swift; sourceTree = "<group>"; };
-		A38448BD24A6B11500E69411 /* MissionDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailTableViewController.swift; sourceTree = "<group>"; };
+		A38448BB24A682F800E69411 /* NewRandomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRandomTableViewController.swift; sourceTree = "<group>"; };
+		A38448BD24A6B11500E69411 /* RandomDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDetailTableViewController.swift; sourceTree = "<group>"; };
 		A3899F222440102D00CCB23C /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		A38EB77D24BD6A1F0088F2F7 /* DayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
 		A392A6E724441C3B00B80C56 /* ThingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingTableViewCell.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 		A392E8D3243FF1A200570CD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A392E8D6243FF1A200570CD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A392E8D8243FF1A200570CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A392E8DE243FF50700570CD2 /* MissionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsViewController.swift; sourceTree = "<group>"; };
+		A392E8DE243FF50700570CD2 /* RandomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomViewController.swift; sourceTree = "<group>"; };
 		A392E8E3243FF64400570CD2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A392E8E9243FF7D800570CD2 /* TaskControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskControl.swift; sourceTree = "<group>"; };
 		A392E8ED243FFBC000570CD2 /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
@@ -268,9 +268,9 @@
 		A38448B924A6828F00E69411 /* Random */ = {
 			isa = PBXGroup;
 			children = (
-				A392E8DE243FF50700570CD2 /* MissionsViewController.swift */,
-				A38448BB24A682F800E69411 /* NewMissionTableViewController.swift */,
-				A38448BD24A6B11500E69411 /* MissionDetailTableViewController.swift */,
+				A392E8DE243FF50700570CD2 /* RandomViewController.swift */,
+				A38448BB24A682F800E69411 /* NewRandomTableViewController.swift */,
+				A38448BD24A6B11500E69411 /* RandomDetailTableViewController.swift */,
 			);
 			path = Random;
 			sourceTree = "<group>";
@@ -574,14 +574,14 @@
 				A334574324E207870084129F /* RecurringThing.swift in Sources */,
 				A3899F232440102D00CCB23C /* TodayViewController.swift in Sources */,
 				A392E8CD243FF1A000570CD2 /* SceneDelegate.swift in Sources */,
-				A38448BC24A682F800E69411 /* NewMissionTableViewController.swift in Sources */,
+				A38448BC24A682F800E69411 /* NewRandomTableViewController.swift in Sources */,
 				A37D0684251069FB00621754 /* Conversion.swift in Sources */,
 				A3292BAA24BE36E000D1840D /* SimpleThing.swift in Sources */,
 				A37F3DC42442D49F00F7917B /* TodayTableViewCell.swift in Sources */,
 				A36BD3AB24F9FB7200C2CC1B /* PopUpNav.swift in Sources */,
-				A392E8DF243FF50700570CD2 /* MissionsViewController.swift in Sources */,
+				A392E8DF243FF50700570CD2 /* RandomViewController.swift in Sources */,
 				A3C83E0424AA98D2005233DB /* EndDayViewController.swift in Sources */,
-				A38448BE24A6B11500E69411 /* MissionDetailTableViewController.swift in Sources */,
+				A38448BE24A6B11500E69411 /* RandomDetailTableViewController.swift in Sources */,
 				A334574924E492350084129F /* NewRecurringTableViewController.swift in Sources */,
 				A36BD3B324FA073F00C2CC1B /* ThemeViewController.swift in Sources */,
 				A334574124E1FEFD0084129F /* RecurringViewController.swift in Sources */,

@@ -17,38 +17,50 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var thingSelector: UISegmentedControl!
     
     var thing: RandomThing = RandomThing()
-    var setToMission = true
+    var returnedThings:[RandomThing] = []
+    
+    // Table View Information
+    var numOfSections:Int = 1
+    var rowsForSection:[Int] = []
+    
+    // MARK: - Initial Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        initialLaunch() // Checks if launched before and sets up info
+        setupView() // Sets up what to show and what colors
+        reloadView() // Fetches proper elements to populate table
+        
+        missionsTable.delegate = self
+        missionsTable.dataSource = self
+    }
+    
+    // MARK: - Initial Setup Helpers
+    
+    private func initialLaunch() {
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBeforeMission")
         if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBeforeMission")
             info()
         }
-        
-        missionsTable.delegate = self
-        missionsTable.dataSource = self
-        
-        setToMission = thingSelector.selectedSegmentIndex == 0
-        
-        
+    }
+    
+    private func setupView() {
         //Color Setting
         thingSelector.backgroundColor = UD.color()
     }
+    
+    // MARK: - Buttons
     
     @IBAction func infoClicked(_ sender: Any) {
         info()
     }
     
     @IBAction func changeThing(_ sender: Any) {
-        setToMission = thingSelector.selectedSegmentIndex == 0
-        print(setToMission)
-        missionsTable.reloadData()
+        reloadView()
     }
-    
     
     func info() {
         let alertController = UIAlertController(title: "Random", message:
@@ -61,41 +73,28 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     //MARK: - Table View Setup
+    
+    // Number of sections
     func numberOfSections(in missionsTable: UITableView) -> Int {
-        return 1
+        return numOfSections
     }
     
+    // Rows in section
     func tableView(_ missionsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if setToMission {
-            return MissionControl.getMissions().count
-        } else {
-            return GoalControl.getGoals().count
-        }
+        return rowsForSection[section]
     }
     
+    // Setting Row Data
     func tableView(_ missionsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = missionsTable.dequeueReusableCell(withIdentifier: "thingList")!
-        let text: String
-        if setToMission {
-            text = MissionControl.getMissions()[indexPath.row].desc!
-        } else {
-            text = GoalControl.getGoals()[indexPath.row].desc!
-        }
-        cell.textLabel?.text = text
-        
-        return cell
+        let thing = returnedThings[indexPath.row]
+        return buildCell(thing)
     }
     
-    //Deselect row
+    // Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         missionsTable.deselectRow(at: indexPath, animated: true)
         
-        if setToMission {
-            thing = MissionControl.getMissions()[indexPath.row]
-        } else {
-            thing = GoalControl.getGoals()[indexPath.row]
-        }
+        thing = returnedThings[indexPath.row]
         
         self.performSegue(withIdentifier: "missionDetail", sender: self)
     }
@@ -105,19 +104,45 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
          if editingStyle == .delete {
             
             let context = AppDelegate.viewContext
-            if setToMission {
-                context.delete(MissionControl.getMissions()[indexPath.row])
-            } else {
-                context.delete(GoalControl.getGoals()[indexPath.row])
-            }
+            context.delete(returnedThings[indexPath.row])
+            
+            // Save
             do {
                 try context.save()
             } catch {
                 print("**** Save failed ****")
             }
             
+            reloadData()
             tableView.deleteRows(at: [indexPath], with: .fade)
          }
+    }
+    
+    // MARK: - Table View Helpers
+    
+    // Build Cell
+    private func buildCell(_ thing: AllThing) -> UITableViewCell {
+        let cell = missionsTable.dequeueReusableCell(withIdentifier: "thingList")!
+        cell.textLabel?.text = thing.desc!
+        return cell
+    }
+    
+    // Fetches proper elements to populate table
+    func reloadView() {
+        print("Mission reloaded")
+        reloadData()
+        
+        missionsTable.reloadData()
+    }
+    
+    // Fetches proper elements
+    private func reloadData(){
+        if thingSelector.selectedSegmentIndex == 0 {
+            returnedThings = CoreControl.getThing(type: .randomTask) as! [RandomThing]
+        } else {
+            returnedThings = CoreControl.getThing(type: .randomGoal) as! [RandomThing]
+        }
+        rowsForSection = [returnedThings.count]
     }
     
     //MARK: - Segues
@@ -134,17 +159,18 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
 
             let tableVC = navVC?.viewControllers.first as! NewMissionTableViewController
 
-            tableVC.type = thingSelector.selectedSegmentIndex
+            tableVC.typeOfRandom = thingSelector.selectedSegmentIndex
         }
     }
+    
 
     @IBAction func unwindToMain (_ sender:UIStoryboardSegue) {
         print("unwindToMain")
+        reloadView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("Missions reloaded")
-        missionsTable.reloadData()
+        reloadView()
         
         
 //        //Testing

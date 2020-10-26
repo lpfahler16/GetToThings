@@ -11,6 +11,7 @@ import CoreData
 
 class MissionDetailTableViewController: UITableViewController, UITextFieldDelegate {
 
+    //MARK: - Outlets / Instance Variables
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var goodWeather: UISwitch!
     @IBOutlet var missionDetailTable: UITableView!
@@ -22,13 +23,22 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var goalRow: UITableViewCell!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    
     var thing: RandomThing = RandomThing()
+    
+    //MARK: - Initial Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleField.delegate = self
         
+        setupView() // Sets up what to show and what colors
+        
+        // Delegates
+        titleField.delegate = self
+    }
+    
+    //MARK: - Initial Setup Helpers
+    
+    private func setupView() {
         titleField.text = thing.desc
         goodWeather.isOn = thing.needsGoodWeather
         replace.isOn = thing.replacement
@@ -50,11 +60,12 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool
-    {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
+    
+    //MARK: - Table View Setup
     
     //Selection
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -64,16 +75,22 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
             if indexPath.row == 0 {
                 taskRow.accessoryType = .checkmark
                 goalRow.accessoryType = .none
-                //TODO: - convert
+                
+                if let _ = thing as? RandomGoal {
+                    CoreControl.convertRandomType(theThing: thing)
+                }
             } else {
                 taskRow.accessoryType = .none
                 goalRow.accessoryType = .checkmark
-                //TODO: - convert
+                
+                if let _ = thing as? RandomTask {
+                    CoreControl.convertRandomType(theThing: thing)
+                }
             }
         }
-        
-        print(indexPath)
     }
+    
+    //MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let secondViewController = segue.destination as? MissionsViewController {
@@ -98,7 +115,7 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
                     print("**** Save failed ****")
                 }
             }
-            secondViewController.missionsTable.reloadData()
+            secondViewController.reloadView()
         }
     }
 }

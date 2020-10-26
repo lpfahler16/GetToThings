@@ -12,9 +12,10 @@ class NewMissionTableViewController: UITableViewController, UITextFieldDelegate 
     
     @IBOutlet var newMissionsTable: UITableView!
     
-    var type: Int!
+    //MARK: - Outlets / Instance Variables
+    var typeOfRandom: Int!
     
-    //MARK: - Mission Information
+    // Mission Information
     @IBOutlet weak var missionTitle: UITextField!
     @IBOutlet weak var goodWeather: UISwitch!
     @IBOutlet weak var replacement: UISwitch!
@@ -23,19 +24,27 @@ class NewMissionTableViewController: UITableViewController, UITextFieldDelegate 
     @IBOutlet weak var goalRow: UITableViewCell!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    
+    //MARK: - Initial Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupView() // Sets up what to show and what colors
+        
+        // Delegates
         missionTitle.delegate = self
-        if type == 0 {
+    }
+    
+    //MARK: - Initial Setup Helpers
+    
+    private func setupView() {
+        if typeOfRandom == 0 {
             taskRow.accessoryType = .checkmark
             goalRow.accessoryType = .none
         } else {
             taskRow.accessoryType = .none
             goalRow.accessoryType = .checkmark
         }
-
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -43,7 +52,12 @@ class NewMissionTableViewController: UITableViewController, UITextFieldDelegate 
         return true
     }
     
+    //MARK: - Table View Setup
+    
+    // Selection
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if indexPath.section == 1 {
             if indexPath.row == 0 {
                 taskRow.accessoryType = .checkmark
@@ -53,10 +67,9 @@ class NewMissionTableViewController: UITableViewController, UITextFieldDelegate 
                 goalRow.accessoryType = .checkmark
             }
         }
-        tableView.deselectRow(at: indexPath, animated: true)
-        print(indexPath)
     }
     
+    //MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let secondViewController = segue.destination as? MissionsViewController {
