@@ -178,4 +178,24 @@ class RecurringControl {
         return recurs
     }
     
+    static func removeDayOfRecur(recur: WeekRecur, day: Int) {
+        let allDays = ["0", "1", "2", "3", "4", "5", "6"]
+        let newDays = recur.daysOfWeek!.replacingOccurrences(of: allDays[day], with: "")
+        
+        let context = AppDelegate.viewContext
+        
+        if (newDays == "") {
+            context.delete(recur)
+        } else {
+            recur.daysOfWeek = newDays
+        }
+        
+        // Save
+        do {
+            try context.save()
+        } catch {
+            print("**** Save failed ****")
+        }
+    }
+    
 }

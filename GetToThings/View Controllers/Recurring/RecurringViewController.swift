@@ -10,33 +10,51 @@ import UIKit
 
 class RecurringViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    //MARK: - Outlets / Instance Variables
     @IBOutlet weak var recurringTable: UITableView!
     @IBOutlet var mainView: UIView!
-    let header = ["SUN", "MON", "TUES", "WED", "THURS", "FRI", "SAT"]
+    
     var recur: RecurThing = RecurThing()
+    
+    //Data Setup
+    var returnedRecurs:[[RecurThing]] = []
+    
+    // Table View information
+    let header = ["SUN", "MON", "TUES", "WED", "THURS", "FRI", "SAT"]
+    var numberOfSections:Int = 7
+    var rowsForSection:[Int] = []
+    
+    //MARK: - Initial Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBeforeRecur")
-        if !launchedBefore {
-            UserDefaults.standard.set(true, forKey: "launchedBeforeRecur")
-            info()
-        }
-
-        recurringTable.sectionHeaderHeight = CGFloat(40)
-        // Do any additional setup after loading the view.
+        initialLaunch() // Checks if launched before and sets up info
+        setupView() // Sets up what to show and what colors
+        reloadView() // Fetches proper elements to populate table
+        
         recurringTable.delegate = self
         recurringTable.dataSource = self
-        
-        //Color
-        mainView.backgroundColor = UD.color()
     }
+    
+    //MARK: - Initial Setup Helper
     
     @IBAction func infoClicked(_ sender: Any) {
         info()
     }
     
+    private func initialLaunch() {
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBeforeRecur")
+        if !launchedBefore {
+            UserDefaults.standard.set(true, forKey: "launchedBeforeRecur")
+            info()
+        }
+    }
+    
+    private func setupView() {
+        recurringTable.sectionHeaderHeight = CGFloat(40)
+        mainView.backgroundColor = UD.color()
+    }
     
     func info() {
         let alertController = UIAlertController(title: "Recurring", message:
@@ -47,63 +65,85 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
     }
 
     
-    //MARK: - Table View
+    //MARK: - Table View Setup
+    
+    // Number of sections
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
+        return numberOfSections
     }
+    
+    // Number of rows in each section
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return rowsForSection[section]
+    }
+    
+    // Section Titles
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return header[section]
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RecurringControl.getDayRecurs()[section].count
-    }
     
+    // Setting Row Data
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "recurCell")!
-        
-        let allRecurs = RecurringControl.getDayRecurs()
-        
-        cell.textLabel?.text = allRecurs[indexPath.section][indexPath.row].desc!
-        
-        if allRecurs[indexPath.section][indexPath.row].frequency == 1 {
-            cell.detailTextLabel?.text = "Weekly"
-        } else if allRecurs[indexPath.section][indexPath.row].frequency == 2 {
-            cell.detailTextLabel?.text = "Biweekly"
-        } else {
-            cell.detailTextLabel?.text = "Monthly"
-        }
-        
-        return cell
+        let thing = returnedRecurs[indexPath.section][indexPath.row]
+        return buildCell(thing)
     }
     
+    // Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        recur = RecurringControl.getDayRecurs()[indexPath.section][indexPath.row]
-        
+        recur = returnedRecurs[indexPath.section][indexPath.row]
         self.performSegue(withIdentifier: "recurDetail", sender: self)
     }
-    
     
     //Slide to delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
          if editingStyle == .delete {
             
-            let context = AppDelegate.viewContext
-            context.delete(RecurringControl.getDayRecurs()[indexPath.section][indexPath.row])
-            do {
-                try context.save()
-            } catch {
-                print("**** Save failed ****")
-            }
+            RecurringControl.removeDayOfRecur(recur: returnedRecurs[indexPath.section][indexPath.row] as! WeekRecur, day: indexPath.section)
             
             //Maybe fix later?
-            tableView.reloadData()
+            reloadData()
+            tableView.deleteRows(at: [indexPath], with: .fade)
          }
+    }
+    
+    //MARK: - Table View Helpers
+    
+    //Build Cell
+    private func buildCell(_ thing: RecurThing) -> UITableViewCell {
+        let cell = recurringTable.dequeueReusableCell(withIdentifier: "recurCell")!
+        let theThing = thing as! WeekRecur
+        cell.textLabel?.text = theThing.desc!
+        if theThing.frequency == 1 {
+            cell.detailTextLabel?.text = "Weekly"
+        } else if theThing.frequency == 2 {
+            cell.detailTextLabel?.text = "Biweekly"
+        } else {
+            cell.detailTextLabel?.text = "Monthly"
+        }
+        return cell
     }
     
     
     // MARK: - Segue
+    
+    private func reloadView() {
+        print("Recurring reloaded")
+        reloadData()
+        recurringTable.reloadData()
+    }
 
+    private func reloadData() {
+        returnedRecurs = RecurringControl.getDayRecurs()
+        rowsForSection = [returnedRecurs[0].count,
+                          returnedRecurs[1].count,
+                          returnedRecurs[2].count,
+                          returnedRecurs[3].count,
+                          returnedRecurs[4].count,
+                          returnedRecurs[5].count,
+                          returnedRecurs[6].count,]
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "recurDetail") {
             // get a reference to the second view controller
@@ -119,8 +159,7 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("Recurring reloaded")
-        recurringTable.reloadData()
+        reloadView()
     }
 
 }
