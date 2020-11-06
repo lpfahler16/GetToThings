@@ -10,6 +10,7 @@ import UIKit
 
 class NewRecurringTableViewController: UITableViewController, UITextFieldDelegate {
     
+    // MARK: - Outlets / Instance Variables
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var thingText: UITextField!
     
@@ -30,12 +31,20 @@ class NewRecurringTableViewController: UITableViewController, UITextFieldDelegat
     @IBOutlet weak var everyOtherWeekRow: UITableViewCell!
     @IBOutlet weak var everyFourWeeksRow: UITableViewCell!
     
-    
+    // MARK: - Initial Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupView() // Sets up what to show and what colors
+        
+        // Delegates
         thingText.delegate = self
-        allDays = [sundayRow, mondayRow, tuesdayRow, wednesdayRow, thursdayRow, fridayRow, saturdayRow]
+    }
+    
+    // MARK: - Initial Setup Helpers
+    
+    private func setupView() {
         createDatePicker()
         
         //Date field
@@ -44,6 +53,8 @@ class NewRecurringTableViewController: UITableViewController, UITextFieldDelegat
         formatter.timeStyle = .none
         datePicker.date = Date()
         dateText.text = formatter.string(from: datePicker.date)
+        
+        allDays = [sundayRow, mondayRow, tuesdayRow, wednesdayRow, thursdayRow, fridayRow, saturdayRow]
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -51,7 +62,7 @@ class NewRecurringTableViewController: UITableViewController, UITextFieldDelegat
         return true
     }
     
-    //Date Picker Stuff
+    // MARK: - Date Picker Setup
     func createDatePicker() {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -64,6 +75,7 @@ class NewRecurringTableViewController: UITableViewController, UITextFieldDelegat
         datePicker.datePickerMode = .date
         dateText.inputView = datePicker
     }
+    
     @objc func donePressed() {
         //Formatter
         let formatter = DateFormatter()
@@ -74,7 +86,7 @@ class NewRecurringTableViewController: UITableViewController, UITextFieldDelegat
         self.view.endEditing(true)
     }
     
-    
+    // MARK: - Table View Setup
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -98,38 +110,43 @@ class NewRecurringTableViewController: UITableViewController, UITextFieldDelegat
     }
     
     
-    // MARK: - Navigation
+    // MARK: - Segue
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let secondViewController = segue.destination as? RecurringViewController {
             if(sender as? UIBarButtonItem == saveButton) {
-                //Days of week
-                var days:String = ""
-                
-                var dayCount = 0
-                for day in allDays {
-                    if day.accessoryType == .checkmark {
-                        days.append(String(dayCount))
-                    }
-                    dayCount += 1
-                }
-                if days.count == 0 {
-                    days.append("0")
-                }
-                
-                //Frequency
-                var freq:Int16 = 1
-                if everyOtherWeekRow.accessoryType == .checkmark {
-                    freq = 2
-                } else if everyFourWeeksRow.accessoryType == .checkmark {
-                    freq = 4
-                }
-                
-                RecurringControl.newRecur(thingText.text!, days, freq, datePicker.date)
-                
+                makeNewRecur()
                 secondViewController.recurringTable.reloadData()
             }
         }
+    }
+    
+    // MARK: - Segue Helpers
+    
+    private func makeNewRecur() {
+        //Days of week
+        var days:String = ""
+        
+        var dayCount = 0
+        for day in allDays {
+            if day.accessoryType == .checkmark {
+                days.append(String(dayCount))
+            }
+            dayCount += 1
+        }
+        if days.count == 0 {
+            days.append("0")
+        }
+        
+        //Frequency
+        var freq:Int16 = 1
+        if everyOtherWeekRow.accessoryType == .checkmark {
+            freq = 2
+        } else if everyFourWeeksRow.accessoryType == .checkmark {
+            freq = 4
+        }
+        
+        RecurringControl.newRecur(thingText.text!, days, freq, datePicker.date)
     }
 
 }

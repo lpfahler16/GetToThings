@@ -10,6 +10,7 @@ import UIKit
 
 class RecurDetailTableViewController: UITableViewController, UITextFieldDelegate {
     
+    // MARK: - Outlets / Instance Variables
     
     var recur: WeekRecur = WeekRecur()
     
@@ -33,9 +34,18 @@ class RecurDetailTableViewController: UITableViewController, UITextFieldDelegate
     @IBOutlet weak var everyOtherWeekRow: UITableViewCell!
     @IBOutlet weak var everyFourWeeksRow: UITableViewCell!
     
+    // MARK: - Initial Setup
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupView() // Sets up what to show and what colors
+        
+        // Delegates
         thingText.delegate = self
+    }
+    
+    // MARK: Initial Setup Helpers
+    private func setupView() {
         allDays = [sundayRow, mondayRow, tuesdayRow, wednesdayRow, thursdayRow, fridayRow, saturdayRow]
         
         thingText.text = recur.desc!
@@ -69,6 +79,8 @@ class RecurDetailTableViewController: UITableViewController, UITextFieldDelegate
         return true
     }
     
+    // MARK: - Table View Setup
+    
     //Selection
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -93,6 +105,8 @@ class RecurDetailTableViewController: UITableViewController, UITextFieldDelegate
         
         print(indexPath)
     }
+    
+    // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("Spot 1")
