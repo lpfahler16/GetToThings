@@ -425,6 +425,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     override func viewWillAppear(_ animated: Bool) {
         reloadView()
+        setupView()
     }
     
     // Fetches proper elements to populate table

@@ -171,7 +171,7 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         reloadView()
-        
+        setupView()
         
 //        //Testing
 //        let request: NSFetchRequest<Day> = Day.fetchRequest()

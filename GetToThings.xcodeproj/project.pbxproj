@@ -64,6 +64,11 @@
 		A3C83E0424AA98D2005233DB /* EndDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C83E0324AA98D2005233DB /* EndDayViewController.swift */; };
 		A3CE06F024402A1900E1337F /* GoalControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CE06EF24402A1900E1337F /* GoalControl.swift */; };
 		A3E8A336255F685B003B02D1 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8A335255F685B003B02D1 /* Stats.swift */; };
+		A3E8A33B255F7E00003B02D1 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8A33A255F7E00003B02D1 /* Theme.swift */; };
+		A3E8A341255F7E79003B02D1 /* ThemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8A340255F7E79003B02D1 /* ThemeProtocol.swift */; };
+		A3E8A345255F7F1F003B02D1 /* BlueTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8A344255F7F1F003B02D1 /* BlueTheme.swift */; };
+		A3E8A349255F8008003B02D1 /* RedTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8A348255F8008003B02D1 /* RedTheme.swift */; };
+		A3E8A350255F9096003B02D1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36BD3A024F9DC9500C2CC1B /* Settings.swift */; };
 		A3F01FE924D31D70005AE8F7 /* ExtensionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01FE824D31D70005AE8F7 /* ExtensionControl.swift */; };
 		A3F425C424C160C800074C07 /* StatisticsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F425C324C160C800074C07 /* StatisticsTableViewController.swift */; };
 		A3FF31832543D05E0054FC71 /* CoreControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF31822543D05E0054FC71 /* CoreControl.swift */; };
@@ -156,6 +161,10 @@
 		A3C83E0324AA98D2005233DB /* EndDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndDayViewController.swift; sourceTree = "<group>"; };
 		A3CE06EF24402A1900E1337F /* GoalControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalControl.swift; sourceTree = "<group>"; };
 		A3E8A335255F685B003B02D1 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		A3E8A33A255F7E00003B02D1 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		A3E8A340255F7E79003B02D1 /* ThemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeProtocol.swift; sourceTree = "<group>"; };
+		A3E8A344255F7F1F003B02D1 /* BlueTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueTheme.swift; sourceTree = "<group>"; };
+		A3E8A348255F8008003B02D1 /* RedTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedTheme.swift; sourceTree = "<group>"; };
 		A3F01FE824D31D70005AE8F7 /* ExtensionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionControl.swift; sourceTree = "<group>"; };
 		A3F425C324C160C800074C07 /* StatisticsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsTableViewController.swift; sourceTree = "<group>"; };
 		A3FF31822543D05E0054FC71 /* CoreControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreControl.swift; sourceTree = "<group>"; };
@@ -341,6 +350,7 @@
 		A392E8E5243FF6FB00570CD2 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				A3E8A339255F7DDE003B02D1 /* Theming */,
 				A3310E89251058B2001B3D3F /* Core Data */,
 				A3FF31822543D05E0054FC71 /* CoreControl.swift */,
 				A392E8E9243FF7D800570CD2 /* TaskControl.swift */,
@@ -383,6 +393,17 @@
 				A3C83E0324AA98D2005233DB /* EndDayViewController.swift */,
 			);
 			path = Today;
+			sourceTree = "<group>";
+		};
+		A3E8A339255F7DDE003B02D1 /* Theming */ = {
+			isa = PBXGroup;
+			children = (
+				A3E8A33A255F7E00003B02D1 /* Theme.swift */,
+				A3E8A340255F7E79003B02D1 /* ThemeProtocol.swift */,
+				A3E8A344255F7F1F003B02D1 /* BlueTheme.swift */,
+				A3E8A348255F8008003B02D1 /* RedTheme.swift */,
+			);
+			path = Theming;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -565,6 +586,7 @@
 				A375D23F24BD09BF003604C5 /* CalendarViewController.swift in Sources */,
 				A3310E9825105E77001B3D3F /* RandomGoal.swift in Sources */,
 				A3310E9225105DC6001B3D3F /* RecurThing.swift in Sources */,
+				A3E8A349255F8008003B02D1 /* RedTheme.swift in Sources */,
 				A392E8CB243FF1A000570CD2 /* AppDelegate.swift in Sources */,
 				A37D068125105F3A00621754 /* WeekRecur.swift in Sources */,
 				A3FF31832543D05E0054FC71 /* CoreControl.swift in Sources */,
@@ -575,6 +597,7 @@
 				A3C83DD424A9686E005233DB /* NSCustomPersistentContainer.swift in Sources */,
 				A334574B24E5E7150084129F /* RecurDetailTableViewController.swift in Sources */,
 				A334574324E207870084129F /* RecurringThing.swift in Sources */,
+				A3E8A345255F7F1F003B02D1 /* BlueTheme.swift in Sources */,
 				A3899F232440102D00CCB23C /* TodayViewController.swift in Sources */,
 				A392E8CD243FF1A000570CD2 /* SceneDelegate.swift in Sources */,
 				A38448BC24A682F800E69411 /* NewRandomTableViewController.swift in Sources */,
@@ -586,10 +609,12 @@
 				A392E8DF243FF50700570CD2 /* RandomViewController.swift in Sources */,
 				A3C83E0424AA98D2005233DB /* EndDayViewController.swift in Sources */,
 				A38448BE24A6B11500E69411 /* RandomDetailTableViewController.swift in Sources */,
+				A3E8A33B255F7E00003B02D1 /* Theme.swift in Sources */,
 				A334574924E492350084129F /* NewRecurringTableViewController.swift in Sources */,
 				A36BD3B324FA073F00C2CC1B /* ThemeViewController.swift in Sources */,
 				A334574124E1FEFD0084129F /* RecurringViewController.swift in Sources */,
 				A392E8EE243FFBC000570CD2 /* Thing.swift in Sources */,
+				A3E8A341255F7E79003B02D1 /* ThemeProtocol.swift in Sources */,
 				A362F3C924BD6221005B6B4B /* Day.swift in Sources */,
 				A3F425C424C160C800074C07 /* StatisticsTableViewController.swift in Sources */,
 				A392E8E4243FF64400570CD2 /* SettingsViewController.swift in Sources */,
@@ -610,6 +635,7 @@
 				A38EB77C24BD67710088F2F7 /* Day.swift in Sources */,
 				A3292BAB24BE3B0600D1840D /* SimpleThing.swift in Sources */,
 				A3F01FE924D31D70005AE8F7 /* ExtensionControl.swift in Sources */,
+				A3E8A350255F9096003B02D1 /* Settings.swift in Sources */,
 				A3310E8D25105D58001B3D3F /* AllThing.swift in Sources */,
 				A3310E9325105DC6001B3D3F /* RecurThing.swift in Sources */,
 				A3C83DD224A967AC005233DB /* Model.xcdatamodeld in Sources */,
@@ -779,13 +805,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GetToThings/GetToThings.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = D33VBD4RV3;
 				INFOPLIST_FILE = GetToThings/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loganpfahler.GetToThings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -803,13 +830,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GetToThings/GetToThings.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = D33VBD4RV3;
 				INFOPLIST_FILE = GetToThings/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loganpfahler.GetToThings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -823,6 +851,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = GetToThingsWidget/GetToThingsWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = D33VBD4RV3;
 				INFOPLIST_FILE = GetToThingsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -831,7 +860,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loganpfahler.GetToThings.GetToThingsWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -846,6 +875,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = GetToThingsWidget/GetToThingsWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = D33VBD4RV3;
 				INFOPLIST_FILE = GetToThingsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -854,7 +884,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loganpfahler.GetToThings.GetToThingsWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

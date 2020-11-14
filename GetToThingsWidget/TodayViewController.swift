@@ -12,32 +12,39 @@ import CoreData
 
 class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDelegate, UITableViewDataSource {
     
+    //MARK: - Outlets / Instance Variables
     @IBOutlet weak var noText: UILabel!
     @IBOutlet weak var mainTable: UITableView!
     
     var returnedMissions:[RandomTask] = []
     var returnedGoals:[RandomGoal] = []
-    var returnedRecurs:[RecurringThing] = []
+    var returnedRecurs:[RecurThing] = []
     let headerNames = ["Missions", "Goals"]
-    var returnedThings:[RandomThing] = []
+    var returnedThings:[AllThing] = []
     var numRows = 2
     
+    //MARK: - Initial Setup
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        returnedMissions = ExtensionControl.getTodayMissions()
-        returnedGoals = ExtensionControl.getTodayGoals()
-        returnedRecurs = ExtensionControl.getTodayRecurs()
-        
-        returnedThings = returnedMissions as [RandomThing] + returnedGoals as [RandomThing]
+        reloadView() // Fetches proper elements to populate table
         
         mainTable.delegate = self
         mainTable.dataSource = self
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     
-    //MARK: - Widget Specific Functionss
+    //MARK: - Initial Setup Helpers
+    private func reloadView() {
+        returnedMissions = ExtensionControl.getTodayMissions()
+        returnedGoals = ExtensionControl.getTodayGoals()
+        returnedRecurs = ExtensionControl.getTodayRecurs()
+        
+        returnedThings = returnedMissions as [RandomThing] + returnedGoals as [RandomThing] + returnedRecurs
+    }
+    
+    //MARK: - Widget Update
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
         
@@ -45,15 +52,18 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
         
-        returnedMissions = ExtensionControl.getTodayMissions()
-        returnedGoals = ExtensionControl.getTodayGoals()
-        returnedRecurs = ExtensionControl.getTodayRecurs()
-        print(returnedRecurs.count)
-        returnedThings = returnedMissions as [RandomThing] + returnedGoals as [RandomThing]
+        setupView() // Sets up what to show and what colors
         
-        let sameDay = Calendar.current.isDate(UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "generateDate") as! Date, inSameDayAs: Date())
+        reloadView()
+        mainTable.reloadData()
         
-        if UserDefaults(suiteName: "group.GetToThings")!.bool(forKey: "generated") == false || !sameDay {
+        completionHandler(NCUpdateResult.newData)
+    }
+    
+    // MARK: - Widget Update Helpers
+    private func setupView() {
+        let sameDay = Calendar.current.isDate(UD.genDate(), inSameDayAs: Date())
+        if !UD.generated() || !sameDay {
             numRows = 0
             noText.isHidden = false
             mainTable.isHidden = true
@@ -61,19 +71,14 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
             noText.isHidden = true
             mainTable.isHidden = false
         }
-        
-        mainTable.reloadData()
-        
-        completionHandler(NCUpdateResult.newData)
     }
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         let expanded = activeDisplayMode == .expanded
-        print("It changed")
         
-        let totalLength = returnedRecurs.count + returnedThings.count
+        let totalLength = returnedThings.count
         
-        if activeDisplayMode == .expanded || totalLength < 2 {
+        if expanded || totalLength < 2 {
             numRows = totalLength
         } else if UserDefaults(suiteName: "group.GetToThings")!.bool(forKey: "generated") == false {
             numRows = 0
@@ -98,72 +103,38 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
         return numRows
     }
     
-    //Section Titles
-    /*func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return headerNames[section]
-    }*/
-    
     func tableView(_ todayThingsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = todayThingsTable.dequeueReusableCell(withIdentifier: "main")
         
-        if indexPath.row < returnedThings.count {
-            let thing = returnedThings[indexPath.row]
-            
-            if(thing.isDone) {
-                cell?.accessoryType = .checkmark
-            } else {
-                cell?.accessoryType = .none
-            }
-            
-            let text = thing.desc
-            cell?.textLabel?.text = text
-            
-            return cell!
+        let thing = returnedThings[indexPath.row]
+        
+        if(thing.isDone) {
+            cell?.accessoryType = .checkmark
         } else {
-            let recur = returnedRecurs[indexPath.row - returnedThings.count]
-            
-            if(recur.isDone) {
-                cell?.accessoryType = .checkmark
-            } else {
-                cell?.accessoryType = .none
-            }
-            
-            let text = recur.desc
-            cell?.textLabel?.text = text
-            
-            return cell!
+            cell?.accessoryType = .none
         }
+        
+        let text = thing.desc
+        cell?.textLabel?.text = text
+        
+        return cell!
     }
     
     //Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row < returnedThings.count {
-            let thing = returnedThings[indexPath.row]
-            
-            if let cell = tableView.cellForRow(at: indexPath) {
-                if cell.accessoryType == .checkmark {
-                    cell.accessoryType = .none
-                    thing.isDone = false
-                } else {
-                    cell.accessoryType = .checkmark
-                    thing.isDone = true
-                }
-            }
-        } else {
-            let recur = returnedRecurs[indexPath.row - returnedThings.count]
-            if let cell = tableView.cellForRow(at: indexPath) {
-                if cell.accessoryType == .checkmark {
-                    cell.accessoryType = .none
-                    recur.isDone = false
-                } else {
-                    cell.accessoryType = .checkmark
-                    recur.isDone = true
-                }
+        let thing = returnedThings[indexPath.row]
+        
+        if let cell = tableView.cellForRow(at: indexPath) {
+            if cell.accessoryType == .checkmark {
+                cell.accessoryType = .none
+                thing.isDone = false
+            } else {
+                cell.accessoryType = .checkmark
+                thing.isDone = true
             }
         }
-        
         //Save
         ExtensionControl.saveContext()
     }

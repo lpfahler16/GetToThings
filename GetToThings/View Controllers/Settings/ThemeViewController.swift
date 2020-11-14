@@ -18,20 +18,43 @@ class ThemeViewController: UIViewController {
     
     @IBAction func goBlue(_ sender: Any) {
         UserDefaults.standard.set(0, forKey: "color")
+        SceneDelegate().updateColor()
+        info()
     }
     
     @IBAction func goRed(_ sender: Any) {
         UserDefaults.standard.set(1, forKey: "color")
+        SceneDelegate().updateColor()
+        info()
     }
     
     @IBAction func goGreen(_ sender: Any) {
         UserDefaults.standard.set(2, forKey: "color")
+        SceneDelegate().updateColor()
+        info()
     }
     
     @IBAction func goPurple(_ sender: Any) {
         UserDefaults.standard.set(3, forKey: "color")
+        SceneDelegate().updateColor()
+        info()
     }
     
+    func dismissViewControllers() {
+
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    private func info() {
+        let alertController = UIAlertController(title: "Theme", message:
+            "Please close the app to finish the theme change.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Thanks!", style: .default, handler: { action in
+            
+            self.dismissViewControllers()
+        }))
+
+        self.present(alertController, animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

@@ -160,6 +160,7 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         reloadView()
+        setupView()
     }
 
 }

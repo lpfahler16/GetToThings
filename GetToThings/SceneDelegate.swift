@@ -11,7 +11,15 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
+    func updateColor() {
+        window?.tintColor = UD.color()
+        NavBar.appearance().barTintColor = UD.color()
+        PopUpNav.appearance().tintColor = UD.color()
+        UITableViewCell.appearance().tintColor = UD.color()
+        UISwitch.appearance().onTintColor = UD.color()
+        UITabBar.appearance().tintColor = UD.color()
+    }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
