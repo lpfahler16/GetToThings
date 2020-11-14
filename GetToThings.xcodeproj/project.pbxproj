@@ -63,6 +63,7 @@
 		A3C83DD724A97483005233DB /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392E8ED243FFBC000570CD2 /* Thing.swift */; };
 		A3C83E0424AA98D2005233DB /* EndDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C83E0324AA98D2005233DB /* EndDayViewController.swift */; };
 		A3CE06F024402A1900E1337F /* GoalControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CE06EF24402A1900E1337F /* GoalControl.swift */; };
+		A3E8A336255F685B003B02D1 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E8A335255F685B003B02D1 /* Stats.swift */; };
 		A3F01FE924D31D70005AE8F7 /* ExtensionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F01FE824D31D70005AE8F7 /* ExtensionControl.swift */; };
 		A3F425C424C160C800074C07 /* StatisticsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F425C324C160C800074C07 /* StatisticsTableViewController.swift */; };
 		A3FF31832543D05E0054FC71 /* CoreControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF31822543D05E0054FC71 /* CoreControl.swift */; };
@@ -154,6 +155,7 @@
 		A3C83DD324A9686E005233DB /* NSCustomPersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCustomPersistentContainer.swift; sourceTree = "<group>"; };
 		A3C83E0324AA98D2005233DB /* EndDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndDayViewController.swift; sourceTree = "<group>"; };
 		A3CE06EF24402A1900E1337F /* GoalControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalControl.swift; sourceTree = "<group>"; };
+		A3E8A335255F685B003B02D1 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		A3F01FE824D31D70005AE8F7 /* ExtensionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionControl.swift; sourceTree = "<group>"; };
 		A3F425C324C160C800074C07 /* StatisticsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsTableViewController.swift; sourceTree = "<group>"; };
 		A3FF31822543D05E0054FC71 /* CoreControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreControl.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				A3CE06EF24402A1900E1337F /* GoalControl.swift */,
 				A334574624E208930084129F /* RecurringControl.swift */,
 				A36BD3A024F9DC9500C2CC1B /* Settings.swift */,
+				A3E8A335255F685B003B02D1 /* Stats.swift */,
 				A37D0683251069FB00621754 /* Conversion.swift */,
 			);
 			path = Logic;
@@ -578,6 +581,7 @@
 				A37D0684251069FB00621754 /* Conversion.swift in Sources */,
 				A3292BAA24BE36E000D1840D /* SimpleThing.swift in Sources */,
 				A37F3DC42442D49F00F7917B /* TodayTableViewCell.swift in Sources */,
+				A3E8A336255F685B003B02D1 /* Stats.swift in Sources */,
 				A36BD3AB24F9FB7200C2CC1B /* PopUpNav.swift in Sources */,
 				A392E8DF243FF50700570CD2 /* RandomViewController.swift in Sources */,
 				A3C83E0424AA98D2005233DB /* EndDayViewController.swift in Sources */,

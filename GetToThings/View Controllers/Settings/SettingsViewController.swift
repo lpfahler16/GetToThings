@@ -11,6 +11,7 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
+    // MARK: - Outlets / Instance Variables
     @IBOutlet var settingsTable: UITableView!
     
     @IBOutlet weak var goalsLabel: UILabel!
@@ -21,7 +22,7 @@ class SettingsViewController: UITableViewController {
     
     
     
-    
+    // MARK: - Initial Setup
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -36,7 +37,7 @@ class SettingsViewController: UITableViewController {
         
     }
     
-    // - MARK: Steppers
+    // MARK: - Steppers
     @IBAction func stepperClicked(_ sender: Any) {
         goalsLabel.text = String(Int(goalsStepper.value))
         UserDefaults.standard.set(goalsStepper.value, forKey: "numGoals")

@@ -32,32 +32,20 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
                   UIColor(named: "Cal 11")]
     
     
-    
+    // MARK: - Initial Setup
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBeforeCalendar")
-        if !launchedBefore {
-            UserDefaults.standard.set(true, forKey: "launchedBeforeCalendar")
-            info()
-        }
+        initialLaunch() // Checks if launched before and sets up info
+        setupView() // Sets up what to show and what colors
+        reloadView() // Fetches proper elements to populate table
         
         //Calendar setup
         calendar.dataSource = self
         calendar.delegate = self
-        calendar.placeholderType = .none
-        calendar.scrollDirection = .vertical
-        calendar.pagingEnabled = false
-        
-        //Getting dates
-        let request: NSFetchRequest<Day> = Day.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-
-        let context = AppDelegate.viewContext
-        context.refreshAllObjects()
-        allDays = (try? context.fetch(request))!
-        
     }
+    
+    // MARK: - Initial Setup Helpers
     
     @IBAction func infoClicked(_ sender: Any) {
         info()
@@ -71,18 +59,25 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
         self.present(alertController, animated: true, completion: nil)
     }
     
+    private func initialLaunch() {
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBeforeCalendar")
+        if !launchedBefore {
+            UserDefaults.standard.set(true, forKey: "launchedBeforeCalendar")
+            info()
+        }
+    }
+    
+    private func setupView() {
+        calendar.placeholderType = .none
+        calendar.scrollDirection = .vertical
+        calendar.pagingEnabled = false
+    }
+    
+    // MARK: - Calendar Setup
+    
     //Setting max and min date
     func minimumDate(for calendar: FSCalendar) -> Date {
-        // Specify date components
-        var dateComponents = DateComponents()
-        dateComponents.year = 2020
-        dateComponents.month = 7
-        dateComponents.day = 1
-
-        // Create date from components
-        let userCalendar = Calendar.current // user calendar
-        let someDateTime = userCalendar.date(from: dateComponents)
-        return someDateTime!
+        return UD.firstLaunch()
     }
         
     func maximumDate(for calendar: FSCalendar) -> Date {
@@ -90,6 +85,7 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
     }
     
     //Setting colors
+    /// Fill colors
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         
         if date > Date() {
@@ -103,6 +99,7 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
         return nil
     }
     
+    /// Number colors
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         if date > Date() {
             return nil
