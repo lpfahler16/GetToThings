@@ -19,6 +19,9 @@ class UD {
     static func firstLaunch() -> Date {
         return UserDefaults(suiteName: "group.GetToThings")!.object(forKey: "firstLaunchDate") as! Date
     }
+    static func upgraded() -> Bool {
+        return UserDefaults(suiteName: "group.GetToThings")!.bool(forKey: "upgraded")
+    }
     static func generated() -> Bool {
         return UserDefaults(suiteName: "group.GetToThings")!.bool(forKey: "generated")
     }

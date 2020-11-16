@@ -50,6 +50,16 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     private func setupView() {
         //Color Setting
         thingSelector.backgroundColor = UD.color()
+        print("added segment")
+        
+        // In-app purchase
+        if UD.upgraded() {
+            
+            if thingSelector.numberOfSegments == 2 {
+                thingSelector.insertSegment(withTitle: "Custom", at: 2, animated: false)
+            }
+            
+        }
     }
     
     // MARK: - Buttons
@@ -136,11 +146,14 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // Fetches proper elements
-    private func reloadData(){
-        if thingSelector.selectedSegmentIndex == 0 {
+    private func reloadData() {
+        let selected = thingSelector.selectedSegmentIndex
+        if selected == 0 {
             returnedThings = CoreControl.getThing(type: .randomTask) as! [RandomThing]
-        } else {
+        } else if selected == 1 {
             returnedThings = CoreControl.getThing(type: .randomGoal) as! [RandomThing]
+        } else {
+            returnedThings = []
         }
         rowsForSection = [returnedThings.count]
     }
