@@ -309,7 +309,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     // MARK: - Saving Day Helpers
-    func getRatio() -> Double{
+    func getRatio() -> Double {
         
         let allThings = returnedMissions + returnedGoals + returnedRecurs
         var complete = 0
@@ -319,7 +319,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 complete += 1
             }
         }
-        return Double(complete)/Double(allThings.count)
+        if allThings.count == 0 {
+            return 0
+        } else {
+            return Double(complete)/Double(allThings.count)
+        }
     }
     
     
@@ -404,8 +408,9 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         formatter.dateStyle = .long
         cell.label.text = formatter.string(from: UD.genDate())
         
-        let ratio = getRatio()
-        cell.label.textColor = colors[Int(ratio*10)]
+        let ratio = CGFloat(getRatio())
+        
+        cell.label.textColor = UIColor(hue: 0.325, saturation: ratio, brightness: 0.7, alpha: 1)
         
         return cell
     }

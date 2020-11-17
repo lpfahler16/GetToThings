@@ -84,7 +84,7 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
         return Date()
     }
     
-    //Setting colors
+    //Setting Appearance
     /// Fill colors
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         
@@ -93,10 +93,35 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
         }
         for days in allDays {
             if Calendar.current.isDate(days.date!, inSameDayAs: date) {
-                return colors[Int(days.ratio*10)]
+                //return colors[Int(days.ratio*10)]
+                if days.ratio == 1 && false {
+                    return UD.color()
+                } else {
+                    let sat = CGFloat(days.ratio)
+                    return UIColor(hue: 0.325, saturation: sat, brightness: 0.7, alpha: 1)
+                }
             }
         }
         return nil
+    }
+    
+    /// Radius
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderRadiusFor date: Date) -> CGFloat {
+        
+        if date > Date() {
+            return 0
+        }
+        for days in allDays {
+            if Calendar.current.isDate(days.date!, inSameDayAs: date) {
+                //return colors[Int(days.ratio*10)]
+                if (days.ratio == 1) {
+                    return 0.6
+                } else {
+                    return 0
+                }
+            }
+        }
+        return 0
     }
     
     /// Number colors
