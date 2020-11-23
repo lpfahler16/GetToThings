@@ -121,6 +121,11 @@ class RecurringViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             cell.detailTextLabel?.text = "Monthly"
         }
+        if theThing.disabled {
+            cell.textLabel?.textColor = UIColor.systemGray
+        } else {
+            cell.textLabel?.textColor = UIColor(named: "BlackWhite")
+        }
         return cell
     }
     

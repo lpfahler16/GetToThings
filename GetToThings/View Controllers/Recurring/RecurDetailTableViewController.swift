@@ -17,7 +17,7 @@ class RecurDetailTableViewController: UITableViewController, UITextFieldDelegate
     @IBOutlet weak var thingText: UITextField!
     @IBOutlet weak var startDate: UILabel!
     @IBOutlet weak var completedRatio: UILabel!
-    
+    @IBOutlet weak var disableSwitch: UISwitch!
     @IBOutlet weak var deleteButton: UITableViewCell!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
@@ -49,6 +49,7 @@ class RecurDetailTableViewController: UITableViewController, UITextFieldDelegate
         allDays = [sundayRow, mondayRow, tuesdayRow, wednesdayRow, thursdayRow, fridayRow, saturdayRow]
         
         thingText.text = recur.desc!
+        disableSwitch.isOn = recur.disabled
         completedRatio.text = "\(recur.numCompleted)/\(recur.numGenerated)"
         if recur.frequency == 1 {
             everyWeekRow.accessoryType = .checkmark
@@ -148,6 +149,8 @@ class RecurDetailTableViewController: UITableViewController, UITextFieldDelegate
                 recur.frequency = freq
                 
                 recur.desc = thingText.text!
+                
+                recur.disabled = disableSwitch.isOn
                 
                 do {
                     try context.save()

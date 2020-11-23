@@ -77,6 +77,8 @@ class RecurringControl {
             }
         }
         
+        returnRecurs = returnRecurs.filter { elt in !elt.disabled }
+        
         return returnRecurs
     }
     
@@ -103,6 +105,8 @@ class RecurringControl {
                 print("Too early!")
             }
         }
+        
+        returnRecurs = returnRecurs.filter { elt in !elt.disabled }
         
         return returnRecurs
     }

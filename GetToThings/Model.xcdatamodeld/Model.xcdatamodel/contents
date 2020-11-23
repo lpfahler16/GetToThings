@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="20B29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AllThing" representedClassName=".AllThing" isAbstract="YES" syncable="YES" codeGenerationType="category">
         <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="disabled" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="numCompleted" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="numGenerated" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -50,7 +51,7 @@
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="AllThing" positionX="64.84765625" positionY="-302.3515625" width="128" height="118"/>
+        <element name="AllThing" positionX="64.84765625" positionY="-302.3515625" width="128" height="133"/>
         <element name="Day" positionX="319.34375" positionY="24.05078125" width="128" height="88"/>
         <element name="RandomGoal" positionX="-8.50390625" positionY="-84.0078125" width="128" height="43"/>
         <element name="RandomTask" positionX="-183.59375" positionY="-85.12109375" width="128" height="43"/>

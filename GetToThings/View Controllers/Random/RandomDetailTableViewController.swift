@@ -14,6 +14,7 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
     //MARK: - Outlets / Instance Variables
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var goodWeather: UISwitch!
+    @IBOutlet weak var disableSwitch: UISwitch!
     @IBOutlet var missionDetailTable: UITableView!
     @IBOutlet weak var replace: UISwitch!
     @IBOutlet weak var completedRatio: UILabel!
@@ -41,6 +42,7 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
     private func setupView() {
         titleField.text = thing.desc
         goodWeather.isOn = thing.needsGoodWeather
+        disableSwitch.isOn = thing.disabled
         replace.isOn = thing.replacement
         completedRatio.text = "\(thing.numCompleted)/\(thing.numGenerated)"
         
@@ -108,6 +110,7 @@ class MissionDetailTableViewController: UITableViewController, UITextFieldDelega
                 thing.desc = titleField.text
                 thing.needsGoodWeather = goodWeather.isOn
                 thing.replacement = replace.isOn
+                thing.disabled = disableSwitch.isOn
                 
                 do {
                     try context.save()

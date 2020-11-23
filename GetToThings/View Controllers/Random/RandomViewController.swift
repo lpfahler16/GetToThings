@@ -134,6 +134,13 @@ class MissionsViewController: UIViewController, UITableViewDataSource, UITableVi
     private func buildCell(_ thing: AllThing) -> UITableViewCell {
         let cell = missionsTable.dequeueReusableCell(withIdentifier: "thingList")!
         cell.textLabel?.text = thing.desc!
+        
+        if thing.disabled {
+            cell.textLabel?.textColor = UIColor.systemGray
+        } else {
+            cell.textLabel?.textColor = UIColor(named: "BlackWhite")
+        }
+        
         return cell
     }
     

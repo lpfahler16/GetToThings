@@ -13,29 +13,17 @@ class GoalControl {
     
     //Gets all goals
     static func getGoals(_ goodWeather: Bool) -> [RandomGoal] {
-        let request: NSFetchRequest<RandomGoal> = RandomGoal.fetchRequest()
-        
+        var allGoals = CoreControl.getThing(type: .randomGoal) as! [RandomGoal]
         if goodWeather {
+            allGoals = allGoals.filter { elt in !elt.disabled }
         } else {
-            let weatherPredicate = NSPredicate(format: "needsGoodWeather = %d", false)
-            let predicates = [weatherPredicate]
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+            allGoals = allGoals.filter { elt in !elt.disabled && !elt.needsGoodWeather }
         }
-        
-        request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
-        
-        let context = AppDelegate.viewContext
-        let allGoals = try? context.fetch(request)
-        return allGoals!
+        return allGoals
     }
     
     static func getGoals() -> [RandomGoal] {
-        let request: NSFetchRequest<RandomGoal> = RandomGoal.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
-        
-        let context = AppDelegate.viewContext
-        let allGoals = try? context.fetch(request)
-        return allGoals!
+        return CoreControl.getThing(type: .randomGoal) as! [RandomGoal]
     }
     
     //Adds new goal
@@ -47,6 +35,7 @@ class GoalControl {
         thing.needsGoodWeather = needsGoodWeather
         thing.replacement = replacement
         thing.today = false
+        thing.disabled = false
         thing.numCompleted = 0
         thing.numGenerated = 0
         thing.dateAdded = Date()

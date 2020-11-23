@@ -12,7 +12,7 @@ import CoreData
 class MissionControl {
 
     //Gets all tasks given weather
-    static func getMissions(_ goodWeather: Bool) -> [RandomTask] {
+    /*static func getMissions(_ goodWeather: Bool) -> [RandomTask] {
         let request: NSFetchRequest<RandomTask> = RandomTask.fetchRequest()
         
         if goodWeather {
@@ -27,16 +27,22 @@ class MissionControl {
         let context = AppDelegate.viewContext
         let allMissions = try? context.fetch(request)
         return allMissions!
+    }*/
+    
+    // Gets all tasks given weather
+    static func getMissions(_ goodWeather: Bool) -> [RandomTask] {
+        var allMissions = CoreControl.getThing(type: .randomTask) as! [RandomTask]
+        if goodWeather {
+            allMissions = allMissions.filter { elt in !elt.disabled }
+        } else {
+            allMissions = allMissions.filter { elt in !elt.disabled && !elt.needsGoodWeather }
+        }
+        return allMissions
     }
     
-    //Gets all tasks
+    // Gets all tasks
     static func getMissions() -> [RandomTask] {
-        let request: NSFetchRequest<RandomTask> = RandomTask.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "desc", ascending: true)]
-        
-        let context = AppDelegate.viewContext
-        let allMissions = try? context.fetch(request)
-        return allMissions!
+        return CoreControl.getThing(type: .randomTask) as! [RandomTask]
     }
     
     //Adds new mission
@@ -48,6 +54,7 @@ class MissionControl {
         thing.needsGoodWeather = needsGoodWeather
         thing.replacement = replacement
         thing.today = false
+        thing.disabled = false
         thing.numCompleted = 0
         thing.numGenerated = 0
         thing.dateAdded = Date()
