@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import UserNotifications
 
 class SettingsViewController: UITableViewController {
 
@@ -45,6 +46,32 @@ class SettingsViewController: UITableViewController {
     @IBAction func missionsStepperClicked(_ sender: Any) {
         missionsLabel.text = String(Int(missionsStepper.value))
         UserDefaults.standard.set(missionsStepper.value, forKey: "numMissions")
+    }
+    
+    @IBAction func notificationsOn(_ sender: Any) {
+        let center = UNUserNotificationCenter.current()
+        
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+        }
+        
+        // Setup notification
+        let content = UNMutableNotificationContent()
+        content.title = "Hey"
+        content.body = "Hi"
+        
+        let date = Date().addingTimeInterval(5)
+        
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        let id = UUID().uuidString
+        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+        
+        // Register with center
+        center.add(request) { error in
+            // Check errors and handle
+        }
     }
     
     
