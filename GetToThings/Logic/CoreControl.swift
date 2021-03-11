@@ -51,6 +51,15 @@ class CoreControl {
         return allThings
     }
     
+    // returns all randoms of given other type
+    // TODO: Finish
+    static func getRandomOther(type: String) {
+        
+        //Setup for fetch
+        let context = AppDelegate.viewContext
+        var allThings: [AllThing] = []
+    }
+    
     static func convertRandomType(theThing: RandomThing) {
         let context = AppDelegate.viewContext
         
