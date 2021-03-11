@@ -14,9 +14,6 @@
         <relationship name="theThings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SimpleThing" inverseName="theDay" inverseEntity="SimpleThing"/>
     </entity>
     <entity name="RandomGoal" representedClassName=".RandomGoal" parentEntity="RandomThing" syncable="YES" codeGenerationType="category"/>
-    <entity name="RandomOther" representedClassName="RandomOther" parentEntity="RandomThing" syncable="YES" codeGenerationType="class">
-        <attribute name="type" optional="YES"/>
-    </entity>
     <entity name="RandomTask" representedClassName=".RandomTask" parentEntity="RandomThing" syncable="YES" codeGenerationType="category"/>
     <entity name="RandomThing" representedClassName=".RandomThing" isAbstract="YES" parentEntity="AllThing" syncable="YES" codeGenerationType="category">
         <attribute name="needsGoodWeather" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -64,6 +61,5 @@
         <element name="SimpleThing" positionX="295.9140625" positionY="153.67578125" width="128" height="88"/>
         <element name="Thing" positionX="-54.1484375" positionY="69.04296875" width="128" height="178"/>
         <element name="WeekRecur" positionX="154.375" positionY="-104.203125" width="128" height="73"/>
-        <element name="RandomOther" positionX="-94.13818359375" positionY="-30.41232299804688" width="128" height="58"/>
     </elements>
 </model>

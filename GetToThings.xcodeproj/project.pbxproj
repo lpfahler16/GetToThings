@@ -805,7 +805,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GetToThings/GetToThings.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = D33VBD4RV3;
 				INFOPLIST_FILE = GetToThings/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -830,7 +830,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GetToThings/GetToThings.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = D33VBD4RV3;
 				INFOPLIST_FILE = GetToThings/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -851,7 +851,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = GetToThingsWidget/GetToThingsWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = D33VBD4RV3;
 				INFOPLIST_FILE = GetToThingsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -875,7 +875,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = GetToThingsWidget/GetToThingsWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = D33VBD4RV3;
 				INFOPLIST_FILE = GetToThingsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
